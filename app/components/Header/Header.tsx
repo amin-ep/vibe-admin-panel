@@ -20,7 +20,7 @@ export default function Header({ openSidebar }: Props) {
   const { theme, setThemeDark, setThemeLight, setThemeSystem } = useTheme();
 
   return (
-    <header className="h-16 md:h-18 bg-white border-b border-gray-200 flex justify-between items-center px-1 md:px-3">
+    <header className="h-16 md:h-18 bg-white border-b border-stone-200 flex justify-between items-center px-1 md:px-3 dark:bg-stone-900 dark:border-b dark:border-stone-700">
       <div className="flex  flex-row items-center gap-3">
         <IconButton className="md:hidden" onClick={openSidebar}>
           <MenuRoundedIcon />

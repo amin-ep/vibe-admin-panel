@@ -19,8 +19,8 @@ function DropdownMenu({
   return (
     <div
       className={clsx(
-        "bg-white flex flex-col shadow-md z-1 border min-w-32 max-w-46 border-stone-300 rounded-md p-3 absolute",
-        "after:bg-white after:-top-1.5 after:absolute after:content-around after:rounded-sm after:rotate-45 after:border-l after:border-t after:border-stone-300 after:-z-1 after:w-3 after:aspect-square",
+        "bg-white dark:bg-stone-800 flex flex-col shadow-md dark:shadow-stone-800 z-1 border min-w-32 max-w-46 border-stone-300 dark:border-stone-600 rounded-md p-3 absolute",
+        "after:bg-white dark:after:bg-stone-800 after:-top-1.5 after:absolute after:content-around after:rounded-sm after:rotate-45 after:border-l after:border-t after:border-stone-300 dark:after:border-stone-600 after:-z-1 after:w-3 after:aspect-square",
         className
       )}
       ref={ref as React.RefObject<HTMLDivElement | null>}
@@ -40,7 +40,7 @@ function Row({
   return (
     <div
       className={clsx(
-        "flex flex-col gap-1 text-stone-600 text-xs md:text-sm py-2",
+        "flex flex-col gap-1 text-stone-600 dark:text-stone-400 text-xs md:text-sm py-2",
         className
       )}
     >

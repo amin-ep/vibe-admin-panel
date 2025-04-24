@@ -49,8 +49,8 @@ export default function UserAccountBtn() {
           className="right-3 top-15 md:top-17 md:after:right-12.5 after:right-9.5"
           close={() => setOptionsIsOpen(false)}
         >
-          <DropdownMenu.Row className="border-b border-gray-300">
-            <DropdownMenu.RowSpan className="text-stone-900">
+          <DropdownMenu.Row className="border-b border-stone-300 dark:border-stone-700">
+            <DropdownMenu.RowSpan className="text-stone-900 dark:text-stone-100">
               {userdata?.firstName ?? userdata?.username}
             </DropdownMenu.RowSpan>
             <DropdownMenu.RowSpan className="capitalize">

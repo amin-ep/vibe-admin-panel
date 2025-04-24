@@ -131,7 +131,10 @@ export default function Login({}: Route.ComponentProps) {
           />
           <button
             type="submit"
-            className="text-white text-sm bg-black rounded-lg p-2 md:p-3 cursor-pointer my-2 hover:bg-stone-800 transition duration-300 hover:shadow-2xl"
+            className={clsx(
+              "text-white relative text-sm bg-black rounded-lg p-2 md:p-3 cursor-pointer my-2 hover:bg-stone-800 transition duration-300 hover:shadow-2xl",
+              styles.submit
+            )}
           >
             {fetcher.state === "submitting" ? "Loading..." : "Sign In"}
           </button>
