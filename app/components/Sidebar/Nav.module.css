@@ -1,0 +1,30 @@
+.nav-item > a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+  -moz-transition: 0.3s all;
+  -ms-transition: 0.3s all;
+  -o-transition: 0.3s all;
+  color: var(--color-stone-500);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-item > a:hover {
+  gap: 2.5rem;
+  background: var(--color-stone-200);
+  color: var(--color-cyan-500);
+}
+
+.nav-item > a.active {
+  color: var(--color-white);
+  background: var(--color-cyan-500);
+}

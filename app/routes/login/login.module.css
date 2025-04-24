@@ -1,0 +1,58 @@
+.login {
+  background-color: var(--color-white);
+}
+
+.form-container {
+  padding-inline: 8px;
+}
+
+.heading {
+  font-family: Playfair;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .login {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0.5rem;
+    grid-template-rows: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .login {
+    padding: 0.75rem;
+  }
+}
+
+@media (min-width: 425px) {
+  .heading {
+    font-size: 40px;
+  }
+
+  .form-container {
+    padding-inline: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: 44px;
+  }
+
+  .form-container {
+    padding-inline: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .form-container {
+    padding-inline: 64px;
+  }
+
+  .heading {
+    font-size: 60px;
+  }
+}

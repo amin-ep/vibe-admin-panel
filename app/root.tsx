@@ -6,9 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { ToastContainer } from "react-toastify";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./context/AuthContext";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -29,20 +32,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="logo.png" />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-gray-100 dark:bg-stone-900">
         {children}
         <ScrollRestoration />
         <Scripts />
+        <ToastContainer
+          position="top-center"
+          draggable={false}
+          closeOnClick={false}
+          pauseOnHover={true}
+          limit={3}
+          autoClose={6000}
+        />
       </body>
     </html>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <AuthProvider>
+      <Outlet />
+    </AuthProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
