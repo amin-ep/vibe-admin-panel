@@ -66,7 +66,7 @@ function Nav() {
           <li key={index} className={styles["nav-item"]}>
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? styles.active : ""} after:bg-stone-200 dark:after:bg-stone-800`
+                `${isActive ? styles.active : ""} after:bg-neutral-200 dark:after:bg-neutral-800`
               }
               to={item.href}
             >

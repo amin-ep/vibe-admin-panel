@@ -1,3 +1,4 @@
+import PageHeading from "~/components/PageHeading";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
@@ -8,5 +9,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <div className="">Hello world</div>;
+  return (
+    <div className="">
+      <PageHeading title="Home" />
+    </div>
+  );
 }

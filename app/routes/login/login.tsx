@@ -38,7 +38,7 @@ export async function action({ request }: Route.ActionArgs) {
     payload.email = identifier;
     const errors = await validate<ILoginPayload>(
       loginValidatorWithEmail,
-      payload
+      payload,
     );
 
     if (errors) {
@@ -48,7 +48,7 @@ export async function action({ request }: Route.ActionArgs) {
     payload.username = identifier;
     const errors = await validate<ILoginPayload>(
       loginValidatorWithUsername,
-      payload
+      payload,
     );
 
     if (errors) {
@@ -63,12 +63,7 @@ export async function action({ request }: Route.ActionArgs) {
 export default function Login({}: Route.ComponentProps) {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const fetcher = useFetcher<{
-    status: string;
-    message?: string;
-    data?: ILoginResponse;
-    errors?: { [k: string]: string };
-  }>();
+  const fetcher = useFetcher<IFetcherResponse>();
 
   useEffect(() => {
     if (fetcher.data) {
@@ -86,7 +81,7 @@ export default function Login({}: Route.ComponentProps) {
           {
             expires,
             secure: true,
-          }
+          },
         );
         toast.success(`Welcome back ${user?.firstName ?? user?.username}`);
         navigate("/");
@@ -101,16 +96,16 @@ export default function Login({}: Route.ComponentProps) {
         <div className="flex items-center justify-center">
           <img src="/logo.png" alt="logo" className="w-16" />
         </div>
-        <div className="text-center pt-8 sm:pt-10 md:pt-20">
-          <h1 className={clsx(styles.heading, "text-stone-950")}>
+        <div className="pt-8 text-center sm:pt-10 md:pt-20">
+          <h1 className={clsx(styles.heading, "text-neutral-950")}>
             Welcome Back
           </h1>
-          <span className="text-stone-950 text-sm leading-1">
+          <span className="text-sm leading-1 text-neutral-950">
             Enter your email or username and password to access your account
           </span>
         </div>
         <fetcher.Form
-          className="max-w-115 mx-auto flex flex-col gap-5 mt-10 md:mt-14 lg:mt-16"
+          className="mx-auto mt-10 flex max-w-115 flex-col gap-5 md:mt-14 lg:mt-16"
           method="post"
         >
           <FormControl
@@ -132,8 +127,8 @@ export default function Login({}: Route.ComponentProps) {
           <button
             type="submit"
             className={clsx(
-              "text-white relative text-sm bg-black rounded-lg p-2 md:p-3 cursor-pointer my-2 hover:bg-stone-800 transition duration-300 hover:shadow-2xl",
-              styles.submit
+              "relative my-2 cursor-pointer rounded-lg bg-black p-2 text-sm text-white transition duration-300 hover:bg-neutral-800 hover:shadow-2xl md:p-3",
+              styles.submit,
             )}
           >
             {fetcher.state === "submitting" ? "Loading..." : "Sign In"}

@@ -29,7 +29,7 @@ export default function UserAccountBtn() {
           <span
             className={clsx(
               imageClasses,
-              "bg-gradient-to-br from-blue-500 to-cyan-300 flex items-center justify-center text-white"
+              "flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-300 text-white",
             )}
           >
             {userdata?.firstName.at(0) ?? userdata?.username.at(0)}
@@ -38,7 +38,7 @@ export default function UserAccountBtn() {
         <span
           className={clsx(
             "transition",
-            optionsIsOpen ? "rotate-180" : "rotate-0"
+            optionsIsOpen ? "rotate-180" : "rotate-0",
           )}
         >
           <img src="/icons/arrow-down.svg" alt="arrow-down" className="w-3.5" />
@@ -46,11 +46,11 @@ export default function UserAccountBtn() {
       </button>
       {optionsIsOpen && (
         <DropdownMenu
-          className="right-3 top-15 md:top-17 md:after:right-12.5 after:right-9.5"
+          className="top-15 right-3 after:right-9.5 md:top-17 md:after:right-12.5"
           close={() => setOptionsIsOpen(false)}
         >
-          <DropdownMenu.Row className="border-b border-stone-300 dark:border-stone-700">
-            <DropdownMenu.RowSpan className="text-stone-900 dark:text-stone-100">
+          <DropdownMenu.Row className="border-b border-neutral-300 dark:border-neutral-700">
+            <DropdownMenu.RowSpan className="text-neutral-900 dark:text-neutral-100">
               {userdata?.firstName ?? userdata?.username}
             </DropdownMenu.RowSpan>
             <DropdownMenu.RowSpan className="capitalize">

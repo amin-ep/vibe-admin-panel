@@ -10,7 +10,7 @@
   -moz-transition: 0.5s all;
   -ms-transition: 0.5s all;
   -o-transition: 0.5s all;
-  color: var(--color-stone-500);
+  color: var(--color-neutral-500);
   padding: 0.75rem 1rem;
   border-radius: 8px;
   -webkit-border-radius: 8px;
@@ -21,12 +21,12 @@
   z-index: 1;
   position: relative;
 
-  @apply dark:text-stone-400;
+  @apply dark:text-neutral-400;
 }
 
 .nav-item > a:hover {
   gap: 2.5rem;
-  color: var(--color-cyan-500);
+  color: var(--color-blue-500);
 }
 
 .nav-item > a::after {
@@ -53,7 +53,7 @@
 
 .nav-item > a.active {
   color: var(--color-white);
-  background-color: var(--color-cyan-500);
+  background-color: var(--color-blue-500);
 }
 
 .nav-item > a.active::after {

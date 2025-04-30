@@ -1,7 +1,7 @@
 .tooltip {
-  background: var(--color-stone-900);
+  background: var(--color-neutral-900);
 }
 
 .arrow::before {
-  background: var(--color-stone-900) !important;
+  background: var(--color-neutral-900) !important;
 }

@@ -1,3 +1,4 @@
+import PageHeading from "~/components/PageHeading";
 import type { Route } from "./+types/musics";
 
 export function meta({}: Route.MetaArgs) {
@@ -9,5 +10,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Musics() {
-  return <div>Musics</div>;
+  return (
+    <div>
+      <PageHeading title="Musics" />
+    </div>
+  );
 }

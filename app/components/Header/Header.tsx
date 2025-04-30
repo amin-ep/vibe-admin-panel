@@ -20,8 +20,8 @@ export default function Header({ openSidebar }: Props) {
   const { theme, setThemeDark, setThemeLight, setThemeSystem } = useTheme();
 
   return (
-    <header className="h-16 md:h-18 bg-white border-b border-stone-200 flex justify-between items-center px-1 md:px-3 dark:bg-stone-900 dark:border-b dark:border-stone-700">
-      <div className="flex  flex-row items-center gap-3">
+    <header className="fixed top-0 right-0 left-0 z-10 flex h-16 items-center justify-between border-b border-neutral-200 bg-white px-1 md:h-18 md:px-3 dark:border-b dark:border-neutral-700 dark:bg-neutral-900">
+      <div className="flex flex-row items-center gap-3">
         <IconButton className="md:hidden" onClick={openSidebar}>
           <MenuRoundedIcon />
         </IconButton>
@@ -48,14 +48,14 @@ export default function Header({ openSidebar }: Props) {
       {themOptionsIsOpen && (
         <DropdownMenu
           close={() => setThemeOptionsIsOpen(false)}
-          className="top-16.5 right-9 after:right-15.5 md:after:right-19.5 md:top-17"
+          className="top-16.5 right-9 after:right-15.5 md:top-17 md:after:right-19.5"
         >
           <DropdownMenu.Row>
             <DropdownMenu.RowButton
               onClick={setThemeDark}
               className={clsx(
-                "flex flex-row justify-start items-center",
-                theme === "dark" && "text-cyan-600"
+                "flex flex-row items-center justify-start",
+                theme === "dark" && "text-blue-600",
               )}
             >
               <span>Dark</span>
@@ -63,8 +63,8 @@ export default function Header({ openSidebar }: Props) {
             <DropdownMenu.RowButton
               onClick={setThemeLight}
               className={clsx(
-                "flex flex-row justify-start items-center",
-                theme === "light" && "text-cyan-600"
+                "flex flex-row items-center justify-start",
+                theme === "light" && "text-blue-600",
               )}
             >
               <span>Light</span>
@@ -72,8 +72,8 @@ export default function Header({ openSidebar }: Props) {
             <DropdownMenu.RowButton
               onClick={setThemeSystem}
               className={clsx(
-                "flex flex-row justify-start items-center",
-                theme === "system" && "text-cyan-600"
+                "flex flex-row items-center justify-start",
+                theme === "system" && "text-blue-600",
               )}
             >
               <span>System</span>

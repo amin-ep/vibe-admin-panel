@@ -1,0 +1,71 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  grid-template-areas: "name name name" "audio audio coverImage" "releaseYear releaseYear coverImage" "artist artist artist" "otherArtists otherArtists otherArtists" "genre genre genre" "categories categories categories";
+  gap: 6px;
+  align-items: start;
+
+  row-gap: 6px;
+
+  grid-auto-rows: min-content;
+}
+
+.name-controller {
+  grid-area: name;
+}
+.audio-controller {
+  grid-area: audio;
+}
+.cover-image-controller {
+  grid-area: coverImage;
+}
+.artist-controller {
+  grid-area: artist;
+}
+.other-artists-controller {
+  grid-area: otherArtists;
+}
+.release-year-controller {
+  grid-area: releaseYear;
+}
+.genre-controller {
+  grid-area: genre;
+}
+.categories-controller {
+  grid-area: categories;
+}
+
+.image-icon {
+  width: 70px !important;
+  height: 70px !important;
+}
+
+@media (min-width: 640px) {
+  .grid-container {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas: "name name name name coverImage coverImage" "audio audio audio audio coverImage coverImage" "releaseYear releaseYear releaseYear releaseYear coverImage coverImage" "genre genre genre genre coverImage coverImage" "artist artist artist otherArtists otherArtists otherArtists" "categories categories categories categories categories categories";
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-areas:
+      "name name name name name coverImage"
+      "audio audio audio audio audio coverImage"
+      "releaseYear releaseYear releaseYear releaseYear releaseYear ."
+      "genre genre genre genre genre ."
+      "artist artist otherArtists otherArtists otherArtists ."
+      "categories categories categories categories categories categories";
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-container {
+    grid-template-areas:
+      "name name name name name coverImage" "audio audio audio audio audio coverImage" "releaseYear releaseYear releaseYear releaseYear releaseYear coverImage" "genre genre genre genre genre ."
+      "artist artist otherArtists otherArtists otherArtists ."
+      "categories categories categories categories categories categories";
+  }
+}

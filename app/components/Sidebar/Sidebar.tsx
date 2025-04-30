@@ -35,7 +35,7 @@ function Sidebar({ isOpen, setIsOpen }: Props) {
       )}
       <aside
         className={clsx(
-          "fixed top-0 p-3 md:top-18 bottom-0 border-r border-stone-200 left-0 z-2 h-screen w-80 sm:w-84 -translate-x-84 overflow-y-auto bg-white text-stone-900 transition-all md:w-20 md:translate-x-0 dark:bg-stone-900 dark:border-stone-700",
+          "fixed top-0 bottom-0 left-0 z-11 h-screen w-80 -translate-x-84 overflow-y-auto border-r border-neutral-200 bg-white p-3 text-neutral-900 transition-all sm:w-84 md:top-18 md:w-20 md:translate-x-0 dark:border-neutral-700 dark:bg-neutral-900",
           !isDesktopView
             ? isOpen
               ? "translate-x-0"
@@ -43,15 +43,15 @@ function Sidebar({ isOpen, setIsOpen }: Props) {
             : isOpen
               ? "md:w-60"
               : "",
-          styles.aside
+          styles.aside,
         )}
         onMouseOver={onMouseOver}
         onMouseOut={onMouseLeave}
       >
-        <div className="md:hidden relative flex items-center justify-center">
+        <div className="relative flex items-center justify-center md:hidden">
           <img src="/logo.png" alt="vibe" className="w-30" />
           <button
-            className="absolute top-0 right-0 text-stone-800"
+            className="absolute top-0 right-0 text-neutral-800"
             onClick={() => setIsOpen(false)}
           >
             <CloseRoundedIcon />

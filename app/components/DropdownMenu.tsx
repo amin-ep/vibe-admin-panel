@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { useOutsideClick } from "~/hooks/useOutsideClick";
 
 const btnClasses =
-  "text-left cursor-pointer rounded-sm py-1 hover:text-cyan-500 hover:pl-2 transition-all duration-300";
+  "text-left cursor-pointer rounded-sm py-1 hover:text-blue-500 hover:pl-2 transition-all duration-300";
 
 function DropdownMenu({
   children,
@@ -19,9 +19,9 @@ function DropdownMenu({
   return (
     <div
       className={clsx(
-        "bg-white dark:bg-stone-800 flex flex-col shadow-md dark:shadow-stone-800 z-1 border min-w-32 max-w-46 border-stone-300 dark:border-stone-600 rounded-md p-3 absolute",
-        "after:bg-white dark:after:bg-stone-800 after:-top-1.5 after:absolute after:content-around after:rounded-sm after:rotate-45 after:border-l after:border-t after:border-stone-300 dark:after:border-stone-600 after:-z-1 after:w-3 after:aspect-square",
-        className
+        "absolute z-1 flex max-w-46 min-w-32 flex-col rounded-md border border-neutral-300 bg-white p-3 shadow-md dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-neutral-800",
+        "after:absolute after:-top-1.5 after:-z-1 after:aspect-square after:w-3 after:rotate-45 after:content-around after:rounded-sm after:border-t after:border-l after:border-neutral-300 after:bg-white dark:after:border-neutral-600 dark:after:bg-neutral-800",
+        className,
       )}
       ref={ref as React.RefObject<HTMLDivElement | null>}
     >
@@ -40,8 +40,8 @@ function Row({
   return (
     <div
       className={clsx(
-        "flex flex-col gap-1 text-stone-600 dark:text-stone-400 text-xs md:text-sm py-2",
-        className
+        "flex flex-col gap-1 py-2 text-xs text-neutral-600 md:text-sm dark:text-neutral-400",
+        className,
       )}
     >
       {children}

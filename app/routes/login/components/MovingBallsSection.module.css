@@ -30,7 +30,7 @@
 }
 
 .ball:nth-child(even) {
-  color: var(--color-cyan-300);
+  color: var(--color-blue-300);
 }
 
 /* Using a custom attribute for variability */

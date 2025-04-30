@@ -5,3 +5,24 @@ interface IStatus {
 interface IApiError extends IStatus {
   message: string;
 }
+
+type GetDataResponse<T> = {
+  status: string;
+  data?: T[];
+  message?: undefined;
+};
+
+type GetAllDataResponse<T> = {
+  status: string;
+  result: number;
+  data: {
+    docs: T[];
+  };
+};
+
+interface IFetcherResponse {
+  status: string;
+  message?: string;
+  data?: ILoginResponse;
+  errors?: { [k: string]: string };
+}
