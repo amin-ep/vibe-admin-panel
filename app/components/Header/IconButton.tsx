@@ -12,7 +12,7 @@ function IconButton({ children, onClick, className }: Props) {
     <button
       type="button"
       className={clsx(
-        "bing-2 rounded p-2 text-neutral-700 ring-white hover:bg-neutral-100 hover:text-blue-600 focus:ring-blue-600 dark:text-neutral-300 dark:ring-neutral-900 dark:hover:bg-neutral-800",
+        "bing-2 rounded-full p-2 text-neutral-700 ring-white hover:bg-neutral-100 hover:text-blue-600 focus:ring-blue-600 dark:text-neutral-300 dark:ring-neutral-900 dark:hover:bg-neutral-800",
         className,
       )}
       onClick={onClick}

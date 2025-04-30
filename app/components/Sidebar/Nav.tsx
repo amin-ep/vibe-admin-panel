@@ -20,39 +20,39 @@ interface IItem {
 }
 
 const navItems: IItem[] = [
-  { icon: <HomeRoundedIcon fontSize="medium" />, title: "Home", href: "/" },
+  { icon: <HomeRoundedIcon fontSize="small" />, title: "Home", href: "/" },
   {
-    icon: <MusicNoteRoundedIcon fontSize="medium" />,
+    icon: <MusicNoteRoundedIcon fontSize="small" />,
     title: "Music List",
     href: "/musics",
   },
   {
-    icon: <AddRoundedIcon fontSize="medium" />,
+    icon: <AddRoundedIcon fontSize="small" />,
     title: "Add Music",
     href: "/new-music",
   },
   {
-    icon: <PersonRoundedIcon fontSize="medium" />,
+    icon: <PersonRoundedIcon fontSize="small" />,
     title: "Users",
     href: "/users",
   },
   {
-    icon: <InterpreterModeRoundedIcon fontSize="medium" />,
+    icon: <InterpreterModeRoundedIcon fontSize="small" />,
     title: "Artists",
     href: "/artists",
   },
   {
-    icon: <GroupAddRoundedIcon fontSize="medium" />,
+    icon: <GroupAddRoundedIcon fontSize="small" />,
     title: "Add Artist",
     href: "/new-artist",
   },
   {
-    icon: <LibraryMusicRoundedIcon fontSize="medium" />,
+    icon: <LibraryMusicRoundedIcon fontSize="small" />,
     title: "Albums",
     href: "/albums",
   },
   {
-    icon: <AlbumRoundedIcon fontSize="medium" />,
+    icon: <AlbumRoundedIcon fontSize="small" />,
     title: "Add Album",
     href: "/new-album",
   },
