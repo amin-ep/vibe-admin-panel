@@ -1,23 +1,17 @@
+type MusicArtist = { _id: string; name: string };
+
 interface IMusic {
   _id: string;
   name: string;
-  coverImageUrl: string;
   audioFileUrl: string;
-
-  artist: string;
-  otherArtists: string[];
-
+  coverImageUrl: string;
+  artist: MusicArtist;
+  otherArtists: MusicArtist[];
   releaseYear: number;
 
   categories: string[];
   genre: string;
-
-  likes: {
-    _id: Types.ObjectId;
-    music: Types.ObjectId;
-    user: Types.ObjectId;
-  }[];
-
+  likeQuantity: number;
   createdAt: Date;
   updatedAt: Date;
 }

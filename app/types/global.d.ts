@@ -26,3 +26,9 @@ interface IFetcherResponse {
   data?: ILoginResponse;
   errors?: { [k: string]: string };
 }
+
+interface ITableColumn {
+  id: string;
+  label: string;
+  minWidth: number;
+}

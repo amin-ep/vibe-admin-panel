@@ -1,17 +1,16 @@
-import { Link } from "react-router";
-import { useTheme } from "~/hooks/useTheme";
-import HeaderTooltip from "./HeaderTooltip";
-import UserAccountBtn from "./UserAccountBtn";
-import DropdownMenu from "../DropdownMenu";
 import clsx from "clsx";
 import { useState } from "react";
+import { Link } from "react-router";
+import { useTheme } from "~/hooks/useTheme";
+import DropdownMenu from "../DropdownMenu";
+import UserAccountBtn from "./UserAccountBtn";
 
 // icons
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
 import BedtimeRoundedIcon from "@mui/icons-material/BedtimeRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import IconButton from "./IconButton";
+import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
+import IconButton from "../IconButton";
 
 type Props = { openSidebar: () => void };
 
@@ -35,10 +34,7 @@ export default function Header({ openSidebar }: Props) {
         </Link>
       </div>
       <div className="flex items-center">
-        <HeaderTooltip
-          onClick={() => setThemeOptionsIsOpen(true)}
-          title={theme}
-        >
+        <IconButton onClick={() => setThemeOptionsIsOpen(true)}>
           {theme === "dark" ? (
             <BedtimeRoundedIcon />
           ) : theme === "light" ? (
@@ -46,7 +42,7 @@ export default function Header({ openSidebar }: Props) {
           ) : (
             <SettingsRoundedIcon />
           )}
-        </HeaderTooltip>
+        </IconButton>
 
         <UserAccountBtn />
       </div>

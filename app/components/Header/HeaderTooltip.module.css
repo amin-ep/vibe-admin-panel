@@ -1,7 +1,0 @@
-.tooltip {
-  background: var(--color-neutral-900);
-}
-
-.arrow::before {
-  background: var(--color-neutral-900) !important;
-}
