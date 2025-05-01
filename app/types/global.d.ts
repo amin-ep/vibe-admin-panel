@@ -32,3 +32,5 @@ interface ITableColumn {
   label: string;
   minWidth: number;
 }
+
+type Theme = "dark" | "light" | "system";
