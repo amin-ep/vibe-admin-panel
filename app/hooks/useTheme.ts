@@ -1,10 +1,10 @@
 import { useEffect, useLayoutEffect, useState } from "react";
+import { useAuth } from "~/context/AuthContext";
 import { THEME_KEY } from "~/utils/constants";
-
-type Theme = "dark" | "light" | "system";
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>("system");
+  const { isLoggedIn } = useAuth();
 
   const setThemeDark = () => {
     localStorage.setItem(THEME_KEY, "dark");
@@ -22,7 +22,11 @@ export function useTheme() {
   };
 
   useLayoutEffect(() => {
-    if (typeof window !== "undefined" && typeof document !== "undefined") {
+    if (
+      typeof window !== "undefined" &&
+      typeof document !== "undefined" &&
+      isLoggedIn
+    ) {
       const html = document.documentElement;
       const savedTheme = localStorage.getItem(THEME_KEY);
 
@@ -34,7 +38,7 @@ export function useTheme() {
         html.classList.remove("dark");
       } else if (theme === "system") {
         const systemThemeIsDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
+          "(prefers-color-scheme: dark)",
         ).matches;
 
         if (systemThemeIsDark) {
