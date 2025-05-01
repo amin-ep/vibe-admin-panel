@@ -6,8 +6,10 @@ import { useAuth } from "~/context/AuthContext";
 import { useOutsideClick } from "~/hooks/useOutsideClick";
 import { FILE_BASE_URL } from "~/utils/constants";
 import DropdownMenu from "../DropdownMenu";
+import MessageModal from "../MessageModal";
 
 export default function UserAccountBtn() {
+  const [messageModalIsOpen, setMessageModalIsOpen] = useState(false);
   const [optionsIsOpen, setOptionsIsOpen] = useState(false);
   const { userdata, logout } = useAuth();
 
@@ -61,12 +63,20 @@ export default function UserAccountBtn() {
             <DropdownMenu.RowLink to="/account">
               My Profile
             </DropdownMenu.RowLink>
-            <DropdownMenu.RowButton onClick={logout}>
+            <DropdownMenu.RowButton onClick={() => setMessageModalIsOpen(true)}>
               Logout
             </DropdownMenu.RowButton>
           </DropdownMenu.Row>
         </DropdownMenu>
       )}
+      <MessageModal
+        action={logout}
+        heading="Logout"
+        isOpen={messageModalIsOpen}
+        message="are you sure you wanna logout? this would delete all of your saved cookies!"
+        onClose={() => setMessageModalIsOpen(false)}
+        actionButtonTextContent="Log out"
+      />
     </>
   );
 }
