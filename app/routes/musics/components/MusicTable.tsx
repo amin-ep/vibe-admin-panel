@@ -6,13 +6,16 @@ import {
   TableBody,
 } from "@mui/material";
 import { FILE_BASE_URL } from "~/utils/constants";
-import styles from "./MusicTable.module.css";
 import IconButton from "~/components/IconButton";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import MusicTablePlayer from "./MusicTablePlayer";
-import { useTheme } from "~/hooks/useTheme";
+
+import clsx from "clsx";
+import MusicTableHead from "./MusicTableHead";
+import MessageModal from "~/components/MessageModal";
+import MusicTableActions from "./MusicTableActions";
 
 type Props = { data: IMusic[] };
 
@@ -43,52 +46,25 @@ const reducer = (state: IState, action: PlayingAction) => {
   }
 };
 
-const columns: ITableColumn[] = [
-  { id: "c1", label: "Song", minWidth: 300 },
-  { id: "c2", label: "Genre", minWidth: 95 },
-  { id: "c3", label: "Categories", minWidth: 270 },
-  { id: "c4", label: "Likes", minWidth: 70 },
-  { id: "c5", label: "Release Year", minWidth: 120 },
-  { id: "c6", label: "Artist", minWidth: 120 },
-  { id: "c7", label: "FT By", minWidth: 120 },
-  { id: "c8", label: "Actions", minWidth: 80 },
-];
-
 function MusicTable({ data }: Props) {
   const [{ isPlaying, currentSongId }, dispatch] = useReducer(
     reducer,
     initialState,
   );
 
+  const tableCellClasses = "border-b dark:!border-b-neutral-800";
+
   return (
     <div className="overflow-x-auto">
       <MuiTable>
-        <TableHead>
-          <TableRow>
-            {columns.map((col) => (
-              <TableCell
-                key={col.id}
-                sx={{ minWidth: col.minWidth, borderBottom: "none" }}
-              >
-                <span className="text-neutral-800 dark:text-neutral-400">
-                  {col.label}
-                </span>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody
-          classes={{
-            root: styles.tbody,
-          }}
-        >
+        <MusicTableHead />
+        {/* Table Body */}
+        <TableBody>
           {data.map((music) => (
+            // Table Row
             <TableRow key={music._id}>
-              <TableCell
-                classes={{
-                  root: styles["table-cell"],
-                }}
-              >
+              {/* Cover Image & player for playing song */}
+              <TableCell className={clsx(tableCellClasses)}>
                 <div className="flex items-center justify-start gap-2">
                   <img
                     className="aspect-square w-14 rounded-md"
@@ -107,58 +83,38 @@ function MusicTable({ data }: Props) {
                   </div>
                 </div>
               </TableCell>
-              <TableCell
-                classes={{
-                  root: styles["table-cell"],
-                }}
-              >
+              {/* Genre */}
+              <TableCell className={clsx(tableCellClasses)}>
                 <Tag>{music.genre}</Tag>
               </TableCell>
-              <TableCell
-                classes={{
-                  root: styles["table-cell"],
-                }}
-              >
+              {/* Category */}
+              <TableCell className={clsx(tableCellClasses)}>
                 <div className="flex h-full w-full flex-wrap items-start justify-start gap-1">
                   {music.categories.map((category) => (
                     <Tag key={category}>{category}</Tag>
                   ))}
                 </div>
               </TableCell>
-              <TableCell
-                classes={{
-                  root: styles["table-cell"],
-                }}
-                sx={{ textAlign: "center" }}
-              >
+              {/* Like Quantity */}
+              <TableCell className={clsx(tableCellClasses, "!text-center")}>
                 <span className="text-center text-neutral-900 dark:text-neutral-100">
                   {music.likeQuantity}
                 </span>
               </TableCell>
-              <TableCell
-                classes={{
-                  root: styles["table-cell"],
-                }}
-                sx={{ textAlign: "center" }}
-              >
+              {/* Release Year */}
+              <TableCell className={clsx(tableCellClasses, "!text-center")}>
                 <span className="text-center text-neutral-900 italic dark:text-neutral-100">
                   {music.releaseYear}
                 </span>
               </TableCell>
-              <TableCell
-                classes={{
-                  root: styles["table-cell"],
-                }}
-              >
+              {/* Artist Name */}
+              <TableCell className={clsx(tableCellClasses)}>
                 <span className="text-center text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                   {music.artist.name}
                 </span>
               </TableCell>
-              <TableCell
-                classes={{
-                  root: styles["table-cell"],
-                }}
-              >
+              {/* Other artists */}
+              <TableCell className={clsx(tableCellClasses)}>
                 {music.otherArtists.length === 0
                   ? "-"
                   : music.otherArtists.map((artist) => (
@@ -170,28 +126,12 @@ function MusicTable({ data }: Props) {
                       </span>
                     ))}
               </TableCell>
-              <TableCell
-                classes={{
-                  root: styles["table-cell"],
-                }}
-              >
-                <div className="flex justify-center">
-                  <IconButton
-                    onClick={() => {
-                      console.log("edit");
-                    }}
-                  >
-                    <CreateRoundedIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => {
-                      console.log("delete");
-                    }}
-                  >
-                    <DeleteRoundedIcon />
-                  </IconButton>
-                </div>
-              </TableCell>
+              {/* Actions (delete button & edit link) */}
+              <MusicTableActions
+                classes={tableCellClasses}
+                musicId={music._id}
+                musicName={music.name}
+              />
             </TableRow>
           ))}
         </TableBody>

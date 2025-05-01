@@ -10,6 +10,8 @@ export default [
     index("routes/home/home.tsx"),
     route("musics", "routes/musics/musics.tsx"),
     route("new-music", "routes/new-music/new-music.tsx"),
+    route("new-artist", "routes/new-artist/new-artist.tsx"),
+    route("artists", "routes/artists/artists.tsx"),
   ]),
   route("login", "routes/login/login.tsx"),
 ] satisfies RouteConfig;

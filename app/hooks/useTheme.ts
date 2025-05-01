@@ -48,7 +48,7 @@ export function useTheme() {
         }
       }
     }
-  }, [theme]);
+  }, [theme, isLoggedIn]);
 
   return { theme, setThemeDark, setThemeLight, setThemeSystem };
 }

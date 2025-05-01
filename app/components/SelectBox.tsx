@@ -6,6 +6,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import clsx from "clsx";
 
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import TrashButton from "./TrashButton";
 
 export interface ISelectItem {
   imageUrl: string;
@@ -29,7 +30,10 @@ function SelectBox({
   selectMethod = "single",
   inputName,
 }: Props) {
-  const [value, setValue] = useState<string | null | string[]>(null);
+  const valueInitialState = () => {
+    return selectMethod === "multiple" ? [] : "";
+  };
+  const [value, setValue] = useState<string | string[]>(valueInitialState);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -71,7 +75,10 @@ function SelectBox({
   return (
     <div className="z-4 flex flex-col gap-1.5 md:gap-2">
       <input type="hidden" name={inputName} value={value as string} />
-      {label && <FormLabel label={label} />}
+      <div className="flex items-center justify-between">
+        {label && <FormLabel label={label} />}
+        <TrashButton onClick={() => setValue(valueInitialState)} />
+      </div>
       <div className="relative bg-white dark:bg-neutral-900">
         {/* Select Button */}
         <button
@@ -80,11 +87,11 @@ function SelectBox({
           onClick={() => setMenuIsOpen(true)}
         >
           <span className="overflow-hidden whitespace-nowrap">
-            {typeof value === "string"
-              ? value
-              : (value as string[])
-                ? value?.join(", ")
-                : value === null && placeholder}
+            {value.length === 0
+              ? placeholder
+              : selectMethod === "multiple"
+                ? (value as string[]).join(", ")
+                : value}
           </span>
           <img
             src="/icons/arrow-down.svg"

@@ -35,6 +35,7 @@ function MusicTablePlayer({
   const playAnimationRef = useRef<number>(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // update progress time
   const updateProgress = useCallback(() => {
     if (!audioRef.current || isSeeking) return;
 
@@ -45,6 +46,7 @@ function MusicTablePlayer({
       playAnimationRef.current = requestAnimationFrame(updateProgress);
   }, [currentAudioIsPlaying, isSeeking]);
 
+  // toggle playing
   const handlePlay = () => {
     if (!isPlaying) {
       dispatch({ type: "play", payload: musicId });
@@ -57,16 +59,14 @@ function MusicTablePlayer({
     }
   };
 
-  useLayoutEffect(() => {
-    setCurrentAudioIsPlaying(musicId === currentSongId && isPlaying);
-  }, [musicId, currentSongId, isPlaying]);
-
   useEffect(() => {
     if (!audioRef.current) return;
 
+    // set duration of music
     setDuration(audioRef.current.duration);
 
-    if (isPlaying && currentSongId === musicId) {
+    //
+    if (currentAudioIsPlaying) {
       audioRef.current.play();
       playAnimationRef.current = requestAnimationFrame(updateProgress);
     } else {
@@ -74,10 +74,18 @@ function MusicTablePlayer({
       cancelAnimationFrame(playAnimationRef.current!);
     }
 
+    setCurrentAudioIsPlaying(musicId === currentSongId && isPlaying);
+
     return () => {
       cancelAnimationFrame(playAnimationRef.current!);
     };
-  }, [isPlaying, currentSongId, updateProgress, musicId]);
+  }, [
+    isPlaying,
+    currentSongId,
+    updateProgress,
+    musicId,
+    currentAudioIsPlaying,
+  ]);
 
   const handleSliderChange = (
     _: Event | React.SyntheticEvent,
@@ -123,8 +131,8 @@ function MusicTablePlayer({
       <div className="w-full">
         <Slider
           aria-label="Progress Time"
-          value={progressTime}
-          max={duration}
+          value={progressTime || 0}
+          max={duration || 0}
           min={0}
           onChange={handleSliderChange}
           onChangeCommitted={handleSliderChangeCommitted}
