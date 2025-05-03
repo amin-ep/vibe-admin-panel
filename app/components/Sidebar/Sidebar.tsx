@@ -51,7 +51,7 @@ function Sidebar({ isOpen, setIsOpen }: Props) {
         <div className="relative flex items-center justify-center md:hidden">
           <img src="/logo.png" alt="vibe" className="w-30" />
           <button
-            className="absolute top-0 right-0 text-neutral-800"
+            className="absolute top-0 right-0 text-neutral-800 dark:text-white"
             onClick={() => setIsOpen(false)}
           >
             <CloseRoundedIcon />

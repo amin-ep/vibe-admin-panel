@@ -11,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import type { Route } from "./+types/root";
 import "./app.css";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

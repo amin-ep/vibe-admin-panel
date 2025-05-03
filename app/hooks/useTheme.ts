@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { useAuth } from "~/context/AuthContext";
+import { useAuth } from "~/contexts/AuthContext";
 import { THEME_KEY } from "~/utils/constants";
 
 export function useTheme() {

@@ -22,9 +22,3 @@ interface ICreateMusicResponse {
     document: IMusic;
   };
 }
-
-type CreateMusicState = {
-  status: string;
-  errors?: { [k: string]: string };
-  message?: string;
-} | null;

@@ -118,7 +118,7 @@ function MusicTablePlayer({
     <div className="flex w-full flex-row items-center gap-2">
       <button
         onClick={handlePlay}
-        className="h-6 w-8 rounded-md bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-900"
+        className="h-6 w-8 rounded-md bg-neutral-200 text-neutral-800 dark:bg-neutral-400 dark:text-neutral-900"
         aria-label={currentAudioIsPlaying ? "Pause" : "Play"}
       >
         {currentAudioIsPlaying ? (

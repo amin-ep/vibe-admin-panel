@@ -1,21 +1,16 @@
 import {
-  TableHead,
   Table as MuiTable,
-  TableRow,
-  TableCell,
   TableBody,
+  TableCell,
+  TableRow,
 } from "@mui/material";
+import { useReducer } from "react";
 import { FILE_BASE_URL } from "~/utils/constants";
-import IconButton from "~/components/IconButton";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
-import { useReducer, useState } from "react";
 import MusicTablePlayer from "./MusicTablePlayer";
 
 import clsx from "clsx";
-import MusicTableHead from "./MusicTableHead";
-import MessageModal from "~/components/MessageModal";
 import MusicTableActions from "./MusicTableActions";
+import MusicTableHead from "./MusicTableHead";
 
 type Props = { data: IMusic[] };
 
@@ -142,7 +137,7 @@ function MusicTable({ data }: Props) {
 
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded bg-neutral-200 p-1 dark:bg-neutral-700 dark:text-neutral-200">
+    <span className="rounded-full bg-neutral-200 p-1 px-2 dark:bg-neutral-800 dark:text-neutral-400">
       {children}
     </span>
   );

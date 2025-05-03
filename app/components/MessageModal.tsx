@@ -8,6 +8,7 @@ type Props = {
   heading: string;
   message: string;
   actionButtonTextContent: string;
+  isPending?: boolean;
 };
 
 const style = {
@@ -29,6 +30,7 @@ function MessageModal({
   heading,
   message,
   actionButtonTextContent,
+  isPending,
 }: Props) {
   return (
     <Modal
@@ -53,7 +55,7 @@ function MessageModal({
             Cancel
           </Button>
           <Button onClick={action} variation="secondary" className="w-full">
-            {actionButtonTextContent}
+            {isPending ? "Loading..." : actionButtonTextContent}
           </Button>
         </div>
       </div>

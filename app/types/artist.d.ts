@@ -5,3 +5,7 @@ interface IArtist {
   createdAt: Date;
   updatedAt: Date;
 }
+
+type CreateArtistPayload = {
+  name: string;
+};

@@ -25,7 +25,7 @@ export async function getAllMusics() {
 }
 
 export async function createMusic(
-  _prevState: CreateMusicState | null,
+  _prevState: CreateDataState | null,
   formData: FormData,
 ) {
   let errors: { [k: string]: string } = {};

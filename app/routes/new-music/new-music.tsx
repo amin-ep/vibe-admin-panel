@@ -36,7 +36,7 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
   const [selectedAudio, setSelectedAudio] = useState<File | null>(null);
   const [artistsArr, setArtistsArr] = useState<ISelectItem[]>([]);
 
-  const [result, formAction, isPending] = useActionState<CreateMusicState>(
+  const [result, formAction, isPending] = useActionState<CreateDataState>(
     //@ts-ignore
     createMusic,
     null,

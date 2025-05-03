@@ -1,15 +1,14 @@
 import styles from "./Nav.module.css";
 
 // !ICONS
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import MusicNoteRoundedIcon from "@mui/icons-material/MusicNoteRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import AlbumRoundedIcon from "@mui/icons-material/AlbumRounded";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import InterpreterModeRoundedIcon from "@mui/icons-material/InterpreterModeRounded";
 import LibraryMusicRoundedIcon from "@mui/icons-material/LibraryMusicRounded";
-import AlbumRoundedIcon from "@mui/icons-material/AlbumRounded";
+import MusicNoteRoundedIcon from "@mui/icons-material/MusicNoteRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 // import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import GroupAddRoundedIcon from "@mui/icons-material/GroupAddRounded";
 
 import { NavLink } from "react-router";
 
@@ -40,11 +39,6 @@ const navItems: IItem[] = [
     icon: <InterpreterModeRoundedIcon fontSize="small" />,
     title: "Artists",
     href: "/artists",
-  },
-  {
-    icon: <GroupAddRoundedIcon fontSize="small" />,
-    title: "Add Artist",
-    href: "/new-artist",
   },
   {
     icon: <LibraryMusicRoundedIcon fontSize="small" />,

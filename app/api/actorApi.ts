@@ -1,5 +1,8 @@
 import axios, { AxiosError, type AxiosResponse } from "axios";
 import { API_BASE_URL } from "~/utils/constants";
+import { validate } from "~/utils/validate";
+import { createArtistValidator } from "~/validators/artist-validators";
+import ApiRequests from ".";
 
 export async function getAllArtists() {
   try {
@@ -19,5 +22,26 @@ export async function getAllArtists() {
           error?.response?.data.message || "something went wrong from server",
       };
     }
+  }
+}
+
+export async function createArtist(
+  _prevState: CreateDataState | null,
+  formData: FormData,
+) {
+  const validationError = await validate<CreateArtistPayload>(
+    createArtistValidator,
+    Object.fromEntries(formData) as CreateArtistPayload,
+  );
+
+  if (validationError) {
+    return { status: "error", errors: validationError };
+  }
+
+  const api = new ApiRequests();
+  const res = await api.createData("artist", formData);
+
+  if (res?.status === "success") {
+    return { status: "success" };
   }
 }

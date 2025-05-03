@@ -30,7 +30,20 @@ interface IFetcherResponse {
 interface ITableColumn {
   id: string;
   label: string;
-  minWidth: number;
+  minWidth: number | string;
 }
 
 type Theme = "dark" | "light" | "system";
+
+interface ICreateDataResponse<T> {
+  status: string;
+  data: {
+    document: T[];
+  };
+}
+
+type CreateDataState = {
+  status: string;
+  errors?: { [k: string]: string };
+  message?: string;
+} | null;

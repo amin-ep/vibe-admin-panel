@@ -5,7 +5,7 @@ import { useFetcher, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { login } from "~/api/authApi";
 import FormControl from "~/components/FormControl";
-import { useAuth } from "~/context/AuthContext";
+import { useAuth } from "~/contexts/AuthContext";
 import { AUTH_TOKEN_KEY } from "~/utils/constants";
 import { validate } from "~/utils/validate";
 import {
