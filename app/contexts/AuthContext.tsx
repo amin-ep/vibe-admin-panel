@@ -54,7 +54,7 @@ const reducer = (state: IState, action: Actions) => {
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [{ isLoggedIn, userdata }, dispatch] = useReducer(
     reducer,
-    initialState
+    initialState,
   );
 
   const navigate = useNavigate();

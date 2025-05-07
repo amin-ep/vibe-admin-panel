@@ -10,9 +10,20 @@ import MusicTablePlayer from "./MusicTablePlayer";
 
 import clsx from "clsx";
 import MusicTableActions from "./MusicTableActions";
-import MusicTableHead from "./MusicTableHead";
+import TableHead from "~/components/TableHead";
 
 type Props = { data: IMusic[] };
+
+const columns: ITableColumn[] = [
+  { id: "c1", label: "Song", minWidth: 300 },
+  { id: "c2", label: "Genre", minWidth: 105 },
+  { id: "c3", label: "Categories", minWidth: 270 },
+  { id: "c4", label: "Likes", minWidth: 70 },
+  { id: "c5", label: "Release Year", minWidth: 120 },
+  { id: "c6", label: "Artist", minWidth: 120 },
+  { id: "c7", label: "FT By", minWidth: 120 },
+  { id: "c8", label: "Actions", minWidth: 80 },
+];
 
 interface IState {
   isPlaying: boolean;
@@ -47,19 +58,17 @@ function MusicTable({ data }: Props) {
     initialState,
   );
 
-  const tableCellClasses = "border-b dark:!border-b-neutral-800";
-
   return (
     <div className="overflow-x-auto">
       <MuiTable>
-        <MusicTableHead />
+        <TableHead columns={columns} />
         {/* Table Body */}
         <TableBody>
           {data.map((music) => (
             // Table Row
             <TableRow key={music._id}>
               {/* Cover Image & player for playing song */}
-              <TableCell className={clsx(tableCellClasses)}>
+              <TableCell className={clsx("table-cell-classes")}>
                 <div className="flex items-center justify-start gap-2">
                   <img
                     className="aspect-square w-14 rounded-md"
@@ -79,11 +88,11 @@ function MusicTable({ data }: Props) {
                 </div>
               </TableCell>
               {/* Genre */}
-              <TableCell className={clsx(tableCellClasses)}>
+              <TableCell className={clsx("table-cell-classes")}>
                 <Tag>{music.genre}</Tag>
               </TableCell>
               {/* Category */}
-              <TableCell className={clsx(tableCellClasses)}>
+              <TableCell className={clsx("table-cell-classes")}>
                 <div className="flex h-full w-full flex-wrap items-start justify-start gap-1">
                   {music.categories.map((category) => (
                     <Tag key={category}>{category}</Tag>
@@ -91,39 +100,35 @@ function MusicTable({ data }: Props) {
                 </div>
               </TableCell>
               {/* Like Quantity */}
-              <TableCell className={clsx(tableCellClasses, "!text-center")}>
-                <span className="text-center text-neutral-900 dark:text-neutral-100">
-                  {music.likeQuantity}
-                </span>
+              <TableCell className={clsx("table-cell-classes", "!text-center")}>
+                {music.likeQuantity}
               </TableCell>
               {/* Release Year */}
-              <TableCell className={clsx(tableCellClasses, "!text-center")}>
-                <span className="text-center text-neutral-900 italic dark:text-neutral-100">
-                  {music.releaseYear}
-                </span>
+              <TableCell
+                className={clsx("table-cell-classes", "!text-center italic")}
+              >
+                {music.releaseYear}
               </TableCell>
               {/* Artist Name */}
-              <TableCell className={clsx(tableCellClasses)}>
-                <span className="text-center text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                  {music.artist.name}
-                </span>
+              <TableCell
+                className={clsx("table-cell-classes", "text-sm font-semibold")}
+              >
+                {music.artist.name}
               </TableCell>
               {/* Other artists */}
-              <TableCell className={clsx(tableCellClasses)}>
+              <TableCell
+                className={clsx(
+                  "table-cell-classes",
+                  "text-center !text-xs italic",
+                )}
+              >
                 {music.otherArtists.length === 0
                   ? "-"
-                  : music.otherArtists.map((artist) => (
-                      <span
-                        key={artist._id}
-                        className="text-center text-xs text-neutral-900 italic dark:text-neutral-100"
-                      >
-                        {artist.name}
-                      </span>
-                    ))}
+                  : music.otherArtists.map((artist) => <>{artist.name}</>)}
               </TableCell>
               {/* Actions (delete button & edit link) */}
               <MusicTableActions
-                classes={tableCellClasses}
+                classes={"table-cell-classes"}
                 musicId={music._id}
                 musicName={music.name}
               />

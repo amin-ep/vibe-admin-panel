@@ -17,6 +17,7 @@ interface IUser {
   emailChangedAt?: Date;
   passwordRecoverId?: string;
   passwordChangedAt?: Date | string;
+  createdAt: Date;
 }
 
 interface IGetMeResponse {

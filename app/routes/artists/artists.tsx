@@ -1,14 +1,17 @@
 import ApiRequests from "~/api";
 import PageHeading from "~/components/PageHeading";
+import { ArtistProvider } from "~/contexts/ArtistContext";
+import { getServerAuthToken } from "~/utils/helpers";
 import type { Route } from "./+types/artists";
-import AddArtistForm from "./components/AddArtistForm";
+import ArtistForm from "./components/ArtistForm";
 import ArtistsTable from "./components/ArtistsTable";
 
-export async function loader() {
+export async function loader({ request }: Route.LoaderArgs) {
+  const authToken = getServerAuthToken(request);
   const api = new ApiRequests();
-  const artists = await api.getAllData<IArtist>("artist");
+  const artists = await api.getAllData<IArtist>("artist", authToken);
 
-  return artists;
+  return artists?.data;
 }
 
 export function meta() {
@@ -17,17 +20,21 @@ export function meta() {
 
 function Artists({ loaderData }: Route.ComponentProps) {
   return (
-    <div className="flex flex-col gap-5">
-      <PageHeading title="Artists" />
-      <div className="grid grid-cols-1 flex-row-reverse gap-4 md:grid-cols-[1fr_70%]">
-        <AddArtistForm />
+    <ArtistProvider>
+      <div className="flex flex-col gap-5">
+        <PageHeading title="Artists" />
+        <div className="grid grid-cols-1 flex-row-reverse gap-4 md:grid-cols-[1fr_70%]">
+          <ArtistForm />
 
-        {(loaderData as IArtist[]) && (
-          <ArtistsTable artists={loaderData as IArtist[]} />
-        )}
+          {(loaderData as IArtist[]) && (
+            <ArtistsTable artists={loaderData as IArtist[]} />
+          )}
+        </div>
       </div>
-    </div>
+    </ArtistProvider>
   );
 }
+
+// TODO: GLOBAL STATE MANAGER
 
 export default Artists;

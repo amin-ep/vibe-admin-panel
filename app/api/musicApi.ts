@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { API_BASE_URL, AUTH_TOKEN_KEY } from "~/utils/constants";
 import { validate } from "~/utils/validate";
 import { validateCreateMusic } from "~/validators/music-validators";
-import { getAllArtists } from "./actorApi";
+import { getAllArtists } from "./artistApi";
 
 export async function getAllMusics() {
   try {

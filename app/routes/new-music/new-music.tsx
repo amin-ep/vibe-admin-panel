@@ -1,5 +1,5 @@
 import React, { useActionState, useEffect, useState } from "react";
-import { getAllArtists } from "~/api/actorApi";
+import { getAllArtists } from "~/api/artistApi";
 import FormControl from "~/components/FormControl";
 import PageHeading from "~/components/PageHeading";
 import type { Route } from "./+types/new-music";

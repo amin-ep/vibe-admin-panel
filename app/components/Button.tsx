@@ -20,7 +20,7 @@ function Button({
 }: Props) {
   const classes: { [k: Variation | string]: string } = {
     primary: "bg-blue-500 text-white before:bg-blue-800",
-    secondary: "bg-orange-500 text-white before:bg-orange-600",
+    secondary: "bg-rose-500 text-white before:bg-rose-700",
   };
   return (
     <button

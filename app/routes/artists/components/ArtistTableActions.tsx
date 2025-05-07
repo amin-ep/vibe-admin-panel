@@ -1,13 +1,23 @@
 import clsx from "clsx";
-import React, { useReducer, useTransition } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+  useTransition,
+} from "react";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
 import ApiRequests from "~/api";
 import { toast } from "react-toastify";
 import { useRevalidator } from "react-router";
 import MessageModal from "~/components/MessageModal";
+import { useArtist } from "~/contexts/ArtistContext";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import styles from "./ArtistTableActions.module.css";
+import IconLinkButton from "~/components/IconLinkButton/IconLinkButton";
 
-type Props = { name: string; id: string };
+type Props = { name: string; id: string; imageUrl?: string };
 
 interface IState {
   modalIsOpen: boolean;
@@ -32,12 +42,16 @@ const reducer = (state: IState, action: Actions) => {
   }
 };
 
-function ArtistTableActions({ name, id }: Props) {
+function ArtistTableActions({ name, id, imageUrl }: Props) {
+  const [currentArtistIsUpdating, setCurrentArtistIsUpdating] = useState(false);
   const [isDeleting, startTransition] = useTransition();
   const [{ message, modalIsOpen }, dispatch] = useReducer(
     reducer,
     initialState,
   );
+
+  const { isUpdating, startUpdating, endUpdating, artistData } = useArtist();
+
   const revalidator = useRevalidator();
 
   const handleOpenMessageModal = (artistName: string) => {
@@ -57,21 +71,48 @@ function ArtistTableActions({ name, id }: Props) {
       });
     });
   };
+
+  const handleStartUpdating = () => {
+    if (!isUpdating || !currentArtistIsUpdating) {
+      startUpdating({ id, name, imageUrl });
+    } else {
+      endUpdating();
+    }
+  };
+
+  useEffect(() => {
+    setCurrentArtistIsUpdating(isUpdating && id === artistData?.id);
+  }, [isUpdating, id, artistData]);
+
+  const buttonExtraClasses = "hover:scale-[1.1] transition active:scale-[0.95]";
+
   return (
     <>
-      <span className="flex flex-row gap-1">
-        <ActionButton
+      <span className="flex flex-row gap-2">
+        <IconLinkButton
           onClick={() => handleOpenMessageModal(name)}
-          className="bg-rose-600 text-white hover:bg-rose-800"
+          theme="secondary"
+          variation="button"
+          className={buttonExtraClasses}
         >
           <DeleteRoundedIcon />
-        </ActionButton>
-        <ActionButton
-          onClick={() => console.log("edit")}
-          className="bg-blue-500 text-white hover:bg-blue-800"
+        </IconLinkButton>
+
+        <IconLinkButton
+          theme="primary"
+          onClick={handleStartUpdating}
+          variation="button"
+          className={clsx(
+            buttonExtraClasses,
+            currentArtistIsUpdating && styles.shake,
+          )}
         >
-          <CreateRoundedIcon />
-        </ActionButton>
+          {currentArtistIsUpdating ? (
+            <CloseRoundedIcon />
+          ) : (
+            <CreateRoundedIcon />
+          )}
+        </IconLinkButton>
       </span>
       {modalIsOpen && (
         <MessageModal
@@ -85,28 +126,6 @@ function ArtistTableActions({ name, id }: Props) {
         />
       )}
     </>
-  );
-}
-
-function ActionButton({
-  children,
-  className,
-  onClick,
-}: {
-  children: React.ReactNode;
-  className: string;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      className={clsx(
-        "aspect-square w-10 rounded-lg transition hover:scale-[1.1] active:scale-[0.95]",
-        className,
-      )}
-      onClick={onClick}
-    >
-      {children}
-    </button>
   );
 }
 

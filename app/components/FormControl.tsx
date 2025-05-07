@@ -12,6 +12,7 @@ type Props = {
   id: string;
   placeholder: string;
   error?: string;
+  defaultValue?: string;
 };
 
 export default function FormControl({
@@ -21,6 +22,7 @@ export default function FormControl({
   type,
   placeholder,
   error,
+  defaultValue,
 }: Props) {
   const [passwordIsHidden, setPasswordIsHidden] = useState(true);
 
@@ -45,6 +47,7 @@ export default function FormControl({
           min: 1900,
           max: currentYear,
         })}
+        defaultValue={defaultValue}
       />
 
       {error && <p className="text-xs text-red-500">*{error}</p>}

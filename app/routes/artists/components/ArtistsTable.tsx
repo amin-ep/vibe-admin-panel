@@ -12,7 +12,7 @@ function ArtistsTable({ artists }: Props) {
       <Table>
         <ArtistTableHead />
         <TableBody>
-          {artists.map((artist) => (
+          {artists?.map((artist) => (
             <TableRow key={artist._id}>
               <TableCell
                 sx={{
@@ -41,7 +41,11 @@ function ArtistsTable({ artists }: Props) {
                   borderBottom: "none",
                 }}
               >
-                <ArtistTableActions name={artist.name} id={artist._id} />
+                <ArtistTableActions
+                  name={artist.name}
+                  id={artist._id}
+                  imageUrl={artist.imageUrl}
+                />
               </TableCell>
             </TableRow>
           ))}

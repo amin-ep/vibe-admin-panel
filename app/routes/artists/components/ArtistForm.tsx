@@ -1,18 +1,26 @@
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { useRevalidator } from "react-router";
 import { toast } from "react-toastify";
-import { createArtist } from "~/api/actorApi";
+import { createUpdateArtist } from "~/api/artistApi";
 import Button from "~/components/Button";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import FormControl from "~/components/FormControl";
+import { useArtist } from "~/contexts/ArtistContext";
+import { FILE_BASE_URL } from "~/utils/constants";
 
 type Props = {};
 
-function AddArtistForm({}: Props) {
-  const [result, formAction, isPending] =
+function ArtistForm({}: Props) {
+  const { isUpdating, artistData, endUpdating } = useArtist();
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [result, formAction, isPending] = useActionState<CreateDataState>(
     // @ts-ignore
-    useActionState<CreateDataState>(createArtist, null);
+    createUpdateArtist,
+    null,
+  );
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
@@ -26,22 +34,35 @@ function AddArtistForm({}: Props) {
 
   useEffect(() => {
     if (result?.status === "success") {
-      toast.success("The new artist added successfully");
+      if (!isUpdating) {
+        toast.success("The new artist added successfully");
+        setSelectedImage(null);
+      } else {
+        toast.success("Artist data updated successfully");
+        endUpdating();
+      }
       revalidator.revalidate();
-      setSelectedImage(null);
+    } else {
+      toast.error(result?.message);
     }
   }, [result]);
 
   return (
     <div>
       <form action={formAction}>
+        <input type="hidden" name="isUpdating" value={String(isUpdating)} />
+        <input type="hidden" name="artistId" value={artistData?.id} />
         <div className="flex flex-col gap-1.5">
           <div className="flex items-center justify-center">
             <div className="relative aspect-square w-23 rounded-full border border-neutral-300 bg-neutral-100 sm:w-27 md:w-32 dark:border-neutral-700 dark:bg-neutral-800">
-              {selectedImage ? (
+              {selectedImage || artistData?.imageUrl ? (
                 <img
-                  src={URL.createObjectURL(selectedImage)}
-                  alt={selectedImage.name}
+                  src={
+                    artistData?.imageUrl
+                      ? `${FILE_BASE_URL}/${artistData.imageUrl}`
+                      : URL.createObjectURL(selectedImage!)
+                  }
+                  alt={selectedImage?.name || ""}
                   className="aspect-square w-full rounded-full object-cover"
                 />
               ) : (
@@ -55,6 +76,7 @@ function AddArtistForm({}: Props) {
                 id="add-artist-image"
                 className="absolute inset-0 aspect-square rounded-full opacity-0"
                 onChange={imageUrlInputChange}
+                ref={fileInputRef}
               />
               {selectedImage && (
                 <button
@@ -74,12 +96,18 @@ function AddArtistForm({}: Props) {
               placeholder="Name"
               type="text"
               error={result?.errors?.name}
+              defaultValue={artistData?.name}
             />
             <Button
               type="submit"
               className="flex h-8.5 items-center justify-center md:h-11.5"
             >
-              Create Artist
+              {/* Submit Form */}
+              {isPending
+                ? isUpdating
+                  ? "Updating..."
+                  : "Creating..."
+                : "Submit Form"}
             </Button>
           </div>
         </div>
@@ -88,4 +116,4 @@ function AddArtistForm({}: Props) {
   );
 }
 
-export default AddArtistForm;
+export default ArtistForm;

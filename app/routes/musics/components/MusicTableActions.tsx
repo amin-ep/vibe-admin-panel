@@ -1,6 +1,6 @@
 import { TableCell } from "@mui/material";
 import clsx from "clsx";
-import IconButton from "~/components/IconButton";
+import IconButton from "~/components/IconLinkButton/IconLinkButton";
 
 import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";

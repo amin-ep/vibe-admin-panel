@@ -8,4 +8,7 @@ interface IArtist {
 
 type CreateArtistPayload = {
   name: string;
+  imageUrl?: string | File;
 };
+
+type UpdateArtistPayload = Partial<CreateArtistPayload>;

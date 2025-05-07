@@ -47,3 +47,10 @@ type CreateDataState = {
   errors?: { [k: string]: string };
   message?: string;
 } | null;
+
+interface IUpdateDataResponse<T> {
+  status: string;
+  data: {
+    document: T;
+  };
+}

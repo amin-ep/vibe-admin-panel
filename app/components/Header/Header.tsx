@@ -10,7 +10,7 @@ import BedtimeRoundedIcon from "@mui/icons-material/BedtimeRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
-import IconButton from "../IconButton";
+import IconButton from "../IconLinkButton/IconLinkButton";
 import ThemeDropdown from "./ThemeDropdown";
 
 type Props = { openSidebar: () => void };
