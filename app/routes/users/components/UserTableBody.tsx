@@ -1,4 +1,5 @@
 import { TableBody, TableCell, TableRow } from "@mui/material";
+import moment from "moment";
 import { FILE_BASE_URL } from "~/utils/constants";
 
 type Props = { data: IUser[] };
@@ -7,7 +8,7 @@ function UserTableBody({ data }: Props) {
   return (
     <TableBody>
       {data?.map((item) => (
-        <TableRow>
+        <TableRow key={item._id}>
           <TableCell className="table-cell-classes">
             <span>
               {item.imageUrl ? (
@@ -25,7 +26,9 @@ function UserTableBody({ data }: Props) {
           </TableCell>
           <TableCell className="table-cell-classes">{item.email}</TableCell>
           <TableCell className="table-cell-classes">{item.username}</TableCell>
-          <TableCell className="table-cell-classes">{item.role}</TableCell>
+          <TableCell className="table-cell-classes capitalize">
+            {item.role}
+          </TableCell>
           <TableCell className="table-cell-classes">
             {item.firstName ?? "-"}
           </TableCell>
@@ -33,7 +36,7 @@ function UserTableBody({ data }: Props) {
             {item.lastName ?? "-"}
           </TableCell>
           <TableCell className="table-cell-classes">
-            {item.createdAt.toString()}
+            {moment(item.createdAt).fromNow()}
           </TableCell>
           <TableCell className="table-cell-classes">
             {" "}

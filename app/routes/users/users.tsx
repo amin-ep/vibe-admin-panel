@@ -11,11 +11,7 @@ export function meta() {
 export async function clientLoader() {
   const api = new ApiRequests();
   const userData = await api.getAllData<IUser>("user");
-  console.log(userData);
   return userData?.data;
-  //   if (userData?.status === "success") {
-  //     return userData.data;
-  //   }
 }
 
 function Users({ loaderData }: Route.ComponentProps) {
