@@ -122,7 +122,7 @@ function SelectBox({
               </span>
             </div>
             {/* Items wrapper */}
-            <div className="flex max-h-42.5 flex-col rounded-lg border border-neutral-300 bg-white md:max-h-45 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200">
+            <div className="flex max-h-42.5 flex-col overflow-auto rounded-lg border border-neutral-300 bg-white md:max-h-45 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200">
               {searchedItems.map((item, index) => (
                 <button
                   className={clsx(

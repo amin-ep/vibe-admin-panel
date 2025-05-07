@@ -29,7 +29,7 @@ function CategoriesController() {
           "flex flex-row flex-wrap items-center justify-start gap-2",
         )}
       >
-        {categoriesArr.map((category, index) => (
+        {categoriesArr.sort().map((category, index) => (
           <button
             className={clsx(
               "relative rounded-full border border-neutral-300 bg-transparent p-1.5 text-xs text-neutral-900 md:p-2 md:text-sm",
@@ -41,8 +41,9 @@ function CategoriesController() {
             type="button"
             {...(selectedCategories.includes(category.title) && {
               style: {
-                borderColor: category.colorCode,
-                backgroundColor: category.colorCode,
+                borderColor: category.bgColorCode,
+                backgroundColor: category.bgColorCode,
+                color: category.textColorCode,
               },
             })}
           >
