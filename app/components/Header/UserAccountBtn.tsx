@@ -1,9 +1,6 @@
-import { useMediaQuery } from "@mui/material";
 import clsx from "clsx";
 import { useState } from "react";
-import { Link } from "react-router";
 import { useAuth } from "~/contexts/AuthContext";
-import { useOutsideClick } from "~/hooks/useOutsideClick";
 import { FILE_BASE_URL } from "~/utils/constants";
 import DropdownMenu from "../DropdownMenu";
 import MessageModal from "../MessageModal";

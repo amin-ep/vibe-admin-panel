@@ -19,17 +19,14 @@ function MusicTableActions({ classes, musicId, musicName }: Props) {
   return (
     <>
       <TableCell className={clsx(classes)}>
-        <div className="flex justify-center">
+        <div className="flex items-center gap-1.5">
           {/* edit link */}
-          <IconButton
-            onClick={() => {
-              console.log("edit");
-            }}
-          >
-            <CreateRoundedIcon />
-          </IconButton>
-          <IconButton onClick={handleOpenModal}>
+          <IconButton onClick={handleOpenModal} theme="secondary">
             <DeleteRoundedIcon />
+          </IconButton>
+          {/* Delete Button */}
+          <IconButton variation="link" theme="primary">
+            <CreateRoundedIcon />
           </IconButton>
         </div>
       </TableCell>

@@ -1,10 +1,5 @@
-import {
-  Table as MuiTable,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@mui/material";
-import { useReducer } from "react";
+import { Table, TableBody, TableCell, TableRow } from "@mui/material";
+import React, { useReducer } from "react";
 import { FILE_BASE_URL } from "~/utils/constants";
 import MusicTablePlayer from "./MusicTablePlayer";
 
@@ -17,12 +12,12 @@ type Props = { data: IMusic[] };
 const columns: ITableColumn[] = [
   { id: "c1", label: "Song", minWidth: 300 },
   { id: "c2", label: "Genre", minWidth: 105 },
-  { id: "c3", label: "Categories", minWidth: 270 },
+  { id: "c3", label: "Categories", minWidth: 250 },
   { id: "c4", label: "Likes", minWidth: 70 },
   { id: "c5", label: "Release Year", minWidth: 120 },
   { id: "c6", label: "Artist", minWidth: 120 },
   { id: "c7", label: "FT By", minWidth: 120 },
-  { id: "c8", label: "Actions", minWidth: 80 },
+  { id: "c8", label: "Actions", minWidth: 150 },
 ];
 
 interface IState {
@@ -60,7 +55,7 @@ function MusicTable({ data }: Props) {
 
   return (
     <div className="overflow-x-auto">
-      <MuiTable>
+      <Table>
         <TableHead columns={columns} />
         {/* Table Body */}
         <TableBody>
@@ -124,7 +119,11 @@ function MusicTable({ data }: Props) {
               >
                 {music.otherArtists.length === 0
                   ? "-"
-                  : music.otherArtists.map((artist) => <>{artist.name}</>)}
+                  : music.otherArtists.map((artist) => (
+                      <React.Fragment key={artist._id}>
+                        {artist.name}
+                      </React.Fragment>
+                    ))}
               </TableCell>
               {/* Actions (delete button & edit link) */}
               <MusicTableActions
@@ -135,7 +134,7 @@ function MusicTable({ data }: Props) {
             </TableRow>
           ))}
         </TableBody>
-      </MuiTable>
+      </Table>
     </div>
   );
 }

@@ -5,6 +5,8 @@ import Nav from "./Nav";
 import styles from "./Sidebar.module.css";
 
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { useEffect } from "react";
+import { useNavigation } from "react-router";
 
 type Props = {
   isOpen: boolean;
@@ -13,6 +15,7 @@ type Props = {
 
 function Sidebar({ isOpen, setIsOpen }: Props) {
   const isDesktopView = useMediaQuery("(min-width:768px)");
+  const navigation = useNavigation();
 
   const closeSidebar = () => setIsOpen(false);
 
@@ -24,9 +27,23 @@ function Sidebar({ isOpen, setIsOpen }: Props) {
 
   const onMouseLeave = () => {
     if (isDesktopView) {
-      setIsOpen(false);
+      closeSidebar();
     }
   };
+
+  useEffect(() => {
+    if (!isDesktopView) {
+      if (navigation.state === "loading") {
+        closeSidebar();
+      }
+
+      if (isOpen) {
+        document.body.style.overflowY = "hidden";
+      } else {
+        document.body.style.overflowY = "auto";
+      }
+    }
+  }, [navigation, isOpen, isDesktopView]);
 
   return (
     <>
@@ -49,7 +66,7 @@ function Sidebar({ isOpen, setIsOpen }: Props) {
         onMouseOut={onMouseLeave}
       >
         <div className="relative flex items-center justify-center md:hidden">
-          <img src="/logo.png" alt="vibe" className="w-30" />
+          <img src="/logo.png" alt="vibe" />
           <button
             className="absolute top-0 right-0 text-neutral-800 dark:text-white"
             onClick={() => setIsOpen(false)}
