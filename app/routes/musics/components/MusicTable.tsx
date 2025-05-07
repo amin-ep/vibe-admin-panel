@@ -4,8 +4,8 @@ import { FILE_BASE_URL } from "~/utils/constants";
 import MusicTablePlayer from "./MusicTablePlayer";
 
 import clsx from "clsx";
-import MusicTableActions from "./MusicTableActions";
 import TableHead from "~/components/TableHead";
+import MusicTableActions from "./MusicTableActions";
 
 type Props = { data: IMusic[] };
 
@@ -141,7 +141,11 @@ function MusicTable({ data }: Props) {
 
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-full bg-neutral-200 p-1 px-2 dark:bg-neutral-800 dark:text-neutral-400">
+    <span
+      className={clsx(
+        "rounded-lg bg-neutral-200 p-1 px-2 dark:bg-neutral-800 dark:text-neutral-400",
+      )}
+    >
       {children}
     </span>
   );

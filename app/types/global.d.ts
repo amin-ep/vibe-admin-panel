@@ -54,3 +54,9 @@ interface IUpdateDataResponse<T> {
     document: T;
   };
 }
+
+type CategoryObject = {
+  title: string;
+  bgColorCode: string;
+  textColorCode: string;
+};

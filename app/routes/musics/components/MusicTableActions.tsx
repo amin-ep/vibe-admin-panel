@@ -21,7 +21,7 @@ function MusicTableActions({ classes, musicId, musicName }: Props) {
       <TableCell className={clsx(classes)}>
         <div className="flex items-center gap-1.5">
           {/* edit link */}
-          <IconButton onClick={handleOpenModal} theme="secondary">
+          <IconButton onClick={handleOpenModal} theme="transparent">
             <DeleteRoundedIcon />
           </IconButton>
           {/* Delete Button */}

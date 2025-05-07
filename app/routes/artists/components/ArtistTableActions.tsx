@@ -91,7 +91,7 @@ function ArtistTableActions({ name, id, imageUrl }: Props) {
       <span className="flex flex-row gap-2">
         <IconLinkButton
           onClick={() => handleOpenMessageModal(name)}
-          theme="secondary"
+          theme="transparent"
           variation="button"
           className={buttonExtraClasses}
         >

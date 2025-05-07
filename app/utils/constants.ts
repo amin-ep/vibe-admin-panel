@@ -76,11 +76,7 @@ export const genresArr: Genre[] = [
   { title: "Afrobeat", imageUrl: "/icons/music-afrobeat-icon.svg" },
   { title: "Indie", imageUrl: "/icons/music-indie-icon.svg" },
 ];
-export const categoriesArr: {
-  title: string;
-  bgColorCode: string;
-  textColorCode: string;
-}[] = [
+export const categoriesArr: CategoryObject[] = [
   { title: "Chill", bgColorCode: "#AEDFF7", textColorCode: "#000000" },
   { title: "Energetic", bgColorCode: "#FF8C42", textColorCode: "#000000" },
   { title: "Workout", bgColorCode: "#FF5733", textColorCode: "#FFFFFF" },

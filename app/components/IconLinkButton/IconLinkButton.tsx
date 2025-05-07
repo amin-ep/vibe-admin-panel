@@ -7,7 +7,7 @@ type Props = {
   onClick?: () => void;
   className?: string;
   variation?: "button" | "link";
-  theme?: "primary" | "secondary" | "transparent";
+  theme?: "primary" | "transparent";
   to?: string;
 };
 
@@ -21,15 +21,13 @@ function IconLinkButton({
 }: Props) {
   const themeStyles: { [k: string]: string } = {
     transparent:
-      "text-neutral-700 bg-transparent ring-white hover:bg-neutral-100 hover:text-blue-600 focus:ring-blue-500 dark:text-neutral-300 dark:ring-neutral-900 hover:dark:bg-neutral-800",
+      "text-neutral-700 bg-transparent ring-white hover:bg-neutral-100 hover:text-blue-500 focus:ring-blue-500 dark:text-neutral-300 dark:ring-neutral-900 hover:dark:bg-neutral-800",
     primary:
-      "text-white ring-blue-600 ring-blue-600 hover:bg-blue-800 focus:ring-blue-800 bg-blue-600 hover:ring-blue-800",
-    secondary:
-      "text-white ring-rose-600 hover:bg-rose-800 focus:ring-rose-800 bg-rose-600 hover:ring-rose-800",
+      "text-white ring-blue-500 ring-white dark:ring-neutral-900 hover:bg-blue-800 focus:ring-blue-800 bg-blue-500",
   };
 
   const classes = clsx(
-    "rounded-full p-2 ring-2",
+    "rounded-lg p-2 ring-2",
     className,
     themeStyles[theme as string],
   );
