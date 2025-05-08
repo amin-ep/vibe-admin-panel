@@ -7,6 +7,7 @@ import clsx from "clsx";
 
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import TrashButton from "./TrashButton";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 export interface ISelectItem {
   imageUrl: string;
@@ -50,6 +51,11 @@ function SelectBox({
     }
   }, [items, searchTerm]);
 
+  const handleRemoveValue = (val: string) => {
+    const valuesArr = value as string[];
+    setValue(valuesArr.filter((v) => v !== val));
+  };
+
   const handleClickItem = (val: string) => {
     if (selectMethod === "single") {
       setValue(val);
@@ -58,7 +64,7 @@ function SelectBox({
       const valuesArr = value as string[];
       if (valuesArr) {
         if (valuesArr.includes(val)) {
-          setValue(valuesArr.filter((v) => v !== val));
+          handleRemoveValue(val);
         } else {
           setValue([...(valuesArr as string[]), val]);
         }
@@ -86,11 +92,22 @@ function SelectBox({
           className="flex w-full items-center justify-between rounded-lg border border-neutral-300 p-2 text-xs text-neutral-900 md:p-3 md:text-sm dark:border-neutral-700 dark:text-neutral-200 dark:ring-neutral-900"
           onClick={() => setMenuIsOpen(true)}
         >
-          <span className="overflow-hidden whitespace-nowrap">
+          <span className="flex flex-row gap-1 overflow-hidden whitespace-nowrap">
             {value.length === 0
               ? placeholder
               : selectMethod === "multiple"
-                ? (value as string[]).join(", ")
+                ? (value as string[]).map((val) => (
+                    <span className="flex flex-row items-center justify-between gap-1 rounded-md bg-blue-100 px-1 py-0.5">
+                      <span>{val}</span>
+                      <button
+                        onClick={() => handleRemoveValue(val)}
+                        type="button"
+                        className="text-neutral-900"
+                      >
+                        <CloseRoundedIcon fontSize="small" />
+                      </button>
+                    </span>
+                  ))
                 : value}
           </span>
           <img
@@ -106,7 +123,7 @@ function SelectBox({
         {menuIsOpen && (
           <div
             ref={ref as React.RefObject<HTMLDivElement | null>}
-            className="absolute top-10 flex w-full flex-col gap-1.5 bg-white md:top-14 md:gap-2.5 dark:bg-neutral-900"
+            className="absolute top-10 z-1 flex w-full flex-col gap-1.5 bg-white md:top-14 md:gap-2.5 dark:bg-neutral-900"
           >
             {/* Search input */}
             <div className="relative">
