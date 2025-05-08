@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import { AuthProvider } from "./AuthContext";
+import { useMediaQuery } from "@mui/material";
 
 type ArtistData = { id: string; name: string; imageUrl?: string };
 
@@ -48,8 +49,14 @@ export function ArtistProvider({ children }: { children: React.ReactNode }) {
     initialState,
   );
 
+  const isMdWindow = useMediaQuery("(min-width:768px)");
+
   const startUpdating = (artist: ArtistData) => {
     dispatch({ type: "startUpdating", payload: artist });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const endUpdating = () => {
