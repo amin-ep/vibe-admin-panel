@@ -12,6 +12,7 @@ export default [
     route("new-music", "routes/new-music/new-music.tsx"),
     route("artists", "routes/artists/artists.tsx"),
     route("users", "routes/users/users.tsx"),
+    route("albums", "routes/albums/albums.tsx"),
   ]),
   route("login", "routes/login/login.tsx"),
 ] satisfies RouteConfig;
