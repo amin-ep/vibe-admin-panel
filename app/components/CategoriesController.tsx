@@ -32,8 +32,8 @@ function CategoriesController() {
         {categoriesArr.sort().map((category, index) => (
           <button
             className={clsx(
-              "relative rounded-full border border-neutral-300 bg-transparent p-1.5 text-xs text-neutral-900 md:p-2 md:text-sm",
-              "before:absolute before:inset-0 before:-z-1 before:w-full before:scale-0 before:content-around before:rounded-full before:bg-neutral-200 before:transition before:duration-300 hover:before:scale-[1]",
+              "relative rounded-lg border border-neutral-300 bg-transparent p-0.5 text-xs text-neutral-900 md:p-1 md:text-sm",
+              "before:absolute before:inset-0 before:-z-1 before:w-full before:scale-0 before:content-around before:rounded-lg before:bg-neutral-200 before:transition before:duration-300 hover:before:scale-[1]",
               "dark:border-neutral-800 dark:text-neutral-500 dark:before:bg-neutral-800",
             )}
             key={index}
