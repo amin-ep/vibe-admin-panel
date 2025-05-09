@@ -7,7 +7,6 @@ private type AlbumArtist = {
 interface IAlbum {
     _id:string;
     name:string;
-    artist: string;
     releaseYear: number;
     artist: AlbumArtist
     musics: IMusic[];
