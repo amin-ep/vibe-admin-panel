@@ -30,46 +30,42 @@ export async function createMusic(
 ) {
   let errors: { [k: string]: string } = {};
 
-  const formDataObj: {
-    [k: string]: string | FormDataEntryValue | number | string[];
-  } = Object.fromEntries(formData); // this constant is just for validation
+  const payload: Payload = Object.fromEntries(formData); // this constant is just for validation
 
   const formDataKeys: string[] = Object.keys(Object.fromEntries(formData));
 
   // if any field is empty send error
   for (const value of formDataKeys) {
-    if (String(formDataObj[value]).length === 0 && value !== "otherArtists") {
+    if (String(payload[value]).length === 0 && value !== "otherArtists") {
       errors[value] = `${value} required!`;
       return { status: "error", errors: errors };
     }
     // if otherArtists field is empty send error
-    if (value === "otherArtists" && String(formDataObj[value]).length === 0) {
-      delete formDataObj.otherArtists;
+    if (value === "otherArtists" && String(payload[value]).length === 0) {
+      delete payload.otherArtists;
       formData.delete(value);
     }
   }
 
-  formDataObj.releaseYear = Number(formDataObj.releaseYear);
-  formDataObj.categories = String(formDataObj.categories).split(",");
+  payload.releaseYear = Number(payload.releaseYear);
+  payload.categories = String(payload.categories).split(",");
   // set categories in formData
   formData.delete("categories");
-  for (let i = 0; formDataObj.categories.length > i; i++) {
-    formData.append(`categories[${i}]`, formDataObj.categories[i]);
+  for (let i = 0; payload.categories.length > i; i++) {
+    formData.append(`categories[${i}]`, payload.categories[i]);
   }
 
   // set otherArtists in formData if exists
-  if (formDataObj.otherArtists) {
-    if ((formDataObj.otherArtists as string).search(",") < 0) {
-      formDataObj.otherArtists = [formDataObj.otherArtists as string];
+  if (payload.otherArtists) {
+    if ((payload.otherArtists as string).search(",") < 0) {
+      payload.otherArtists = [payload.otherArtists as string];
     } else {
-      formDataObj.otherArtists = (formDataObj.otherArtists as string).split(
-        ",",
-      );
+      payload.otherArtists = (payload.otherArtists as string).split(",");
     }
   }
 
   // validate input data with zod
-  const validationErrors = await validate(validateCreateMusic, formDataObj);
+  const validationErrors = await validate(validateCreateMusic, payload);
   if (validationErrors) {
     return { status: "error", errors: validationErrors };
   }
@@ -80,14 +76,14 @@ export async function createMusic(
     // setting id of artist and otherArtists
     if (getArtistsResponse?.status === "success") {
       const selectedArtistId = getArtistsResponse?.data?.find(
-        (el) => el.name == formDataObj.artist,
+        (el) => el.name == payload.artist,
       )?._id;
       formData.delete("artist");
       formData.append("artist", selectedArtistId as string);
-      if (formDataObj.otherArtists) {
+      if (payload.otherArtists) {
         let otherArtistsIdArr: string[] = [];
         getArtistsResponse.data?.forEach((el) => {
-          if ((formDataObj.otherArtists as string[]).includes(el.name)) {
+          if ((payload.otherArtists as string[]).includes(el.name)) {
             otherArtistsIdArr = [...otherArtistsIdArr, el._id];
           }
         });
@@ -118,6 +114,7 @@ export async function createMusic(
   } catch (err) {
     const error = err as AxiosError<IApiError>;
     if (error) {
+      console.log(error);
       return {
         status: error?.response?.data.status || "fail",
         message:

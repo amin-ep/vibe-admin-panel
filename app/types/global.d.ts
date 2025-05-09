@@ -41,10 +41,11 @@ interface ICreateDataResponse<T> {
     document: T[];
   };
 }
+type RequestError = { [k: string]: string };
 
 type CreateDataState = {
   status: string;
-  errors?: { [k: string]: string };
+  errors?: RequestError;
   message?: string;
 } | null;
 
@@ -60,3 +61,5 @@ type CategoryObject = {
   bgColorCode: string;
   textColorCode: string;
 };
+
+type Payload = { [k: string]: string | FormDataEntryValue | number | string[] };

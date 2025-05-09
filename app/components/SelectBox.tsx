@@ -8,6 +8,7 @@ import clsx from "clsx";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import TrashButton from "./TrashButton";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import FormErrorText from "./FormErrorText";
 
 export interface ISelectItem {
   imageUrl: string;
@@ -21,6 +22,8 @@ type Props = {
   searchPlaceholder: string;
   selectMethod?: "single" | "multiple";
   inputName: string;
+  wrapperClassName?: string;
+  errorMessage?: string;
 };
 
 function SelectBox({
@@ -30,6 +33,8 @@ function SelectBox({
   searchPlaceholder,
   selectMethod = "single",
   inputName,
+  errorMessage,
+  wrapperClassName,
 }: Props) {
   const valueInitialState = () => {
     return selectMethod === "multiple" ? [] : "";
@@ -79,7 +84,9 @@ function SelectBox({
   };
 
   return (
-    <div className="z-4 flex flex-col gap-1.5 md:gap-2">
+    <div
+      className={clsx("z-4 flex flex-col gap-1.5 md:gap-2", wrapperClassName)}
+    >
       <input type="hidden" name={inputName} value={value as string} />
       <div className="flex items-center justify-between">
         {label && <FormLabel label={label} />}
@@ -97,15 +104,17 @@ function SelectBox({
               ? placeholder
               : selectMethod === "multiple"
                 ? (value as string[]).map((val) => (
-                    <span className="flex flex-row items-center justify-between gap-1 rounded-md bg-blue-100 px-1 py-0.5">
+                    <span
+                      key={val}
+                      className="flex flex-row items-center justify-between gap-1 rounded-md bg-blue-100 px-1 py-0.5 dark:bg-blue-950"
+                    >
                       <span>{val}</span>
-                      <button
+                      <span
                         onClick={() => handleRemoveValue(val)}
-                        type="button"
-                        className="text-neutral-900"
+                        className="text-neutral-900 dark:text-neutral-100"
                       >
                         <CloseRoundedIcon fontSize="small" />
-                      </button>
+                      </span>
                     </span>
                   ))
                 : value}
@@ -154,7 +163,7 @@ function SelectBox({
                   <div className="flex items-center justify-start gap-2 p-2">
                     {item.imageUrl && (
                       <img
-                        className="aspect-square w-4.5"
+                        className="aspect-square w-4.5 rounded-sm md:w-6.5"
                         src={item.imageUrl}
                         alt={item.title + " icon"}
                       />
@@ -174,6 +183,7 @@ function SelectBox({
           </div>
         )}
       </div>
+      {errorMessage && <FormErrorText>{errorMessage}</FormErrorText>}
     </div>
   );
 }

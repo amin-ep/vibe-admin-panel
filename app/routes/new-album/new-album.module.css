@@ -1,0 +1,65 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+
+  grid-template-areas: "name name coverImage" "releaseYear releaseYear coverImage" "artist artist artist" "musics musics musics" "otherArtists otherArtists otherArtists" "categories categories categories";
+}
+
+.name-controller {
+  grid-area: name;
+}
+
+.artist-controller {
+  grid-area: artist;
+}
+
+.release-year-controller {
+  grid-area: releaseYear;
+}
+
+.other-artists-controller {
+  grid-area: otherArtists;
+}
+
+.music-controller {
+  grid-area: musics;
+}
+
+.categories-controller {
+  grid-area: categories;
+}
+
+.cover-image-controller {
+  grid-area: coverImage;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 425px) {
+  .grid-container {
+    gap: 8px;
+  }
+}
+
+@media (min-width: 640px) {
+  .grid-container {
+    gap: 12px;
+    grid-template-areas: "name name coverImage" "releaseYear releaseYear coverImage" "artist artist coverImage" "musics musics musics" "otherArtists otherArtists otherArtists" "categories categories categories";
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    gap: 16px;
+    grid-template-columns: repeat(6, 1fr);
+
+    grid-template-areas: "name name name name coverImage coverImage" "releaseYear releaseYear releaseYear releaseYear coverImage coverImage" "artist artist artist artist coverImage coverImage" "otherArtists otherArtists otherArtists musics musics musics" "categories categories categories categories categories categories";
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-container {
+    grid-template-areas: "name name name name name coverImage" "releaseYear releaseYear releaseYear musics musics coverImage" "artist artist artist otherArtists otherArtists coverImage" "categories categories categories categories categories categories";
+  }
+}

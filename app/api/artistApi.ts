@@ -52,7 +52,6 @@ export async function createUpdateArtist(
     | undefined;
 
   const api = new ApiRequests();
-  console.log(prevState);
   // return;
   const isUpdating = formData.get("isUpdating");
   const artistId = formData.get("artistId")?.toString();

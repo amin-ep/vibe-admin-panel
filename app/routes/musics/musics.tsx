@@ -19,7 +19,9 @@ export async function loader({}: Route.LoaderArgs) {
 export default function Musics({ loaderData }: Route.ComponentProps) {
   return (
     <div>
-      <PageHeading title="Musics" />
+      <PageHeading
+        title={`Musics (${(loaderData as IMusic[]).length ?? "0"})`}
+      />
       {(loaderData as IMusic[]) && <MusicTable data={loaderData as IMusic[]} />}
     </div>
   );

@@ -6,8 +6,6 @@
   gap: 6px;
   align-items: start;
 
-  row-gap: 6px;
-
   grid-auto-rows: min-content;
 }
 

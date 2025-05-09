@@ -1,4 +1,5 @@
 import z from "zod";
+import { categoriesArr } from "~/utils/constants";
 
 export const stringSchema = (fieldName: string, min: number, max: number) =>
   z
@@ -21,3 +22,15 @@ export const email = z
   .email({
     message: "Please provide a valid email address",
   });
+
+export const releaseYear = z.coerce
+  .number({
+    required_error: "Music release year is required",
+    invalid_type_error: "Release year should be a number value",
+  })
+  .min(1900)
+  .max(new Date().getFullYear() as number);
+
+export const categoriesEnum: string[] = categoriesArr.map((el) => el.title);
+//@ts-ignore
+export const categories = z.array(z.enum(categoriesEnum));

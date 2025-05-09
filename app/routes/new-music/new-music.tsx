@@ -55,7 +55,7 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
         toast.error(result.message);
       }
     }
-  }, [revalidator, result]);
+  }, [result]);
 
   const onAudioUrlInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -103,7 +103,7 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
                 className={clsx(
                   "relative flex items-center justify-center gap-1.5 rounded-md text-xs text-neutral-500 md:text-sm dark:border-neutral-700 dark:bg-neutral-900",
                   !selectedAudio &&
-                    "border border-neutral-300 bg-neutral-100 py-1 md:py-3",
+                    "border border-neutral-300 bg-neutral-100 py-1 md:py-2.5",
                 )}
               >
                 {!selectedAudio ? (
@@ -130,8 +130,8 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
                 <FormErrorText>{result?.errors?.audioFileUrl}</FormErrorText>
               )}
             </div>
-            {/* COVER IMAGE */}
 
+            {/* COVER IMAGE */}
             <ImageInput
               errorMessage={result?.errors?.coverImageUrl}
               name="coverImageUrl"
@@ -143,41 +143,28 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
             />
 
             {/* ARTIST */}
-            <div
-              className={clsx(
-                styles["artist-controller"],
-                "flex flex-col gap-1.5 md:gap-2",
-              )}
-            >
-              <SelectBox
-                inputName="artist"
-                placeholder="Artist"
-                label="Artist"
-                items={artistsArr}
-                searchPlaceholder="Search artist..."
-              />
-              {result?.errors?.artist && (
-                <FormErrorText>{result?.errors?.artist}</FormErrorText>
-              )}
-            </div>
-            {/* OTHER ARTISTS */}
-            <div
-              className={clsx(
-                styles["other-artists-controller"],
-                "flex flex-col gap-1.5 md:gap-2",
-              )}
-            >
-              <SelectBox
-                items={artistsArr}
-                inputName="otherArtists"
-                selectMethod="multiple"
-                label="Other Artists"
-                placeholder="Other Artists"
-                searchPlaceholder="Search artists..."
-              />
-            </div>
-            {/* RELEASE YEAR */}
+            <SelectBox
+              inputName="artist"
+              placeholder="Artist"
+              label="Artist"
+              items={artistsArr}
+              wrapperClassName={styles["artist-controller"]}
+              searchPlaceholder="Search artist..."
+              errorMessage={result?.errors?.artist}
+            />
 
+            {/* OTHER ARTISTS */}
+            <SelectBox
+              items={artistsArr}
+              inputName="otherArtists"
+              selectMethod="multiple"
+              label="Other Artists"
+              placeholder="Other Artists"
+              searchPlaceholder="Search artists..."
+              wrapperClassName={styles["other-artists-controller"]}
+            />
+
+            {/* RELEASE YEAR */}
             <FormControl
               id="add-music-release-year"
               label="Release Year"
@@ -189,35 +176,21 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
             />
 
             {/* GENRE */}
-            <div
-              className={clsx(
-                styles["genre-controller"],
-                "flex flex-col gap-1.5 md:gap-2",
-              )}
-            >
-              <SelectBox
-                items={genresArr}
-                placeholder="Choose a Genre"
-                label="Genre"
-                searchPlaceholder="Search genre..."
-                inputName="genre"
-              />
-              {result?.errors?.genre && (
-                <FormErrorText>{result?.errors.genre}</FormErrorText>
-              )}
-            </div>
+            <SelectBox
+              items={genresArr}
+              placeholder="Choose a Genre"
+              label="Genre"
+              searchPlaceholder="Search genre..."
+              inputName="genre"
+              wrapperClassName={styles["genre-controller"]}
+              errorMessage={result?.errors?.genre}
+            />
+
             {/* CATEGORIES */}
-            <div
-              className={clsx(
-                styles["categories-controller"],
-                "flex flex-col gap-1.5 md:gap-2",
-              )}
-            >
-              <CategoriesController />
-              {result?.errors?.categories && (
-                <FormErrorText>{result?.errors?.categories}</FormErrorText>
-              )}
-            </div>
+            <CategoriesController
+              errorMessage={result?.errors?.categories}
+              wrapperClassName={styles["categories-controller"]}
+            />
           </div>
           <Button type="submit" className="my-10 w-38">
             {isPending ? "Creating..." : "Create"}

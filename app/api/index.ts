@@ -6,6 +6,7 @@ import { API_BASE_URL, AUTH_TOKEN_KEY } from "~/utils/constants";
 class ApiRequests {
   private handleError(err: unknown) {
     const error = err as AxiosError<IApiError>;
+    console.log(error);
     if (error) {
       return {
         status: error?.response?.data.status || "error",

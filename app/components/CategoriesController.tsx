@@ -4,8 +4,11 @@ import { categoriesArr } from "~/utils/constants";
 import { useState } from "react";
 
 import TrashButton from "./TrashButton";
+import FormErrorText from "./FormErrorText";
 
-function CategoriesController() {
+type Props = { wrapperClassName?: string; errorMessage?: string };
+
+function CategoriesController({ wrapperClassName, errorMessage }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const handleButtonClick = (title: string) => {
@@ -18,7 +21,7 @@ function CategoriesController() {
   };
 
   return (
-    <div className={clsx("flex flex-col gap-1.5 md:gap-2")}>
+    <div className={clsx("flex flex-col gap-1.5 md:gap-2", wrapperClassName)}>
       <input type="hidden" name="categories" value={selectedCategories} />
       <div className="flex items-center justify-between">
         <FormLabel label="Categories" />
@@ -51,6 +54,7 @@ function CategoriesController() {
           </button>
         ))}
       </div>
+      {errorMessage && <FormErrorText>{errorMessage}</FormErrorText>}
     </div>
   );
 }

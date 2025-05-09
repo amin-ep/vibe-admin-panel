@@ -2,16 +2,17 @@ import { ZodError, type ZodTypeAny } from "zod";
 
 export async function validate<T>(
   validator: ZodTypeAny,
-  payload: T | { [k: string]: string }
+  payload: T | { [k: string]: string },
 ) {
   try {
-    validator.parse(payload);
+    await validator.parse(payload);
   } catch (err) {
     if (err instanceof ZodError) {
       let errorObj: { [k: string]: string } = {};
-      const errorObjKey = err.errors[0].path[0];
-      const errorObjMsg = err.errors[0].message;
-      errorObj[errorObjKey] = errorObjMsg;
+      for (const error of err.errors) {
+        const key = error.path[0]?.toString() ?? "unknown";
+        errorObj[key] = error.message;
+      }
       return errorObj;
     }
   }

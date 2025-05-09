@@ -1,4 +1,18 @@
 .image-icon {
-  width: 70px !important;
-  height: 70px !important;
+  width: 35px !important;
+  height: 35px !important;
+}
+
+@media (min-width: 640px) {
+  .image-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
+
+@media (min-width: 1280) {
+  .image-icon {
+    width: 80px !important;
+    height: 80px !important;
+  }
 }
