@@ -1,8 +1,6 @@
-import clsx from "clsx";
 import { useState } from "react";
 import { Link } from "react-router";
 import { useTheme } from "~/hooks/useTheme";
-import DropdownMenu from "../DropdownMenu";
 import UserAccountBtn from "./UserAccountBtn";
 
 // icons
@@ -26,7 +24,7 @@ export default function Header({ openSidebar }: Props) {
           <MenuRoundedIcon />
         </IconButton>
         <Link to="/">
-          <img src="logo-horizontal.png" alt="logo" className="w-20" />
+          <img src="/logo-horizontal.png" alt="logo" className="w-20" />
         </Link>
       </div>
       <div className="flex items-center">

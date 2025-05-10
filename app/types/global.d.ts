@@ -8,7 +8,9 @@ interface IApiError extends IStatus {
 
 type GetDataResponse<T> = {
   status: string;
-  data?: T[];
+  data?: {
+    document: T;
+  };
   message?: undefined;
 };
 

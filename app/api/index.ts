@@ -42,7 +42,37 @@ class ApiRequests {
     }
   }
 
-  async getDataById<T>(route: string, id: string) {}
+  async getDataById<T>(
+    route: string,
+    id: string,
+    token?: string,
+    authorization?: boolean,
+  ) {
+    try {
+      let authToken: string;
+
+      if (!token) {
+        authToken = this.getToken() as string;
+      } else {
+        authToken = token;
+      }
+
+      const res: AxiosResponse<GetDataResponse<T>, IApiError> = await axios.get(
+        `${API_BASE_URL}/${route}/${id}`,
+        {
+          headers: authorization
+            ? {
+                Authorization: `Bearer ${authToken}`,
+              }
+            : undefined,
+        },
+      );
+      if (res.data.status === "success")
+        return { status: "success", data: res.data.data };
+    } catch (err) {
+      this.handleError(err);
+    }
+  }
 
   async createData<T>(route: string, data: FormData) {
     try {

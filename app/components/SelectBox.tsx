@@ -1,14 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
-import FormLabel from "./FormLabel";
+import { useMemo, useState } from "react";
 import { useOutsideClick } from "~/hooks/useOutsideClick";
+import FormLabel from "./FormLabel";
 
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import clsx from "clsx";
 
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import TrashButton from "./TrashButton";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import FormErrorText from "./FormErrorText";
+import TrashButton from "./TrashButton";
 
 export interface ISelectItem {
   imageUrl: string;
@@ -119,11 +120,10 @@ function SelectBox({
                   ))
                 : value}
           </span>
-          <img
-            src="/icons/arrow-down.svg"
-            alt="arrow-down"
+
+          <KeyboardArrowDownRoundedIcon
             className={clsx(
-              "w-4 transition md:w-4.5",
+              "w-4 !transition md:w-4.5",
               menuIsOpen ? "rotate-180" : "",
             )}
           />

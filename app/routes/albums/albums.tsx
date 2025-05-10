@@ -14,7 +14,6 @@ export async function loader() {
 }
 
 function Albums({ loaderData }: Route.ComponentProps) {
-  console.log(loaderData);
   return (
     <div>
       <PageHeading title="Albums" />

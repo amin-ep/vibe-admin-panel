@@ -77,8 +77,6 @@ export async function createAlbum(
       }
 
       // validate input data
-      console.log(Object.fromEntries(formData));
-      console.log(payload);
       const validationErrors = await validate(createAlbumValidator, payload);
 
       // return errors if there is any validation error

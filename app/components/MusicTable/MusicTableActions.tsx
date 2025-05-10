@@ -5,8 +5,8 @@ import IconButton from "~/components/IconLinkButton/IconLinkButton";
 import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { useState } from "react";
-import MessageModal from "~/components/MessageModal";
 import { toast } from "react-toastify";
+import MessageModal from "~/components/MessageModal";
 
 type Props = { classes: string; musicName: string; musicId: string };
 
@@ -16,16 +16,26 @@ function MusicTableActions({ classes, musicId, musicName }: Props) {
   const handleCloseModal = () => setDeleteWarningIsOpen(false);
 
   const handleOpenModal = () => setDeleteWarningIsOpen(true);
+
+  const btnClasses = "border border-neutral-200 dark:border-neutral-800";
   return (
     <>
       <TableCell className={clsx(classes)}>
         <div className="flex items-center gap-1.5">
           {/* edit link */}
-          <IconButton onClick={handleOpenModal} theme="transparent">
+          <IconButton
+            onClick={handleOpenModal}
+            theme="transparent"
+            className={btnClasses}
+          >
             <DeleteRoundedIcon />
           </IconButton>
           {/* Delete Button */}
-          <IconButton variation="link" theme="primary">
+          <IconButton
+            variation="link"
+            theme="transparent"
+            className={btnClasses}
+          >
             <CreateRoundedIcon />
           </IconButton>
         </div>

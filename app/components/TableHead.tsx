@@ -6,19 +6,13 @@ function TableHead({ columns }: Props) {
   return (
     <MUITableHead>
       <TableRow>
-        {columns.map((col, i) => (
+        {columns.map((col) => (
           <TableCell
             key={col.id}
-            sx={{
-              minWidth: col.minWidth,
-              borderBottom: "none",
-              background: "var(--color-blue-500)",
-              border: "none",
-              borderRight: "none",
-              margin: 0,
-            }}
+            sx={{ minWidth: col.minWidth, borderBottom: "none" }}
+            className="!bg-white !text-neutral-800 dark:!bg-neutral-900 dark:!text-neutral-400"
           >
-            <span className="text-white">{col.label}</span>
+            {col.label}
           </TableCell>
         ))}
       </TableRow>

@@ -1,7 +1,7 @@
 import { getAllMusics } from "~/api/musicApi";
 import PageHeading from "~/components/PageHeading";
 import type { Route } from "./+types/musics";
-import MusicTable from "./components/MusicTable";
+import MusicTable from "~/components/MusicTable/MusicTable";
 
 export function meta({}: Route.MetaArgs) {
   return [

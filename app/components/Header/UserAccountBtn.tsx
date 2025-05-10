@@ -4,6 +4,7 @@ import { useAuth } from "~/contexts/AuthContext";
 import { FILE_BASE_URL } from "~/utils/constants";
 import DropdownMenu from "../DropdownMenu";
 import MessageModal from "../MessageModal";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 export default function UserAccountBtn() {
   const [messageModalIsOpen, setMessageModalIsOpen] = useState(false);
@@ -34,18 +35,16 @@ export default function UserAccountBtn() {
             {userdata?.firstName.at(0) ?? userdata?.username.at(0)}
           </span>
         )}
-        <span
+        <KeyboardArrowDownRoundedIcon
           className={clsx(
-            "transition",
-            optionsIsOpen ? "rotate-180" : "rotate-0",
+            "w-4 text-neutral-900 !transition md:w-4.5 dark:text-white",
+            optionsIsOpen ? "rotate-180" : "",
           )}
-        >
-          <img src="/icons/arrow-down.svg" alt="arrow-down" className="w-3.5" />
-        </span>
+        />
       </button>
       {optionsIsOpen && (
         <DropdownMenu
-          className="top-15 right-3 after:right-9.5 md:top-17 md:after:right-12.5"
+          className="top-16 right-5.5 after:right-9.5 md:top-18 md:after:right-12"
           close={() => setOptionsIsOpen(false)}
         >
           <DropdownMenu.Row className="border-b border-neutral-300 dark:border-neutral-700">

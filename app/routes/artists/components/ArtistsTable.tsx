@@ -19,7 +19,6 @@ function ArtistsTable({ artists }: Props) {
     isLastPage,
     page,
     nextPage,
-    totalPages,
     prevPage,
   } = usePaginate<IArtist>(artists, 6);
 

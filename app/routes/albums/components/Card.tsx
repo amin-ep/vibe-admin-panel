@@ -23,7 +23,7 @@ function Card({ album }: Props) {
         </p>
 
         <Link
-          to={`/albums/${album._id}`}
+          to={`/album/${album._id}`}
           className="mt-2 rounded-lg bg-blue-500 px-3 py-2 text-xs text-white sm:text-sm"
         >
           See Album
