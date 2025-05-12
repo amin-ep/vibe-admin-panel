@@ -45,10 +45,13 @@ interface ICreateDataResponse<T> {
 }
 type RequestError = { [k: string]: string };
 
+type FormValues = { [k: string]: FormDataEntryValue | string };
+
 type CreateDataState = {
   status: string;
   errors?: RequestError;
   message?: string;
+  values?: FormValues;
 } | null;
 
 interface IUpdateDataResponse<T> {
@@ -65,3 +68,15 @@ type CategoryObject = {
 };
 
 type Payload = { [k: string]: string | FormDataEntryValue | number | string[] };
+
+type SuccessResponseObject<T> = {
+  status: string;
+  data: T;
+};
+
+type ErrorResponseObject = {
+  status: string;
+  message: string;
+};
+
+type ResponseObject = ErrorResponseObject | SuccessResponseObject | undefined;

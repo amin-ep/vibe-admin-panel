@@ -44,12 +44,7 @@ export async function createUpdateArtist(
     return { status: "error", errors: validationError };
   }
 
-  let response:
-    | {
-        status: string;
-        data: IArtist[] | IArtist;
-      }
-    | undefined;
+  let response: ResponseObject;
 
   const api = new ApiRequests();
   // return;

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useOutsideClick } from "~/hooks/useOutsideClick";
-import FormLabel from "./FormLabel";
+import FormLabel from "../FormLabel";
 
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import clsx from "clsx";
@@ -8,8 +8,8 @@ import clsx from "clsx";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import FormErrorText from "./FormErrorText";
-import TrashButton from "./TrashButton";
+import FormErrorText from "../FormErrorText";
+import TrashButton from "../TrashButton";
 
 export interface ISelectItem {
   imageUrl: string;
@@ -25,6 +25,7 @@ type Props = {
   inputName: string;
   wrapperClassName?: string;
   errorMessage?: string;
+  defaultValue?: string | string[];
 };
 
 function SelectBox({
@@ -36,11 +37,14 @@ function SelectBox({
   inputName,
   errorMessage,
   wrapperClassName,
+  defaultValue,
 }: Props) {
-  const valueInitialState = () => {
-    return selectMethod === "multiple" ? [] : "";
+  const selectValueInitialState = () => {
+    return defaultValue || (selectMethod === "multiple" ? [] : "");
   };
-  const [value, setValue] = useState<string | string[]>(valueInitialState);
+  const [selectValue, setSelectValue] = useState<string | string[]>(
+    selectValueInitialState,
+  );
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -58,24 +62,24 @@ function SelectBox({
   }, [items, searchTerm]);
 
   const handleRemoveValue = (val: string) => {
-    const valuesArr = value as string[];
-    setValue(valuesArr.filter((v) => v !== val));
+    const selectValuesArr = selectValue as string[];
+    setSelectValue(selectValuesArr.filter((v) => v !== val));
   };
 
   const handleClickItem = (val: string) => {
     if (selectMethod === "single") {
-      setValue(val);
+      setSelectValue(val);
       setMenuIsOpen(false);
     } else {
-      const valuesArr = value as string[];
-      if (valuesArr) {
-        if (valuesArr.includes(val)) {
+      const selectValuesArr = selectValue as string[];
+      if (selectValuesArr) {
+        if (selectValuesArr.includes(val)) {
           handleRemoveValue(val);
         } else {
-          setValue([...(valuesArr as string[]), val]);
+          setSelectValue([...(selectValuesArr as string[]), val]);
         }
       } else {
-        setValue([val]);
+        setSelectValue([val]);
       }
     }
   };
@@ -84,14 +88,19 @@ function SelectBox({
     setSearchTerm(e.target.value);
   };
 
+  function handleReset() {
+    if (selectMethod === "single") setSelectValue("");
+    else setSelectValue([]);
+  }
+
   return (
     <div
       className={clsx("z-4 flex flex-col gap-1.5 md:gap-2", wrapperClassName)}
     >
-      <input type="hidden" name={inputName} value={value as string} />
+      <input type="hidden" name={inputName} value={selectValue as string} />
       <div className="flex items-center justify-between">
         {label && <FormLabel label={label} />}
-        <TrashButton onClick={() => setValue(valueInitialState)} />
+        <TrashButton onClick={handleReset} />
       </div>
       <div className="relative bg-white dark:bg-neutral-900">
         {/* Select Button */}
@@ -101,10 +110,10 @@ function SelectBox({
           onClick={() => setMenuIsOpen(true)}
         >
           <span className="flex flex-row gap-1 overflow-hidden whitespace-nowrap">
-            {value.length === 0
+            {selectValue.length === 0
               ? placeholder
               : selectMethod === "multiple"
-                ? (value as string[]).map((val) => (
+                ? (selectValue as string[]).map((val) => (
                     <span
                       key={val}
                       className="flex flex-row items-center justify-between gap-1 rounded-md bg-blue-100 px-1 py-0.5 dark:bg-blue-950"
@@ -118,7 +127,7 @@ function SelectBox({
                       </span>
                     </span>
                   ))
-                : value}
+                : selectValue}
           </span>
 
           <KeyboardArrowDownRoundedIcon
@@ -170,9 +179,9 @@ function SelectBox({
                     )}
                     <span>{item.title}</span>
                   </div>
-                  {value &&
-                    ((value as string) === item.title ||
-                      (value as string[]).includes(item.title)) && (
+                  {selectValue &&
+                    ((selectValue as string) === item.title ||
+                      (selectValue as string[]).includes(item.title)) && (
                       <span className="px-3 text-blue-500 dark:text-blue-400">
                         <CheckRoundedIcon fontSize="small" />
                       </span>

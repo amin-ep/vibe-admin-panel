@@ -6,10 +6,20 @@ import { useState } from "react";
 import TrashButton from "./TrashButton";
 import FormErrorText from "./FormErrorText";
 
-type Props = { wrapperClassName?: string; errorMessage?: string };
+type Props = {
+  wrapperClassName?: string;
+  errorMessage?: string;
+  defaultValue?: string[];
+};
 
-function CategoriesController({ wrapperClassName, errorMessage }: Props) {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+function CategoriesController({
+  wrapperClassName,
+  errorMessage,
+  defaultValue,
+}: Props) {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    defaultValue ?? [],
+  );
 
   const handleButtonClick = (title: string) => {
     const categoryIsAdded = selectedCategories.includes(title);

@@ -4,7 +4,9 @@ import { categories, releaseYear, stringSchema } from ".";
 
 const name = stringSchema("name", 2, 35);
 
-const artist = z.string();
+const artist = z.string().nonempty({
+  message: "Please chose an artist",
+});
 const otherArtists = z.array(z.string(), {
   invalid_type_error: "Other artists field should be an array of string",
 });
@@ -23,4 +25,13 @@ const validateCreateMusic = z.object({
   genre,
 });
 
-export { validateCreateMusic };
+const validateEditMusic = z.object({
+  name: name.optional(),
+  artist: artist.optional(),
+  otherArtists: otherArtists.optional(),
+  releaseYear: releaseYear.optional(),
+  categories: categories.optional(),
+  genre: genre.optional(),
+});
+
+export { validateCreateMusic, validateEditMusic };

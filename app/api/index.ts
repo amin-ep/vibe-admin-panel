@@ -38,7 +38,7 @@ class ApiRequests {
       if (res.data.status === "success")
         return { status: "success", data: res.data.data.docs };
     } catch (err) {
-      this.handleError(err);
+      return this.handleError(err);
     }
   }
 
@@ -70,7 +70,7 @@ class ApiRequests {
       if (res.data.status === "success")
         return { status: "success", data: res.data.data };
     } catch (err) {
-      this.handleError(err);
+      return this.handleError(err);
     }
   }
 
@@ -92,15 +92,19 @@ class ApiRequests {
         return { status: "success", data: res.data.data.document };
       }
     } catch (err) {
-      this.handleError(err);
+      return this.handleError(err);
     }
   }
 
-  async updateDataById<T, S>(route: string, id: string, data: FormData | T) {
+  async updateDataById<T, S = unknown>(
+    route: string,
+    id: string,
+    data: FormData | S,
+  ) {
     try {
       const token = Cookies.get(AUTH_TOKEN_KEY);
 
-      const res: AxiosResponse<IUpdateDataResponse<S>> = await axios.patch(
+      const res: AxiosResponse<IUpdateDataResponse<T>> = await axios.patch(
         `${API_BASE_URL}/${route}/${id}`,
         data,
         {
@@ -111,9 +115,12 @@ class ApiRequests {
         },
       );
 
-      if (res.status === 200)
+      if (res.status === 200) {
         return { status: "success", data: res.data.data.document };
-    } catch (err) {}
+      }
+    } catch (err) {
+      return this.handleError(err);
+    }
   }
 
   async deleteDataById(route: string, id: string) {
@@ -125,16 +132,11 @@ class ApiRequests {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
-    } catch (err) {
-      const error = err as AxiosError<IApiError>;
-      if (error) {
-        return {
-          status: error?.response?.data.status || "error",
-          message:
-            error?.response?.data.message || "something went wrong from server",
-        };
+      if (res.status === 204) {
+        return { status: "success", message: "Data deleted successfully!" };
       }
+    } catch (err) {
+      return this.handleError(err);
     }
   }
 }

@@ -34,6 +34,30 @@ button:disabled {
   .table-cell-classes {
     @apply border-b !text-neutral-900 dark:!border-b-neutral-800 dark:!text-neutral-100;
   }
+
+  .custom-scroll::-webkit-scrollbar {
+    @apply w-2.5;
+  }
+
+  .custom-scroll::-webkit-scrollbar-track {
+    @apply rounded-md bg-neutral-100 dark:bg-neutral-800;
+  }
+
+  .custom-scroll::-webkit-scrollbar-thumb {
+    @apply rounded-sm bg-neutral-300 dark:bg-neutral-700;
+  }
+
+  .custom-scroll-dark::-webkit-scrollbar {
+    @apply w-2.5;
+  }
+
+  .custom-scroll-dark::-webkit-scrollbar-track {
+    @apply rounded-md bg-neutral-100 dark:bg-neutral-800;
+  }
+
+  .custom-scroll-dark::-webkit-scrollbar-thumb {
+    @apply rounded-sm bg-neutral-300 dark:bg-neutral-700;
+  }
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

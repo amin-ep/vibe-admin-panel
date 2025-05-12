@@ -15,6 +15,7 @@ type Props = {
   defaultValue?: string;
   controllerClassName?: string;
   inputClassName?: string;
+  value?: string | FormDataEntryValue;
 };
 
 export default function FormControl({
@@ -27,6 +28,7 @@ export default function FormControl({
   defaultValue,
   controllerClassName,
   inputClassName,
+  value,
 }: Props) {
   const [passwordIsHidden, setPasswordIsHidden] = useState(true);
 
@@ -57,7 +59,8 @@ export default function FormControl({
           min: 1900,
           max: currentYear,
         })}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue as string}
+        value={value as string}
       />
 
       {error && <p className="text-xs text-red-500">*{error}</p>}

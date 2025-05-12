@@ -15,6 +15,7 @@ export default [
     route("albums", "routes/albums/albums.tsx"),
     route("new-album", "routes/new-album/new-album.tsx"),
     route("album/:albumId", "routes/album/album.tsx"),
+    route("edit-music/:musicId", "routes/edit-music/edit-music.tsx"),
   ]),
   route("login", "routes/login/login.tsx"),
 ] satisfies RouteConfig;

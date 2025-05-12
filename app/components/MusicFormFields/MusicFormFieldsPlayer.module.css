@@ -1,0 +1,13 @@
+@reference "tailwindcss";
+
+.track {
+  @apply text-neutral-500;
+}
+
+.rail {
+  @apply text-neutral-700;
+}
+
+.thumb {
+  @apply text-neutral-500;
+}

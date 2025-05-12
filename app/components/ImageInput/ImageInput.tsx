@@ -6,12 +6,14 @@ import FormErrorText from "../FormErrorText";
 import FormLabel from "../FormLabel";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import styles from "./ImageInput.module.css";
+import { FILE_BASE_URL } from "~/utils/constants";
 
 type Props = {
   name: string;
   errorMessage?: string;
   rounded?: "md" | "full" | "lg" | "sm";
   wrapperClassName?: string;
+  defaultImage?: string;
 };
 
 function ImageInput({
@@ -19,10 +21,17 @@ function ImageInput({
   errorMessage,
   rounded = "md",
   wrapperClassName,
+  defaultImage,
 }: Props) {
-  const [selectedCoverImage, setSelectedCoverImage] = useState<File | null>(
-    null,
-  );
+  const initializeImageState = () => {
+    if (defaultImage) {
+      return `${FILE_BASE_URL}/${defaultImage}`;
+    } else return null;
+  };
+
+  const [selectedCoverImage, setSelectedCoverImage] = useState<
+    File | null | string
+  >(initializeImageState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -34,6 +43,7 @@ function ImageInput({
       setSelectedCoverImage(e.target.files[0]);
     }
   };
+
   return (
     <div
       className={clsx(
@@ -65,7 +75,11 @@ function ImageInput({
           </div>
         ) : (
           <img
-            src={URL.createObjectURL(selectedCoverImage)}
+            src={
+              typeof selectedCoverImage === "string"
+                ? selectedCoverImage
+                : URL.createObjectURL(selectedCoverImage as File)
+            }
             className={clsx("h-full w-full object-cover", `rounded-${rounded}`)}
           />
         )}
@@ -75,7 +89,7 @@ function ImageInput({
           name={name}
           className="absolute inset-0 w-full opacity-0"
           onChange={onChange}
-          accept="image/jpeg"
+          accept="image/*"
         />
       </div>
       {errorMessage && <FormErrorText>{errorMessage}</FormErrorText>}

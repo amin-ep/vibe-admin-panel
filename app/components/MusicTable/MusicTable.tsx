@@ -5,7 +5,7 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { FILE_BASE_URL } from "~/utils/constants";
 import MusicTablePlayer from "./MusicTablePlayer";
 
@@ -33,7 +33,8 @@ interface IState {
 
 export type PlayingAction =
   | { type: "play"; payload: string }
-  | { type: "pause" };
+  | { type: "pause" }
+  | { type: "toggle" };
 
 const initialState: IState = {
   isPlaying: false,
@@ -48,20 +49,20 @@ const reducer = (state: IState, action: PlayingAction) => {
     case "pause":
       return { ...state, isPlaying: false };
 
+    case "toggle":
+      return { ...state, isPlaying: !state.isPlaying };
+
     default:
       throw new Error("Unknown action type!");
   }
 };
 
 function MusicTable({ data }: Props) {
-  const [{ isPlaying, currentSongId }, dispatch] = useReducer(
-    reducer,
-    initialState,
-  );
+  const [currentSongId, setCurrentSongId] = useState<string>("");
 
   return (
     <div className="overflow-x-auto">
-      <TableContainer sx={{ maxHeight: 480 }}>
+      <TableContainer sx={{ maxHeight: 480 }} className="custom-scroll">
         <Table stickyHeader>
           <TableHead columns={columns} />
           {/* Table Body */}
@@ -82,11 +83,10 @@ function MusicTable({ data }: Props) {
                         {music.name}
                       </span>
                       <MusicTablePlayer
-                        isPlaying={isPlaying}
-                        currentSongId={currentSongId}
                         audioSrc={music.audioFileUrl}
                         musicId={music._id}
-                        dispatch={dispatch}
+                        currentSongId={currentSongId}
+                        setCurrentSongId={setCurrentSongId}
                       />
                     </div>
                   </div>
@@ -128,15 +128,16 @@ function MusicTable({ data }: Props) {
                 <TableCell
                   className={clsx(
                     "table-cell-classes",
-                    "text-center !text-xs italic",
+                    "flex justify-start gap-1 text-center !text-xs italic",
                   )}
                 >
                   {music.otherArtists.length === 0
                     ? "-"
-                    : music.otherArtists.map((artist) => (
-                        <React.Fragment key={artist._id}>
-                          {artist.name}
-                        </React.Fragment>
+                    : music.otherArtists.map((artist, idx) => (
+                        <span key={artist._id}>
+                          {artist.name}{" "}
+                          {idx !== music.otherArtists.length - 1 && " & "}
+                        </span>
                       ))}
                 </TableCell>
                 {/* Actions (delete button & edit link) */}

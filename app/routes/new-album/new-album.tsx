@@ -4,7 +4,7 @@ import CategoriesController from "~/components/CategoriesController";
 import FormControl from "~/components/FormControl";
 import ImageInput from "~/components/ImageInput/ImageInput";
 import PageHeading from "~/components/PageHeading";
-import SelectBox from "~/components/SelectBox";
+import SelectBox from "~/components/SelectBox/SelectBox";
 import { useSelectBoxArray } from "~/hooks/useSelectBoxArray";
 import type { Route } from "./+types/new-album";
 import styles from "./new-album.module.css";
