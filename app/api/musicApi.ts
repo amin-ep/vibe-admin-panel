@@ -9,6 +9,11 @@ import {
 import { getAllArtists } from "./artistApi";
 import type { z } from "zod";
 import ApiRequests from ".";
+import {
+  appendArtist,
+  appendCategories,
+  appendOtherArtists,
+} from "~/utils/helpers";
 
 export async function getAllMusics() {
   try {
@@ -26,37 +31,6 @@ export async function getAllMusics() {
           error?.response?.data.message || "something went wrong from server",
       };
     }
-  }
-}
-
-function appendCategories(formData: FormData, payloadCategories: string[]) {
-  formData.delete("categories");
-  for (let i = 0; payloadCategories.length > i; i++) {
-    formData.append(`categories[${i}]`, payloadCategories[i]);
-  }
-}
-
-function appendArtist(artists: IArtist[], formData: FormData) {
-  const selectedArtistId = artists.find(
-    (artist) => artist.name == Object.fromEntries(formData).artist,
-  );
-  formData.delete("artist");
-  formData.append("artist", selectedArtistId?._id as string);
-}
-
-function appendOtherArtists(formData: FormData, artists: IArtist[]) {
-  const payload: Payload = Object.fromEntries(formData);
-  if (payload.otherArtists) {
-    let otherArtistsIdArr: string[] = [];
-    artists.forEach((el) => {
-      if ((payload.otherArtists as string[]).includes(el.name)) {
-        otherArtistsIdArr = [...otherArtistsIdArr, el._id];
-      }
-    });
-    formData.delete("otherArtists");
-    otherArtistsIdArr.forEach((artistId, index) => {
-      formData.append(`otherArtists[${index}]`, artistId);
-    });
   }
 }
 

@@ -35,11 +35,8 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
         toast.success(result.message);
         navigate("/musics");
       }
-      if (
-        (result.status === "error" || result.status === "fail") &&
-        result.message
-      ) {
-        toast.error(result.message);
+      if (result.status === "error" || result.status === "fail") {
+        toast.error(result.message || "Something went wrong!");
       }
     }
   }, [result]);

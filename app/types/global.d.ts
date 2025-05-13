@@ -69,7 +69,7 @@ type CategoryObject = {
   textColorCode: string;
 };
 
-type Payload = { [k: string]: string | FormDataEntryValue | number | string[] };
+type Payload = FormValues;
 
 type SuccessResponseObject<T> = {
   status: string;

@@ -43,11 +43,8 @@ function EditMusic({ loaderData }: Route.ComponentProps) {
         toast.success("Music Updated successfully");
         navigate("/musics");
       }
-      if (
-        (result.status === "error" || result.status === "fail") &&
-        result.message
-      ) {
-        toast.error(result.message);
+      if (result.status === "error" || result.status === "fail") {
+        toast.error(result.message || "Something went wrong!");
       }
     }
   }, [result]);

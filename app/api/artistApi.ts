@@ -59,7 +59,6 @@ export async function createUpdateArtist(
       formData,
     );
   }
-  console.log(response);
   if (response) {
     if (response?.status === "success") {
       return { status: "success" };
