@@ -5,7 +5,7 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useState } from "react";
 import { FILE_BASE_URL } from "~/utils/constants";
 import MusicTablePlayer from "./MusicTablePlayer";
 
@@ -25,37 +25,6 @@ const columns: ITableColumn[] = [
   { id: "c7", label: "FT By", minWidth: 120 },
   { id: "c8", label: "Actions", minWidth: 150 },
 ];
-
-interface IState {
-  isPlaying: boolean;
-  currentSongId: string;
-}
-
-export type PlayingAction =
-  | { type: "play"; payload: string }
-  | { type: "pause" }
-  | { type: "toggle" };
-
-const initialState: IState = {
-  isPlaying: false,
-  currentSongId: "",
-};
-
-const reducer = (state: IState, action: PlayingAction) => {
-  switch (action.type) {
-    case "play":
-      return { ...state, isPlaying: true, currentSongId: action.payload };
-
-    case "pause":
-      return { ...state, isPlaying: false };
-
-    case "toggle":
-      return { ...state, isPlaying: !state.isPlaying };
-
-    default:
-      throw new Error("Unknown action type!");
-  }
-};
 
 function MusicTable({ data }: Props) {
   const [currentSongId, setCurrentSongId] = useState<string>("");

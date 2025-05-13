@@ -1,10 +1,9 @@
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import { Slider } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { usePlayer } from "~/hooks/usePlayer";
 import { FILE_BASE_URL } from "~/utils/constants";
-import type { PlayingAction } from "./MusicTable";
 import styles from "./MusicTablePlayer.module.css";
 
 type Props = {

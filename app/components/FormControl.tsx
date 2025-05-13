@@ -59,8 +59,7 @@ export default function FormControl({
           min: 1900,
           max: currentYear,
         })}
-        defaultValue={defaultValue as string}
-        value={value as string}
+        defaultValue={(value as string) || (defaultValue as string)}
       />
 
       {error && <p className="text-xs text-red-500">*{error}</p>}

@@ -45,7 +45,9 @@ interface ICreateDataResponse<T> {
 }
 type RequestError = { [k: string]: string };
 
-type FormValues = { [k: string]: FormDataEntryValue | string };
+type FormValues = {
+  [k: string]: FormDataEntryValue | string | string[] | number;
+};
 
 type CreateDataState = {
   status: string;

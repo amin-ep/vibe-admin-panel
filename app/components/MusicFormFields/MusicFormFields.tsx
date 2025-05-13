@@ -36,7 +36,7 @@ function MusicFormFields({
         error={errors?.name}
         controllerClassName={styles["name-controller"]}
         defaultValue={musicData?.name}
-        value={values?.name}
+        value={values?.name as string}
       />
 
       {/* AUDIO */}
@@ -89,6 +89,7 @@ function MusicFormFields({
         error={errors?.releaseYear}
         controllerClassName={styles["release-year-controller"]}
         defaultValue={musicData?.releaseYear.toString()}
+        value={values?.releaseYear.toString()}
       />
 
       {/* GENRE */}

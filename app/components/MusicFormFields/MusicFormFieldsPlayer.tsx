@@ -38,6 +38,7 @@ function MusicFormFieldsPlayer({ audioSrc }: Props) {
         {!isPlaying ? <PlayArrowRoundedIcon /> : <PauseRoundedIcon />}
       </IconLinkButton>
       <Slider
+        key={progressTime}
         aria-label="Progress Time"
         value={progressTime || 0}
         max={duration || 0}

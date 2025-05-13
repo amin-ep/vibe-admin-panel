@@ -3,7 +3,7 @@ import { createAlbumValidator } from "~/validators/album-validators";
 import ApiRequests from ".";
 
 export async function createAlbum(
-  prevState: CreateDataState | null,
+  _prevState: CreateDataState | null,
   formData: FormData,
 ) {
   let errors: RequestError = {};
@@ -13,9 +13,9 @@ export async function createAlbum(
 
   // get data of musics
   const api = new ApiRequests();
-  const musics = await api.getAllData<IMusic>("music");
+  const musics: ResponseObject = await api.getAllData<IMusic>("music");
 
-  if (musics?.status === "success") {
+  if (musics && musics?.status === "success") {
     const payloadMusics = payload.musics as string;
     // if length payload's musics is 0 return error
     if (payloadMusics.length === 0) {
@@ -28,7 +28,7 @@ export async function createAlbum(
       const musicArray = payloadMusics.split(",");
       const musicsIdsArray = musicArray.map((msc: string) => {
         const musicsId = musics.data.find(
-          (dataMusic) => dataMusic.name === msc,
+          (dataMusic: IMusic) => dataMusic.name === msc,
         )?._id;
         return musicsId;
       });
@@ -42,10 +42,10 @@ export async function createAlbum(
     }
 
     // get artists data
-    const artists = await api.getAllData<IArtist>("artist");
-    if (artists?.status === "success") {
+    const artists: ResponseObject = await api.getAllData<IArtist>("artist");
+    if (artists && artists?.status === "success") {
       const selectedArtistId = artists?.data?.find(
-        (el) => el.name == payload.artist,
+        (el: IArtist) => el.name == payload.artist,
       )?._id;
       formData.delete("artist");
       formData.append("artist", selectedArtistId as string);
@@ -85,7 +85,10 @@ export async function createAlbum(
         return { status: "error", errors };
       }
 
-      const response = await api.createData<IAlbum>("album", formData);
+      const response: ResponseObject = await api.createData<IAlbum>(
+        "album",
+        formData,
+      );
 
       return { status: response?.status, data: response?.data };
     } else {

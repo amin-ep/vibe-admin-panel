@@ -11,8 +11,11 @@ import { useNavigate, useRevalidator } from "react-router";
 export async function loader({ params }: Route.LoaderArgs) {
   const { musicId } = await params;
   const api = new ApiRequests();
-  const musicRes = await api.getDataById<IMusic>("music", musicId);
-  const artistsRes = await api.getAllData<IArtist>("artist");
+  const musicRes: ResponseObject = await api.getDataById<IMusic>(
+    "music",
+    musicId,
+  );
+  const artistsRes: ResponseObject = await api.getAllData<IArtist>("artist");
   return {
     music: musicRes?.data?.document,
     artists: artistsRes?.data,
@@ -49,8 +52,6 @@ function EditMusic({ loaderData }: Route.ComponentProps) {
     }
   }, [result]);
 
-  console.log(result);
-
   return (
     <div>
       <PageHeading title="Edit" />
@@ -62,6 +63,7 @@ function EditMusic({ loaderData }: Route.ComponentProps) {
             artists={artistData as IArtist[]}
             musicData={musicData}
             errors={result?.errors}
+            values={result?.values}
           />
           <Button type="submit" variation="primary" className="my-5 w-30">
             {isPending ? "Editing..." : "Edit"}

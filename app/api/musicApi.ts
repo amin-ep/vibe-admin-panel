@@ -154,7 +154,7 @@ export async function editMusic(
 
   if (artistsData && artistsData.status === "success") {
     const categories = formData.get("categories")?.toString().split(",")!;
-    const inputDataObject = {
+    const inputDataObject: FormValues = {
       name: formData.get("name") || "",
       artist:
         (artistsData as SuccessResponseObject<IArtist[]>).data.find(
@@ -167,7 +167,12 @@ export async function editMusic(
     };
 
     const validationErrors = await validate(validateEditMusic, inputDataObject);
-    if (validationErrors) return { status: "error", errors: validationErrors };
+    if (validationErrors)
+      return {
+        status: "error",
+        errors: validationErrors,
+        values: inputDataObject,
+      };
 
     if ((formData.get("audioFileUrl") as File).name === "") {
       formData.delete("audioFileUrl");
@@ -176,7 +181,7 @@ export async function editMusic(
       formData.delete("coverImageUrl");
     }
 
-    appendCategories(formData, inputDataObject.categories);
+    appendCategories(formData, inputDataObject.categories as string[]);
     appendArtist(artistsData.data, formData);
     appendOtherArtists(formData, artistsData.data);
 
@@ -186,7 +191,11 @@ export async function editMusic(
       formData,
     );
 
-    return { status: res?.status, message: res.message };
+    return {
+      status: res?.status,
+      message: res.message,
+      values: inputDataObject,
+    };
   } else {
     return { status: "error", message: "something went wrong from server" };
   }
