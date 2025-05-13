@@ -10,8 +10,9 @@ export function meta({ params, data }: Route.MetaArgs) {
 export async function loader({ params }: Route.LoaderArgs) {
   const { albumId } = params;
   const api = new ApiRequests();
-  const res = await api.getDataById<IAlbum>("album", albumId);
-  return res?.data?.document;
+  const res: ResponseObject = await api.getDataById<IAlbum>("album", albumId);
+
+  return res?.data as IAlbum;
 }
 
 function Album({ loaderData: data }: Route.ComponentProps) {
