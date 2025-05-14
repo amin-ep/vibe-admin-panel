@@ -19,4 +19,5 @@ export default [
     route("edit-album/:albumId", "routes/edit-album/edit-album.tsx"),
   ]),
   route("login", "routes/login/login.tsx"),
+  route("account", "routes/account/account.tsx"),
 ] satisfies RouteConfig;

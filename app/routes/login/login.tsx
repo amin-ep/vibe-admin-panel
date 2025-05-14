@@ -15,6 +15,7 @@ import {
 import type { Route } from "./+types/login";
 import MovingBallsSection from "./components/MovingBallsSection";
 import styles from "./login.module.css";
+import { useToast } from "~/store/useToast";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Vibe Admin | Login" }];
@@ -65,10 +66,12 @@ export default function Login({}: Route.ComponentProps) {
   const navigate = useNavigate();
   const fetcher = useFetcher<IFetcherResponse>();
 
+  const { success, error } = useToast();
+
   useEffect(() => {
     if (fetcher.data) {
       if (fetcher.data.status === "fail") {
-        toast.error(fetcher.data.message);
+        error(fetcher.data.message || "Something went wrong!");
       }
 
       if (fetcher.data.status === "success") {
@@ -83,7 +86,7 @@ export default function Login({}: Route.ComponentProps) {
             secure: true,
           },
         );
-        toast.success(`Welcome back ${user?.firstName ?? user?.username}`);
+        success(`Welcome back ${user?.firstName ?? user?.username}`);
         navigate("/");
       }
     }

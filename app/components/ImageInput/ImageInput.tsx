@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import TrashButton from "../TrashButton";
+import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import clsx from "clsx";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
+import { useToast } from "~/store/useToast";
+import { FILE_BASE_URL } from "~/utils/constants";
 import FormErrorText from "../FormErrorText";
 import FormLabel from "../FormLabel";
-import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
+import TrashButton from "../TrashButton";
 import styles from "./ImageInput.module.css";
-import { FILE_BASE_URL } from "~/utils/constants";
 
 type Props = {
   name: string;
@@ -33,10 +33,12 @@ function ImageInput({
     File | null | string
   >(initializeImageState);
 
+  const { error } = useToast();
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       if (e.target.files[0].type !== "image/jpeg") {
-        toast.error("Invalid image type");
+        error("Invalid image type");
         return;
       }
 

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { createMusic } from "~/api/musicApi";
 import Button from "~/components/Button";
 import MusicFormFields from "~/components/MusicFormFields/MusicFormFields";
+import { useToast } from "~/store/useToast";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Add Music" }];
@@ -25,6 +26,7 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
     null,
   );
 
+  const { success, error } = useToast();
   const navigate = useNavigate();
   const revalidator = useRevalidator();
 
@@ -32,11 +34,11 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
     if (result) {
       if (result?.status === "success") {
         revalidator.revalidate();
-        toast.success(result.message);
+        success(result.message || "Music added successfully");
         navigate("/musics");
       }
       if (result.status === "error" || result.status === "fail") {
-        toast.error(result.message || "Something went wrong!");
+        error(result.message || "Something went wrong!");
       }
     }
   }, [result]);

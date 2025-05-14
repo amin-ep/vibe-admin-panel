@@ -1,12 +1,12 @@
+import { useActionState, useEffect } from "react";
+import { useNavigate, useRevalidator } from "react-router";
 import ApiRequests from "~/api";
 import { editMusic } from "~/api/musicApi";
 import Button from "~/components/Button";
 import MusicFormFields from "~/components/MusicFormFields/MusicFormFields";
 import PageHeading from "~/components/PageHeading";
+import { useToast } from "~/store/useToast";
 import type { Route } from "./+types/edit-music";
-import { useActionState, useEffect } from "react";
-import { toast } from "react-toastify";
-import { useNavigate, useRevalidator } from "react-router";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { musicId } = await params;
@@ -32,6 +32,7 @@ function EditMusic({ loaderData }: Route.ComponentProps) {
 
   // @ts-ignore
   const [result, formAction, isPending] = useActionState(editMusic, null);
+  const { success, error } = useToast();
 
   const navigate = useNavigate();
   const revalidator = useRevalidator();
@@ -40,11 +41,11 @@ function EditMusic({ loaderData }: Route.ComponentProps) {
     if (result) {
       if (result?.status === "success") {
         revalidator.revalidate();
-        toast.success("Music Updated successfully");
+        success("Music Updated successfully");
         navigate("/musics");
       }
       if (result.status === "error" || result.status === "fail") {
-        toast.error(result.message || "Something went wrong!");
+        error(result.message || "Something went wrong!");
       }
     }
   }, [result]);

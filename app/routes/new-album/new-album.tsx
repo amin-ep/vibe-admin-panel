@@ -7,6 +7,7 @@ import AlbumFormFields from "~/components/AlbumFormFields/AlbumFormFields";
 import Button from "~/components/Button";
 import PageHeading from "~/components/PageHeading";
 import type { Route } from "./+types/new-album";
+import { useToast } from "~/store/useToast";
 
 export function meta() {
   return [{ title: "New Album" }];
@@ -26,6 +27,8 @@ function NewAlbum({ loaderData }: Route.ComponentProps) {
   // @ts-ignore
   const [result, formAction, isPending] = useActionState(createAlbum, null);
 
+  const { success, error } = useToast();
+
   const navigate = useNavigate();
   const revalidator = useRevalidator();
 
@@ -33,11 +36,11 @@ function NewAlbum({ loaderData }: Route.ComponentProps) {
     if (result) {
       if (result?.status === "success") {
         revalidator.revalidate();
-        toast.success(result.message);
+        success(result.message || "Album added successfully");
         navigate("/albums");
       }
       if (result.status === "error" || result.status === "fail") {
-        toast.error(result.message || "Something went wrong!");
+        error(result.message || "Something went wrong!");
       }
     }
   }, [result]);

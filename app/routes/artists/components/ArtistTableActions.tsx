@@ -1,21 +1,15 @@
-import clsx from "clsx";
-import React, {
-  useCallback,
-  useEffect,
-  useReducer,
-  useState,
-  useTransition,
-} from "react";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
-import ApiRequests from "~/api";
-import { toast } from "react-toastify";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import clsx from "clsx";
+import { useEffect, useReducer, useState, useTransition } from "react";
 import { useRevalidator } from "react-router";
+import ApiRequests from "~/api";
+import IconLinkButton from "~/components/IconLinkButton/IconLinkButton";
 import MessageModal from "~/components/MessageModal";
 import { useArtist } from "~/contexts/ArtistContext";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { useToast } from "~/store/useToast";
 import styles from "./ArtistTableActions.module.css";
-import IconLinkButton from "~/components/IconLinkButton/IconLinkButton";
 
 type Props = { name: string; id: string; imageUrl?: string };
 
@@ -51,6 +45,7 @@ function ArtistTableActions({ name, id, imageUrl }: Props) {
   );
 
   const { isUpdating, startUpdating, endUpdating, artistData } = useArtist();
+  const { success } = useToast();
 
   const revalidator = useRevalidator();
 
@@ -65,7 +60,7 @@ function ArtistTableActions({ name, id, imageUrl }: Props) {
     const api = new ApiRequests();
     startTransition(async () => {
       await api.deleteDataById("artist", artistId).then(() => {
-        toast.success("Deleted successfully!");
+        success("Deleted successfully!");
         revalidator.revalidate();
         dispatch({ type: "close" });
       });

@@ -1,12 +1,12 @@
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
-import { useActionState, useEffect, useMemo, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useRevalidator } from "react-router";
-import { toast } from "react-toastify";
 import { createUpdateArtist } from "~/api/artistApi";
 import Button from "~/components/Button";
 import FormControl from "~/components/FormControl";
 import { useArtist } from "~/contexts/ArtistContext";
+import { useToast } from "~/store/useToast";
 import { FILE_BASE_URL } from "~/utils/constants";
 
 type Props = {};
@@ -14,15 +14,15 @@ type Props = {};
 function ArtistForm({}: Props) {
   const { isUpdating, artistData, endUpdating } = useArtist();
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { success, error } = useToast();
 
   const [result, formAction, isPending] = useActionState<CreateDataState>(
     // @ts-ignore
     createUpdateArtist,
     null,
   );
-
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const revalidator = useRevalidator();
 
@@ -35,15 +35,15 @@ function ArtistForm({}: Props) {
   useEffect(() => {
     if (result?.status === "success") {
       if (!isUpdating) {
-        toast.success("The new artist added successfully");
+        success("The new artist added successfully");
         setSelectedImage(null);
       } else {
-        toast.success("Artist data updated successfully");
+        success("Artist data updated successfully");
         endUpdating();
       }
       revalidator.revalidate();
     } else {
-      toast.error(result?.message);
+      error(result?.message || "Something went wrong!");
     }
   }, [result]);
 

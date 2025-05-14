@@ -1,12 +1,12 @@
-import ApiRequests from "~/api";
-import PageHeading from "~/components/PageHeading";
-import type { Route } from "./+types/edit-album";
-import AlbumFormFields from "~/components/AlbumFormFields/AlbumFormFields";
 import { useActionState, useEffect } from "react";
-import { editAlbum } from "~/api/albumApi";
-import Button from "~/components/Button";
 import { useNavigate, useRevalidator } from "react-router";
-import { toast } from "react-toastify";
+import ApiRequests from "~/api";
+import { editAlbum } from "~/api/albumApi";
+import AlbumFormFields from "~/components/AlbumFormFields/AlbumFormFields";
+import Button from "~/components/Button";
+import PageHeading from "~/components/PageHeading";
+import { useToast } from "~/store/useToast";
+import type { Route } from "./+types/edit-album";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { albumId } = params;
@@ -32,6 +32,7 @@ function EditAlbum({ loaderData, params }: Route.ComponentProps) {
   // @ts-ignore
   const [result, formAction, isPending] = useActionState(editAlbum, null);
 
+  const { success, error } = useToast();
   const navigate = useNavigate();
   const revalidator = useRevalidator();
 
@@ -39,11 +40,11 @@ function EditAlbum({ loaderData, params }: Route.ComponentProps) {
     if (result) {
       if (result?.status === "success") {
         revalidator.revalidate();
-        toast.success("Album Updated successfully");
+        success("Album Updated successfully");
         navigate("/albums");
       }
       if (result.status === "error" || result.status === "fail") {
-        toast.error(result.message || "Something went wrong!");
+        error(result.message || "Something went wrong!");
       }
     }
   }, [result]);
