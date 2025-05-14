@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useAuth } from "~/contexts/AuthContext";
 import { THEME_KEY } from "~/utils/constants";
 
@@ -22,30 +22,30 @@ export function useTheme() {
   };
 
   useLayoutEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      typeof document !== "undefined" &&
-      isLoggedIn
-    ) {
+    if (typeof window !== "undefined" && typeof document !== "undefined") {
       const html = document.documentElement;
       const savedTheme = localStorage.getItem(THEME_KEY);
 
-      if (savedTheme) setTheme(savedTheme as Theme);
+      if (isLoggedIn) {
+        if (savedTheme) setTheme(savedTheme as Theme);
 
-      if (theme === "dark") {
-        html.classList.add("dark");
-      } else if (theme === "light") {
-        html.classList.remove("dark");
-      } else if (theme === "system") {
-        const systemThemeIsDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-
-        if (systemThemeIsDark) {
+        if (theme === "dark") {
           html.classList.add("dark");
-        } else {
+        } else if (theme === "light") {
           html.classList.remove("dark");
+        } else if (theme === "system") {
+          const systemThemeIsDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+
+          if (systemThemeIsDark) {
+            html.classList.add("dark");
+          } else {
+            html.classList.remove("dark");
+          }
         }
+      } else {
+        html.classList.remove("dark");
       }
     }
   }, [theme, isLoggedIn]);
