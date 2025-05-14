@@ -6,12 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { ToastContainer } from "react-toastify";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./contexts/AuthContext";
+import Toast from "./components/Toast";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -40,14 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        <ToastContainer
-          position="top-center"
-          draggable={false}
-          closeOnClick={false}
-          pauseOnHover={true}
-          limit={3}
-          autoClose={6000}
-        />
+        <Toast />
       </body>
     </html>
   );
