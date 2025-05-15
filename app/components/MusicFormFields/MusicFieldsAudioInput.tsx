@@ -1,6 +1,6 @@
 import AudioFileRoundedIcon from "@mui/icons-material/AudioFileRounded";
 import clsx from "clsx";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FILE_BASE_URL } from "~/utils/constants";
 import FormErrorText from "../FormErrorText";
 import FormLabel from "../FormLabel";

@@ -9,7 +9,6 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import Toast from "./components/Toast";
 

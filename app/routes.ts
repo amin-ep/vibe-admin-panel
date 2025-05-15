@@ -2,6 +2,7 @@ import {
   type RouteConfig,
   index,
   layout,
+  prefix,
   route,
 } from "@react-router/dev/routes";
 
@@ -18,6 +19,17 @@ export default [
     route("edit-music/:musicId", "routes/edit-music/edit-music.tsx"),
     route("edit-album/:albumId", "routes/edit-album/edit-album.tsx"),
   ]),
+
+  // account layout
+  layout("layout/AccountLayout.tsx", [
+    ...prefix("account", [
+      index("routes/account/account.tsx"),
+      route(
+        "change-password",
+        "routes/account/change-password/change-password.tsx",
+      ),
+    ]),
+  ]),
+
   route("login", "routes/login/login.tsx"),
-  route("account", "routes/account/account.tsx"),
 ] satisfies RouteConfig;

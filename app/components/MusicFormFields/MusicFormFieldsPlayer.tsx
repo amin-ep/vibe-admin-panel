@@ -1,13 +1,13 @@
 import { Slider } from "@mui/material";
 import { useState } from "react";
 import { usePlayer } from "~/hooks/usePlayer";
-import styles from "./MusicFormFieldsPlayer.module.css";
 import IconLinkButton from "../IconLinkButton/IconLinkButton";
+import styles from "./MusicFormFieldsPlayer.module.css";
 
 // icons
+import BackupRoundedIcon from "@mui/icons-material/BackupRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-import BackupRoundedIcon from "@mui/icons-material/BackupRounded";
 type Props = { audioSrc: File | string };
 
 function MusicFormFieldsPlayer({ audioSrc }: Props) {

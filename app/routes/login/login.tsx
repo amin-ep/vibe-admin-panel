@@ -2,7 +2,6 @@ import clsx from "clsx";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useFetcher, useNavigate } from "react-router";
-import { toast } from "react-toastify";
 import { login } from "~/api/authApi";
 import FormControl from "~/components/FormControl";
 import { useAuth } from "~/contexts/AuthContext";
@@ -16,6 +15,7 @@ import type { Route } from "./+types/login";
 import MovingBallsSection from "./components/MovingBallsSection";
 import styles from "./login.module.css";
 import { useToast } from "~/store/useToast";
+import LoginFormFields from "./components/LoginFormFields";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Vibe Admin | Login" }];
@@ -111,22 +111,7 @@ export default function Login({}: Route.ComponentProps) {
           className="mx-auto mt-10 flex max-w-115 flex-col gap-5 md:mt-14 lg:mt-16"
           method="post"
         >
-          <FormControl
-            id="identifier"
-            label="Email or Username"
-            name="identifier"
-            placeholder="Enter your email or username"
-            type="text"
-            error={fetcher.data?.errors?.identifier}
-          />
-          <FormControl
-            id="password"
-            label="Password"
-            name="password"
-            placeholder="Enter your password"
-            type="password"
-            error={fetcher.data?.errors?.password}
-          />
+          <LoginFormFields errors={fetcher.data?.errors} />
           <button
             type="submit"
             className={clsx(

@@ -1,0 +1,6 @@
+.header-section {
+  grid-area: headerSection;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

@@ -1,6 +1,5 @@
-import { createContext, useContext, useReducer } from "react";
-import { AuthProvider } from "./AuthContext";
 import { useMediaQuery } from "@mui/material";
+import { createContext, useContext, useReducer } from "react";
 
 type ArtistData = { id: string; name: string; imageUrl?: string };
 

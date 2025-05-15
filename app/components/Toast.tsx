@@ -11,6 +11,7 @@ function Toast() {
       autoHideDuration={5000}
       transitionDuration={500}
       slots={{ transition: Fade }}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
     >
       <Alert
         severity={severity}

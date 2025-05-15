@@ -1,10 +1,10 @@
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import clsx from "clsx";
 import { useState } from "react";
 import { useAuth } from "~/contexts/AuthContext";
 import { FILE_BASE_URL } from "~/utils/constants";
 import DropdownMenu from "../DropdownMenu";
 import MessageModal from "../MessageModal";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
 export default function UserAccountBtn() {
   const [messageModalIsOpen, setMessageModalIsOpen] = useState(false);

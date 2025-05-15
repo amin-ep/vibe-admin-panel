@@ -2,14 +2,19 @@ import axios, { AxiosError, type AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { API_BASE_URL, AUTH_TOKEN_KEY } from "~/utils/constants";
 
-export async function getMe() {
+export async function getMe(token?: string) {
   try {
-    const token = Cookies.get(AUTH_TOKEN_KEY as string);
+    let authToken: string;
+    if (!token) {
+      authToken = Cookies.get(AUTH_TOKEN_KEY as string) as string;
+    } else {
+      authToken = token;
+    }
     const res: AxiosResponse<IGetMeResponse, IApiError> = await axios.get(
       `${API_BASE_URL}/user/me`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${authToken}`,
         },
       },
     );

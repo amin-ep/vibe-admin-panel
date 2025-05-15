@@ -1,15 +1,15 @@
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { useState } from "react";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { useMediaQuery } from "@mui/material";
-import FormLabel from "./FormLabel";
 import clsx from "clsx";
+import { useState } from "react";
+import FormLabel from "./FormLabel";
 
 type Props = {
-  label: string;
+  label?: string;
   type: React.HTMLInputTypeAttribute;
   name: string;
-  id: string;
+  id?: string;
   placeholder: string;
   error?: string;
   defaultValue?: string;
@@ -44,7 +44,7 @@ export default function FormControl({
         controllerClassName,
       )}
     >
-      <FormLabel htmlFor={id} label={label} />
+      {label && <FormLabel htmlFor={id} label={label} />}
       <input
         className={clsx(
           "rounded-lg border border-neutral-200 p-2 text-xs text-neutral-900 ring-4 ring-white transition duration-350 outline-none focus:border-blue-500 focus:ring-blue-200 md:p-3.5 dark:border-neutral-700 dark:text-neutral-200 dark:ring-neutral-900 dark:placeholder:text-neutral-700 dark:focus:border-blue-700 dark:focus:ring-blue-950",

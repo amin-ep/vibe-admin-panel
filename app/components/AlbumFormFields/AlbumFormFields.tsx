@@ -1,9 +1,9 @@
 import { useSelectBoxArray } from "~/hooks/useSelectBoxArray";
-import styles from "./AlbumFormFields.module.css";
+import CategoriesController from "../CategoriesController";
 import FormControl from "../FormControl";
 import ImageInput from "../ImageInput/ImageInput";
 import SelectBox from "../SelectBox/SelectBox";
-import CategoriesController from "../CategoriesController";
+import styles from "./AlbumFormFields.module.css";
 
 type Props = {
   artists: IArtist[];

@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import FormLabel from "./FormLabel";
-import { categoriesArr } from "~/utils/constants";
 import { useState } from "react";
+import { categoriesArr } from "~/utils/constants";
+import FormLabel from "./FormLabel";
 
-import TrashButton from "./TrashButton";
 import FormErrorText from "./FormErrorText";
+import TrashButton from "./TrashButton";
 
 type Props = {
   wrapperClassName?: string;

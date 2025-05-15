@@ -9,8 +9,8 @@ export function meta() {
 
 export async function loader() {
   const api = new ApiRequests();
-  const response = await api.getAllData<IAlbum>("album");
-  return response?.data;
+  const response: ResponseObject = await api.getAllData<IAlbum>("album");
+  return response?.data as IAlbum[];
 }
 
 function Albums({ loaderData }: Route.ComponentProps) {

@@ -4,7 +4,6 @@ import PageHeading from "~/components/PageHeading";
 import type { Route } from "./+types/new-music";
 
 import { useNavigate, useRevalidator } from "react-router";
-import { toast } from "react-toastify";
 import { createMusic } from "~/api/musicApi";
 import Button from "~/components/Button";
 import MusicFormFields from "~/components/MusicFormFields/MusicFormFields";

@@ -1,4 +1,4 @@
-import { TableCell, TableHead as MUITableHead, TableRow } from "@mui/material";
+import { TableHead as MUITableHead, TableCell, TableRow } from "@mui/material";
 
 type Props = { columns: ITableColumn[] };
 

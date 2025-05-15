@@ -10,7 +10,7 @@ import MusicNoteRoundedIcon from "@mui/icons-material/MusicNoteRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 // import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
-import { NavLink, useNavigation } from "react-router";
+import { NavLink } from "react-router";
 
 interface IItem {
   icon: React.ReactNode;

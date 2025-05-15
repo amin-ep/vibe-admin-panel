@@ -1,6 +1,5 @@
-import React from "react";
-import DropdownMenu from "../DropdownMenu";
 import clsx from "clsx";
+import DropdownMenu from "../DropdownMenu";
 
 type Props = {
   onClose: () => void;
@@ -24,7 +23,7 @@ function ThemeDropdown({
   return (
     <DropdownMenu
       close={onClose}
-      className="top-16.5 right-9 after:right-15.5 md:top-17 md:after:right-19.5"
+      className="top-17 right-11.75 after:right-15.5 md:top-17 md:after:right-19.5"
     >
       <DropdownMenu.Row>
         <DropdownMenu.RowButton
