@@ -74,6 +74,7 @@ type Payload = FormValues;
 type SuccessResponseObject<T> = {
   status: string;
   data: T;
+  result?: number;
 };
 
 type ErrorResponseObject = {

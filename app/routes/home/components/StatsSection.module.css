@@ -1,0 +1,31 @@
+.section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.icon {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+@media (min-width: 640px) {
+  .icon {
+    width: 34px !important;
+    height: 34px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .icon {
+    width: 38px !important;
+    height: 38px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}

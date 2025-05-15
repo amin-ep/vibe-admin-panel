@@ -36,7 +36,11 @@ class ApiRequests {
         },
       });
       if (res.data.status === "success")
-        return { status: "success", data: res.data.data.docs };
+        return {
+          status: "success",
+          data: res.data.data.docs,
+          result: res.data.result,
+        };
     } catch (err) {
       return this.handleError(err);
     }
