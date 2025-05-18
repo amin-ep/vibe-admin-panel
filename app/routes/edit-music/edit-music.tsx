@@ -17,7 +17,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   );
   const artistsRes: ResponseObject = await api.getAllData<IArtist>("artist");
   return {
-    music: musicRes?.data?.document,
+    music: musicRes?.data,
     artists: artistsRes?.data,
   };
 }

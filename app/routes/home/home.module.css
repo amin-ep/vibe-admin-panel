@@ -1,0 +1,43 @@
+.popular-stats {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-areas: "popularMusics" "popularAlbums" "registeredUsers";
+  gap: 0.5rem;
+}
+
+.popular-musics {
+  grid-area: popularMusics;
+}
+.popular-albums {
+  grid-area: popularAlbums;
+}
+
+.registered-users-chart {
+  grid-area: registeredUsers;
+}
+
+@media (min-width: 600px) {
+  .popular-stats {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "popularMusics popularAlbums" "registeredUsers registeredUsers";
+  }
+}
+
+@media (min-width: 1024px) {
+  .popular-stats {
+    grid-template-columns: 30% 30% 40%;
+    grid-template-areas: unset;
+    gap: 24px;
+  }
+
+  .popular-musics {
+    grid-area: unset;
+  }
+  .popular-albums {
+    grid-area: unset;
+  }
+
+  .registered-users-chart {
+    grid-area: unset;
+  }
+}

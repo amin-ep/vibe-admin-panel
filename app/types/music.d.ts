@@ -22,3 +22,14 @@ interface ICreateMusicResponse {
     document: IMusic;
   };
 }
+
+interface IMusicStats {
+  musicsPerCategory: { _id: string; count: number }[];
+  musicsPerGenre: { _id: string; count: number }[];
+  musicsPerArtist: { count: number; artistId: string; name: string }[];
+}
+
+interface IGetMusicStatsResponse {
+  status: string;
+  data: IMusicStats;
+}

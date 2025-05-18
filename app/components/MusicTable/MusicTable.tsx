@@ -31,7 +31,10 @@ function MusicTable({ data }: Props) {
 
   return (
     <div className="overflow-x-auto">
-      <TableContainer sx={{ maxHeight: 480 }} className="custom-scroll">
+      <TableContainer
+        sx={{ maxHeight: 480 }}
+        className="custom-scroll dark:custom-scroll-dark"
+      >
         <Table stickyHeader>
           <TableHead columns={columns} />
           {/* Table Body */}

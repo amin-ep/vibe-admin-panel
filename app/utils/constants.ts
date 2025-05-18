@@ -3,7 +3,12 @@ export const THEME_KEY = "VIBE-ADMIN-PANEL-THEME";
 export const API_BASE_URL = "http://localhost:8000/api/v1";
 export const FILE_BASE_URL = "http://localhost:8000/static/";
 
-type Genre = { imageUrl: string; title: string };
+type Genre = {
+  imageUrl: string;
+  title: string;
+  bgColorCode: string;
+  textColorCode: string;
+};
 
 // const genresArr = [
 //   "Pop",
@@ -54,45 +59,236 @@ type Genre = { imageUrl: string; title: string };
 // ] as const;
 
 export const genresArr: Genre[] = [
-  { title: "Pop", imageUrl: "/icons/music-pop-icon.svg" },
-  { title: "Rock", imageUrl: "/icons/music-rock-icon.svg" },
-  { title: "Rap", imageUrl: "/icons/music-rap-icon.svg" },
-  { title: "Hip Hop", imageUrl: "/icons/music-hiphop-icon.svg" },
-  { title: "R&B", imageUrl: "/icons/music-r&b-icon.svg" },
-  { title: "Soul", imageUrl: "/icons/music-soul-icon.svg" },
-  { title: "Jazz", imageUrl: "/icons/music-jazz-icon.svg" },
-  { title: "Blues", imageUrl: "/icons/music-blues-icon.svg" },
-  { title: "Country", imageUrl: "/icons/music-country-icon.svg" },
-  { title: "Classical", imageUrl: "/icons/music-classical-icon.svg" },
-  { title: "Dance", imageUrl: "/icons/music-dance-icon.svg" },
-  { title: "Electronic", imageUrl: "/icons/music-electronic-icon.svg" },
-  { title: "House", imageUrl: "/icons/music-house-icon.svg" },
-  { title: "Dubstep", imageUrl: "/icons/music-dubset-icon.svg" },
-  { title: "Techno", imageUrl: "/icons/music-techno-icon.svg" },
-  { title: "Trance", imageUrl: "/icons/music-trance-icon.svg" },
-  { title: "Reggae", imageUrl: "/icons/music-reggae-icon.svg" },
-  { title: "Reggaeton", imageUrl: "/icons/music-reggaeton-icon.svg" },
-  { title: "Latin", imageUrl: "/icons/music-latin-icon.svg" },
-  { title: "Afrobeat", imageUrl: "/icons/music-afrobeat-icon.svg" },
-  { title: "Indie", imageUrl: "/icons/music-Indie-icon.svg" },
-  { title: "Alternative", imageUrl: "/icons/music-alternative-icon.svg" },
-  { title: "Ambient", imageUrl: "/icons/music-ambient-icon.svg" },
-  { title: "Chilling", imageUrl: "/icons/music-chillhop-icon.svg" },
-  { title: "Disco", imageUrl: "/icons/music-disco-icon.svg" },
-  { title: "Drill", imageUrl: "/icons/music-drill-icon.svg" },
-  { title: "EDM", imageUrl: "/icons/music-edm-icon.svg" },
-  { title: "Folk", imageUrl: "/icons/music-folk-icon.svg" },
-  { title: "Funk", imageUrl: "/icons/music-funk-icon.svg" },
-  { title: "Gospel", imageUrl: "/icons/music-gospel-icon.svg" },
-  { title: "Grime", imageUrl: "/icons/music-grime-icon.svg" },
-  { title: "K-Pop", imageUrl: "/icons/music-k-pop-icon.svg" },
-  { title: "Lo-Fi", imageUrl: "/icons/music-lo-fi-icon.svg" },
-  { title: "Metal", imageUrl: "/icons/music-metal-icon.svg" },
-  { title: "Opera", imageUrl: "/icons/music-opera-icon.svg" },
-  { title: "Punk", imageUrl: "/icons/music-punk-icon.svg" },
-  { title: "Soundtrack", imageUrl: "/icons/music-soundtrack-icon.svg" },
-  { title: "Trap", imageUrl: "/icons/music-trap-icon.svg" },
+  {
+    title: "Pop",
+    imageUrl: "/icons/music-pop-icon.svg",
+    bgColorCode: "#ffb6c1",
+    textColorCode: "#6a1b1b",
+  },
+  {
+    title: "Rock",
+    imageUrl: "/icons/music-rock-icon.svg",
+    bgColorCode: "#9e9e9e",
+    textColorCode: "#1b1b1b",
+  },
+  {
+    title: "Rap",
+    imageUrl: "/icons/music-rap-icon.svg",
+    bgColorCode: "#333333",
+    textColorCode: "#ffffff",
+  },
+  {
+    title: "Hip Hop",
+    imageUrl: "/icons/music-hiphop-icon.svg",
+    bgColorCode: "#ffd54f",
+    textColorCode: "#4e342e",
+  },
+  {
+    title: "R&B",
+    imageUrl: "/icons/music-r&b-icon.svg",
+    bgColorCode: "#ce93d8",
+    textColorCode: "#4a148c",
+  },
+  {
+    title: "Soul",
+    imageUrl: "/icons/music-soul-icon.svg",
+    bgColorCode: "#ffcc80",
+    textColorCode: "#3e2723",
+  },
+  {
+    title: "Jazz",
+    imageUrl: "/icons/music-jazz-icon.svg",
+    bgColorCode: "#81d4fa",
+    textColorCode: "#01579b",
+  },
+  {
+    title: "Blues",
+    imageUrl: "/icons/music-blues-icon.svg",
+    bgColorCode: "#64b5f6",
+    textColorCode: "#0d47a1",
+  },
+  {
+    title: "Country",
+    imageUrl: "/icons/music-country-icon.svg",
+    bgColorCode: "#d7ccc8",
+    textColorCode: "#4e342e",
+  },
+  {
+    title: "Classical",
+    imageUrl: "/icons/music-classical-icon.svg",
+    bgColorCode: "#f5f5dc",
+    textColorCode: "#3e3e3e",
+  },
+  {
+    title: "Dance",
+    imageUrl: "/icons/music-dance-icon.svg",
+    bgColorCode: "#f06292",
+    textColorCode: "#fff",
+  },
+  {
+    title: "Electronic",
+    imageUrl: "/icons/music-electronic-icon.svg",
+    bgColorCode: "#00bcd4",
+    textColorCode: "#004d40",
+  },
+  {
+    title: "House",
+    imageUrl: "/icons/music-house-icon.svg",
+    bgColorCode: "#a5d6a7",
+    textColorCode: "#1b5e20",
+  },
+  {
+    title: "Dubstep",
+    imageUrl: "/icons/music-dubset-icon.svg",
+    bgColorCode: "#ba68c8",
+    textColorCode: "#fff",
+  },
+  {
+    title: "Techno",
+    imageUrl: "/icons/music-techno-icon.svg",
+    bgColorCode: "#00acc1",
+    textColorCode: "#fff",
+  },
+  {
+    title: "Trance",
+    imageUrl: "/icons/music-trance-icon.svg",
+    bgColorCode: "#9575cd",
+    textColorCode: "#fff",
+  },
+  {
+    title: "Reggae",
+    imageUrl: "/icons/music-reggae-icon.svg",
+    bgColorCode: "#c5e1a5",
+    textColorCode: "#33691e",
+  },
+  {
+    title: "Reggaeton",
+    imageUrl: "/icons/music-reggaeton-icon.svg",
+    bgColorCode: "#ffca28",
+    textColorCode: "#3e2723",
+  },
+  {
+    title: "Latin",
+    imageUrl: "/icons/music-latin-icon.svg",
+    bgColorCode: "#ff8a65",
+    textColorCode: "#3e2723",
+  },
+  {
+    title: "Afrobeat",
+    imageUrl: "/icons/music-afrobeat-icon.svg",
+    bgColorCode: "#ff7043",
+    textColorCode: "#fff",
+  },
+  {
+    title: "Indie",
+    imageUrl: "/icons/music-Indie-icon.svg",
+    bgColorCode: "#90caf9",
+    textColorCode: "#0d47a1",
+  },
+  {
+    title: "Alternative",
+    imageUrl: "/icons/music-alternative-icon.svg",
+    bgColorCode: "#a1887f",
+    textColorCode: "#3e2723",
+  },
+  {
+    title: "Ambient",
+    imageUrl: "/icons/music-ambient-icon.svg",
+    bgColorCode: "#b2ebf2",
+    textColorCode: "#006064",
+  },
+  {
+    title: "Chilling",
+    imageUrl: "/icons/music-chillhop-icon.svg",
+    bgColorCode: "#bcaaa4",
+    textColorCode: "#3e2723",
+  },
+  {
+    title: "Disco",
+    imageUrl: "/icons/music-disco-icon.svg",
+    bgColorCode: "#f48fb1",
+    textColorCode: "#880e4f",
+  },
+  {
+    title: "Drill",
+    imageUrl: "/icons/music-drill-icon.svg",
+    bgColorCode: "#212121",
+    textColorCode: "#e0e0e0",
+  },
+  {
+    title: "EDM",
+    imageUrl: "/icons/music-edm-icon.svg",
+    bgColorCode: "#4dd0e1",
+    textColorCode: "#004d40",
+  },
+  {
+    title: "Folk",
+    imageUrl: "/icons/music-folk-icon.svg",
+    bgColorCode: "#ffecb3",
+    textColorCode: "#5d4037",
+  },
+  {
+    title: "Funk",
+    imageUrl: "/icons/music-funk-icon.svg",
+    bgColorCode: "#ffab91",
+    textColorCode: "#bf360c",
+  },
+  {
+    title: "Gospel",
+    imageUrl: "/icons/music-gospel-icon.svg",
+    bgColorCode: "#ffe082",
+    textColorCode: "#3e2723",
+  },
+  {
+    title: "Grime",
+    imageUrl: "/icons/music-grime-icon.svg",
+    bgColorCode: "#424242",
+    textColorCode: "#f5f5f5",
+  },
+  {
+    title: "K-Pop",
+    imageUrl: "/icons/music-k-pop-icon.svg",
+    bgColorCode: "#f8bbd0",
+    textColorCode: "#880e4f",
+  },
+  {
+    title: "Lo-Fi",
+    imageUrl: "/icons/music-lo-fi-icon.svg",
+    bgColorCode: "#cfd8dc",
+    textColorCode: "#263238",
+  },
+  {
+    title: "Metal",
+    imageUrl: "/icons/music-metal-icon.svg",
+    bgColorCode: "#b0bec5",
+    textColorCode: "#212121",
+  },
+  {
+    title: "Opera",
+    imageUrl: "/icons/music-opera-icon.svg",
+    bgColorCode: "#e1bee7",
+    textColorCode: "#4a148c",
+  },
+  {
+    title: "Punk",
+    imageUrl: "/icons/music-punk-icon.svg",
+    bgColorCode: "#ef9a9a",
+    textColorCode: "#b71c1c",
+  },
+  {
+    title: "Soundtrack",
+    imageUrl: "/icons/music-soundtrack-icon.svg",
+    bgColorCode: "#ffe0b2",
+    textColorCode: "#6d4c41",
+  },
+  {
+    title: "Trap",
+    imageUrl: "/icons/music-trap-icon.svg",
+    bgColorCode: "#37474f",
+    textColorCode: "#ffffff",
+  },
 ];
+
 export const categoriesArr: CategoryObject[] = [
   { title: "Chill", bgColorCode: "#D4EFFB", textColorCode: "#000000" },
   { title: "Energetic", bgColorCode: "#FFB67A", textColorCode: "#000000" },

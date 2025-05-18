@@ -15,13 +15,13 @@ function StatsCard({ count, title, icon, className, iconClassName }: Props) {
     <div
       className={clsx(
         className,
-        "grid grid-cols-[40px_1fr] gap-1 rounded-lg border p-2 sm:grid-cols-[50px_1fr] sm:gap-2 sm:p-3 md:gap-3 lg:gap-4",
+        "grid grid-cols-[40px_1fr] gap-1 rounded-lg border p-2 sm:grid-cols-[50px_1fr] sm:gap-2 sm:p-3 md:gap-3 md:p-4 lg:gap-4",
       )}
     >
       <span
         className={clsx(
           iconClassName,
-          "flex aspect-square items-center justify-center rounded-full",
+          "flex aspect-square items-center justify-center rounded-2xl",
         )}
       >
         {icon}

@@ -14,4 +14,5 @@ interface IAlbum {
     otherArtists: AlbumArtist[];
     categories: string[];
     createdAt:string;
+  likeQuantity: number;
 }

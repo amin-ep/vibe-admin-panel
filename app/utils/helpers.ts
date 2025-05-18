@@ -62,3 +62,7 @@ export function appendMusics(
     formData.append(`musics[${i}]`, (payload.musics as string[])[i]);
   }
 }
+
+export const textExpander = (text: string, breakIndex: number) => {
+  return text.length > breakIndex ? `${text.slice(0, breakIndex)}...` : text;
+};

@@ -174,3 +174,36 @@ export async function editMusic(
     return { status: "error", message: "something went wrong from server" };
   }
 }
+
+export async function getMusicStats(token?: string) {
+  try {
+    let authToken: string;
+    if (!token) {
+      authToken = Cookies.get(AUTH_TOKEN_KEY) as string;
+    } else {
+      authToken = token;
+    }
+    const res: AxiosResponse<IGetMusicStatsResponse> = await axios.get(
+      `${API_BASE_URL}/music/stats`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    );
+
+    if (res.status === 200) {
+      return { status: "success", data: res.data.data };
+    }
+  } catch (err) {
+    const error = err as AxiosError<IApiError>;
+    console.log(error);
+    if (error) {
+      return {
+        status: error?.response?.data.status || "error",
+        message:
+          error?.response?.data.message || "something went wrong from server",
+      };
+    }
+  }
+}

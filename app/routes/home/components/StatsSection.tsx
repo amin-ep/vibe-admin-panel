@@ -1,8 +1,9 @@
-import StatsCard from "./StatsCard";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import InterpreterModeRoundedIcon from "@mui/icons-material/InterpreterModeRounded";
 import LibraryMusicRoundedIcon from "@mui/icons-material/LibraryMusicRounded";
 import MusicNoteRoundedIcon from "@mui/icons-material/MusicNoteRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import clsx from "clsx";
+import StatsCard from "./StatsCard";
 import styles from "./StatsSection.module.css";
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
   albumsCount: number;
   musicsCount: number;
   artistsCount: number;
+  className?: string;
 };
 
 function StatsSection({
@@ -17,9 +19,10 @@ function StatsSection({
   artistsCount,
   musicsCount,
   usersCount,
+  className,
 }: Props) {
   return (
-    <section className={styles.section}>
+    <section className={clsx(styles.section, className)}>
       <StatsCard
         count={musicsCount}
         icon={
