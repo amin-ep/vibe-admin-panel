@@ -1,13 +1,18 @@
-import { useActionState, useEffect } from "react";
+import { useTransition } from "react";
 import { getAllArtists } from "~/api/artistApi";
 import PageHeading from "~/components/PageHeading";
 import type { Route } from "./+types/new-music";
 
+import { useForm } from "react-hook-form";
 import { useNavigate, useRevalidator } from "react-router";
-import { createMusic } from "~/api/musicApi";
 import Button from "~/components/Button";
-import MusicFormFields from "~/components/MusicFormFields/MusicFormFields";
+import MusicFormFields, {
+  type IMusicFields,
+} from "~/components/MusicFormFields/MusicFormFields";
 import { useToast } from "~/store/useToast";
+import ApiRequests from "~/api";
+import type { AxiosError, AxiosResponse } from "axios";
+import { appendOtherArtists } from "~/utils/appendData";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Add Music" }];
@@ -19,38 +24,76 @@ export async function loader({}: Route.LoaderArgs) {
 }
 
 export default function NewMusic({ loaderData }: Route.ComponentProps) {
-  const [result, formAction, isPending] = useActionState<CreateDataState>(
-    //@ts-ignore
-    createMusic,
-    null,
-  );
-
+  const [isPending, startTransition] = useTransition();
   const { success, error } = useToast();
   const navigate = useNavigate();
   const revalidator = useRevalidator();
 
-  useEffect(() => {
-    if (result) {
-      if (result?.status === "success") {
-        revalidator.revalidate();
-        success(result.message || "Music added successfully");
-        navigate("/musics");
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    control,
+  } = useForm<IMusicFields>();
+
+  const api = new ApiRequests();
+
+  const onSubmit = (data: IMusicFields) => {
+    const formData = new FormData();
+    startTransition(async () => {
+      if (loaderData?.data) {
+        const selectedArtistsId = loaderData.data.find(
+          (artist) => artist.name == data.artist,
+        )?._id;
+
+        if (selectedArtistsId) {
+          data.artist = selectedArtistsId;
+        } else {
+          error("Cannot get artist data. Try again later");
+        }
+
+        if (data.otherArtists && data.otherArtists.length > 0) {
+          appendOtherArtists<IMusicFields>(loaderData.data, data);
+        }
+
+        for (const [key, value] of Object.entries(data)) {
+          if (typeof value === "string" || value instanceof File) {
+            formData.set(key, value);
+          } else {
+            if (Array.isArray(value)) {
+              for (let i = 0; value.length > i; i++) {
+                formData.set(`${key}[${i}]`, value[i]);
+              }
+            }
+          }
+        }
+        const res = await api.createData<IMusic>("music", formData);
+        if (res.status === 201) {
+          revalidator.revalidate().then(() => {
+            success("Music added successfully");
+            navigate("/musics");
+          });
+        } else {
+          const err = res as AxiosError<IApiError>;
+
+          error(err.response?.data.message || "Something went wrong!");
+        }
+      } else {
+        error("Something went wrong. try again later!");
       }
-      if (result.status === "error" || result.status === "fail") {
-        error(result.message || "Something went wrong!");
-      }
-    }
-  }, [result]);
+    });
+  };
 
   return (
     <div>
       <PageHeading title="Add Music" />
       <div>
-        <form action={formAction}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <MusicFormFields
             artists={loaderData?.data as IArtist[]}
-            errors={result?.errors}
-            values={result?.values}
+            register={register}
+            errors={errors}
+            control={control}
           />
           <Button type="submit" className="my-10 w-38">
             {isPending ? "Creating..." : "Create"}

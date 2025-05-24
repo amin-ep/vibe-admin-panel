@@ -40,7 +40,7 @@ type Theme = "dark" | "light" | "system";
 interface ICreateDataResponse<T> {
   status: string;
   data: {
-    document: T[];
+    document: T;
   };
 }
 type RequestError = { [k: string]: string };

@@ -1,0 +1,54 @@
+.icon {
+  width: 35px !important;
+  height: 35px !important;
+}
+
+.dragging-icon {
+  animation: updown 0.5s infinite;
+  -webkit-animation: updown 0.5s infinite;
+}
+
+@media (min-width: 425px) {
+  .icon {
+    width: 45px !important;
+    height: 45px !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .icon {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
+
+@keyframes updown {
+  0% {
+    transform: translateY(10px);
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+    -ms-transform: translateY(10px);
+    -o-transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+    -ms-transform: translateY(10px);
+    -o-transform: translateY(10px);
+  }
+}

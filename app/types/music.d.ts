@@ -33,3 +33,14 @@ interface IGetMusicStatsResponse {
   status: string;
   data: IMusicStats;
 }
+
+interface IMusicPayload {
+  name: string;
+  audioFileUrl: string;
+  coverImageUrl: string;
+  artist: string;
+  otherArtists: string[] | MusicArtist[];
+  releaseYear: number;
+  categories: string[];
+  genre: string;
+}

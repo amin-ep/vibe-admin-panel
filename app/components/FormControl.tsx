@@ -3,33 +3,34 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { useMediaQuery } from "@mui/material";
 import clsx from "clsx";
 import { useState } from "react";
+import type { Path, RegisterOptions, UseFormRegister } from "react-hook-form";
 import FormLabel from "./FormLabel";
 
-type Props = {
+type Props<TFormValues extends FormValues> = {
   label?: string;
   type: React.HTMLInputTypeAttribute;
-  name: string;
-  id?: string;
+  name: Path<TFormValues>;
   placeholder: string;
   error?: string;
-  defaultValue?: string;
   controllerClassName?: string;
   inputClassName?: string;
-  value?: string | FormDataEntryValue;
+  id?: string;
+  register: UseFormRegister<TFormValues>;
+  registerOptions: RegisterOptions<TFormValues, Path<TFormValues>> | undefined;
 };
 
-export default function FormControl({
+export default function FormControl<TFormValues extends FormValues>({
   id,
   label,
   name,
   type,
   placeholder,
   error,
-  defaultValue,
   controllerClassName,
   inputClassName,
-  value,
-}: Props) {
+  register,
+  registerOptions,
+}: Props<TFormValues>) {
   const [passwordIsHidden, setPasswordIsHidden] = useState(true);
 
   const isMdWindow = useMediaQuery("(min-width:768px)");
@@ -51,7 +52,7 @@ export default function FormControl({
           inputClassName,
         )}
         type={type === "password" ? (passwordIsHidden ? type : "text") : type}
-        name={name}
+        {...register(name, registerOptions)}
         id={id}
         placeholder={placeholder}
         autoComplete="off"
@@ -59,7 +60,6 @@ export default function FormControl({
           min: 1900,
           max: currentYear,
         })}
-        defaultValue={(value as string) || (defaultValue as string)}
       />
 
       {error && <p className="text-xs text-red-500">*{error}</p>}

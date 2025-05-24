@@ -6,14 +6,7 @@ import { API_BASE_URL, AUTH_TOKEN_KEY } from "~/utils/constants";
 class ApiRequests {
   private handleError(err: unknown) {
     const error = err as AxiosError<IApiError>;
-    console.log(error);
-    if (error) {
-      return {
-        status: error?.response?.data.status || "error",
-        message:
-          error?.response?.data.message || "something went wrong from server",
-      };
-    }
+    return error;
   }
   private getToken() {
     const token = Cookies.get(AUTH_TOKEN_KEY);
@@ -92,11 +85,10 @@ class ApiRequests {
         },
       );
 
-      if (res.status === 201) {
-        return { status: "success", data: res.data.data.document };
-      }
+      return res;
     } catch (err) {
-      return this.handleError(err);
+      const error = err as AxiosError<IApiError>;
+      return error;
     }
   }
 
@@ -119,11 +111,10 @@ class ApiRequests {
         },
       );
 
-      if (res.status === 200) {
-        return { status: "success", data: res.data.data.document };
-      }
+      return res;
     } catch (err) {
-      return this.handleError(err);
+      const error = err as AxiosError<IApiError>;
+      return error;
     }
   }
 

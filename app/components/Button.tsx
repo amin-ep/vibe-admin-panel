@@ -7,6 +7,7 @@ type Props = {
   onClick?: () => void;
   className?: string;
   type?: "submit" | "reset" | "button";
+  disabled?: boolean;
 };
 
 type Variation = "primary" | "secondary";
@@ -17,6 +18,7 @@ function Button({
   className,
   variation = "primary",
   type = "button",
+  disabled,
 }: Props) {
   const classes: { [k: Variation | string]: string } = {
     primary: "bg-blue-500 text-white before:bg-blue-800",
@@ -24,6 +26,7 @@ function Button({
   };
   return (
     <button
+      disabled={disabled}
       className={clsx(
         "relative z-0 rounded-xl p-3 text-xs transition hover:scale-[1.05] active:scale-[0.95] md:text-sm",
         classes[variation],

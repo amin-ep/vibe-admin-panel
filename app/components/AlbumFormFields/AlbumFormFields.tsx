@@ -1,15 +1,25 @@
 import { useSelectBoxArray } from "~/hooks/useSelectBoxArray";
 import CategoriesController from "../CategoriesController";
 import FormControl from "../FormControl";
-import ImageInput from "../ImageInput/ImageInput";
 import SelectBox from "../SelectBox/SelectBox";
 import styles from "./AlbumFormFields.module.css";
+import type {
+  Control,
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+} from "react-hook-form";
+import { requiredErrorMessage } from "~/utils/fieldErrorMessage";
+import ImageDropzone from "../ImageDropzone/ImageDropzone";
+
+export interface IAlbumFields extends IAlbumPayload, FieldValues {}
 
 type Props = {
   artists: IArtist[];
   musics: IMusic[];
-  errors?: RequestError;
-  mode?: "create" | "update";
+  register: UseFormRegister<IAlbumFields>;
+  errors: FieldErrors<IAlbumFields>;
+  control: Control<IAlbumFields>;
   albumData?: IAlbum;
 };
 
@@ -18,7 +28,8 @@ function AlbumFormFields({
   musics,
   errors,
   albumData,
-  mode = "create",
+  control,
+  register,
 }: Props) {
   const artistsArr = useSelectBoxArray(artists as IArtist[]);
   const musicsArr = useSelectBoxArray(musics as IMusic[]);
@@ -32,74 +43,118 @@ function AlbumFormFields({
         placeholder="Album name..."
         type="text"
         controllerClassName={styles["name-controller"]}
-        error={errors?.name}
-        defaultValue={albumData?.name}
+        error={errors?.name?.message}
+        register={register}
+        registerOptions={{
+          required: {
+            value: true,
+            message: requiredErrorMessage("Name"),
+          },
+        }}
       />
 
       {/* COVER IMAGE */}
-      <ImageInput
+      <ImageDropzone
+        control={control}
         name="coverImageUrl"
-        rounded="md"
         wrapperClassName={styles["cover-image-controller"]}
-        errorMessage={errors?.coverImageUrl}
-        defaultImage={albumData?.coverImageUrl}
+        label="Cover Image"
+        errorMessage={errors.coverImageUrl?.message}
+        rules={{
+          required: {
+            value: true,
+            message: requiredErrorMessage("Cover Image"),
+          },
+        }}
+        defaultSrc={albumData?.coverImageUrl}
       />
 
       {/* ARTIST */}
-      <SelectBox
-        inputName="artist"
+      <SelectBox<IAlbumFields>
+        name="artist"
+        rules={{
+          required: {
+            value: true,
+            message: requiredErrorMessage("Artist"),
+          },
+        }}
         placeholder="Artist"
         label="Artist"
         items={artistsArr}
         searchPlaceholder="Search artists..."
         wrapperClassName={styles["artist-controller"]}
-        errorMessage={errors?.artist}
+        errorMessage={errors?.artist?.message}
         defaultValue={albumData?.artist.name}
+        control={control}
       />
 
       {/* RELEASE YEAR */}
-      <FormControl
+      <FormControl<IAlbumFields>
         id="add-album-release-year"
         label="Release Year"
         name="releaseYear"
         placeholder="Release Year"
         type="number"
-        error={errors?.releaseYear}
+        error={errors?.releaseYear?.message}
+        register={register}
+        registerOptions={{
+          required: {
+            value: true,
+            message: requiredErrorMessage("Release year"),
+          },
+        }}
         controllerClassName={styles["release-year-controller"]}
-        defaultValue={albumData?.releaseYear.toString()}
       />
 
       {/* OTHER ARTISTS */}
-      <SelectBox
+      <SelectBox<IAlbumFields>
         items={artistsArr}
-        inputName="otherArtists"
+        name="otherArtists"
         selectMethod="multiple"
         label="Other Artists"
         placeholder="Other Artists"
         searchPlaceholder="Search artists..."
         wrapperClassName={styles["other-artists-controller"]}
-        errorMessage={errors?.otherArtists}
+        errorMessage={errors?.otherArtists?.message}
         defaultValue={albumData?.otherArtists.map((a) => a.name)}
+        control={control}
+        rules={{
+          required: false,
+        }}
       />
 
       {/* MUSICS */}
-      <SelectBox
-        inputName="musics"
+      <SelectBox<IAlbumFields>
+        name="musics"
         items={musicsArr}
         placeholder="Musics"
         searchPlaceholder="Search music..."
         label="Musics"
         selectMethod="multiple"
         wrapperClassName={styles["music-controller"]}
-        errorMessage={errors?.musics}
+        errorMessage={errors?.musics?.message}
         defaultValue={albumData?.musics.map((music) => music.name)}
+        control={control}
+        rules={{
+          required: {
+            value: true,
+            message: requiredErrorMessage("Musics"),
+          },
+        }}
       />
 
       {/* CATEGORIES */}
-      <CategoriesController
+      <CategoriesController<IAlbumFields>
         wrapperClassName={styles["categories-controller"]}
-        errorMessage={errors?.categories}
+        errorMessage={errors?.categories?.message}
         defaultValue={albumData?.categories}
+        control={control}
+        rules={{
+          required: {
+            value: true,
+            message: requiredErrorMessage("Categories"),
+          },
+        }}
       />
     </div>
   );

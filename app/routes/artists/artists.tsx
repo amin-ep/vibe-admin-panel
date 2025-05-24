@@ -9,9 +9,12 @@ import ArtistsTable from "./components/ArtistsTable";
 export async function loader({ request }: Route.LoaderArgs) {
   const authToken = getServerAuthToken(request);
   const api = new ApiRequests();
-  const artists = await api.getAllData<IArtist>("artist", authToken);
+  const artists: ResponseObject = await api.getAllData<IArtist>(
+    "artist",
+    authToken,
+  );
 
-  return artists?.data;
+  return (artists as SuccessResponseObject<IArtist[]>).data;
 }
 
 export function meta() {

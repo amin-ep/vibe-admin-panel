@@ -1,0 +1,23 @@
+.heading {
+  font-family: Playfair;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+@media (min-width: 425px) {
+  .heading {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: 44px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: 60px;
+  }
+}

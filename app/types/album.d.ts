@@ -16,3 +16,13 @@ interface IAlbum {
     createdAt:string;
   likeQuantity: number;
 }
+
+interface IAlbumPayload {
+  name: string;
+  releaseYear: number;
+  artist: string;
+  musics: IMusic[] | string[];
+  coverImageUrl: string;
+  otherArtists: AlbumArtist[];
+  categories: string[];
+}

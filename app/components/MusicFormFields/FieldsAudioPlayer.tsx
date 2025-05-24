@@ -2,15 +2,16 @@ import { Slider } from "@mui/material";
 import { useState } from "react";
 import { usePlayer } from "~/hooks/usePlayer";
 import IconLinkButton from "../IconLinkButton/IconLinkButton";
-import styles from "./MusicFormFieldsPlayer.module.css";
+import styles from "./FieldsAudioPlayer.module.css";
 
 // icons
-import BackupRoundedIcon from "@mui/icons-material/BackupRounded";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
-type Props = { audioSrc: File | string };
+import { FILE_BASE_URL } from "~/utils/constants";
+type Props = { audioSrc: File | string; onDelete: () => void };
 
-function MusicFormFieldsPlayer({ audioSrc }: Props) {
+function FieldsAudioPlayer({ audioSrc, onDelete }: Props) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const {
@@ -22,13 +23,13 @@ function MusicFormFieldsPlayer({ audioSrc }: Props) {
   } = usePlayer(isPlaying);
 
   return (
-    <div className="flex w-full items-center gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div className="flex h-9 w-full items-center gap-4 rounded-lg bg-neutral-100 md:h-11 dark:bg-neutral-800">
       <audio
         ref={audioRef}
         src={
           audioSrc instanceof File
             ? URL.createObjectURL(audioSrc as File)
-            : audioSrc
+            : `${FILE_BASE_URL}/${audioSrc}`
         }
       />
       <IconLinkButton
@@ -54,14 +55,15 @@ function MusicFormFieldsPlayer({ audioSrc }: Props) {
         }}
         size="small"
       />
-      <label
-        htmlFor="music-audio-input"
-        className="flex aspect-square w-10 cursor-pointer items-center justify-center rounded-r-lg bg-transparent hover:text-blue-500"
+      <button
+        type="button"
+        className="aspect-square h-full rounded-r-md bg-rose-500 text-white hover:bg-rose-700"
+        onClick={onDelete}
       >
-        <BackupRoundedIcon />
-      </label>
+        <ClearRoundedIcon />
+      </button>
     </div>
   );
 }
 
-export default MusicFormFieldsPlayer;
+export default FieldsAudioPlayer;

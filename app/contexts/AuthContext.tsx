@@ -70,8 +70,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     navigate("/login");
   };
 
+  const authToken = Cookies.get(AUTH_TOKEN_KEY);
   useEffect(() => {
-    const authToken = Cookies.get(AUTH_TOKEN_KEY);
     if (!authToken) {
       navigate("/login");
     } else {
@@ -81,7 +81,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       });
     }
-  }, []);
+  }, [authToken]);
 
   return (
     <AuthContext value={{ isLoggedIn, login, logout, userdata }}>

@@ -1,7 +1,5 @@
 import axios, { AxiosError, type AxiosResponse } from "axios";
 import { API_BASE_URL } from "~/utils/constants";
-import { validate } from "~/utils/validate";
-import { createArtistValidator } from "~/validators/artist-validators";
 import ApiRequests from ".";
 
 export async function getAllArtists() {
@@ -25,47 +23,16 @@ export async function getAllArtists() {
   }
 }
 
-export async function createUpdateArtist(
-  prevState: CreateDataState | null,
-  formData: FormData,
-) {
-  let validationError:
-    | {
-        [k: string]: string;
-      }
-    | undefined;
-
-  validationError = await validate<CreateArtistPayload>(
-    createArtistValidator,
-    Object.fromEntries(formData) as CreateArtistPayload,
-  );
-
-  if (validationError) {
-    return { status: "error", errors: validationError };
-  }
-
-  let response: ResponseObject;
-
+export async function createUpdateArtist(formData: FormData) {
+  const isUpdating = formData.get("isUpdating") === "false" ? false : true;
   const api = new ApiRequests();
-  // return;
-  const isUpdating = formData.get("isUpdating");
-  const artistId = formData.get("artistId")?.toString();
-  if (isUpdating === "false") {
-    response = await api.createData<IArtist>("artist", formData);
-  } else if (prevState && isUpdating === "true") {
-    response = await api.updateDataById<UpdateArtistPayload, IArtist>(
-      "artist",
-      artistId as string,
-      formData,
-    );
-  }
-  if (response) {
-    if (response?.status === "success") {
-      return { status: "success" };
-    } else {
-      return { status: response?.status, data: response?.data };
-    }
+
+  if (isUpdating) {
+    const artistId = formData.get("artistId")?.toString() || "";
+    const res = api.updateDataById<IArtist>("artist", artistId, formData);
+    return res;
   } else {
-    return { status: "error", message: "Something went wrong!" };
+    const res = api.createData<IArtist>("artist", formData);
+    return res;
   }
 }
