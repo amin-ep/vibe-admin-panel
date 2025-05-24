@@ -23,7 +23,7 @@ function ArtistsTable({ artists }: Props) {
   } = usePaginate<IArtist>(artists, 6);
 
   const paginationBtnClasses =
-    "rounded-md bg-blue-500 p-2 px-4 text-white disabled:bg-neutral-300 disabled:text-neutral-900 dark:disabled:bg-neutral-800";
+    "rounded-md bg-blue-400 p-2 px-4 text-white disabled:bg-neutral-300 disabled:text-neutral-900 dark:disabled:bg-neutral-800";
   return (
     <div>
       <TableContainer sx={{ maxHeight: 497 }}>

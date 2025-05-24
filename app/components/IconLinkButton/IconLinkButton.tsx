@@ -21,9 +21,9 @@ function IconLinkButton({
 }: Props) {
   const themeStyles: { [k: string]: string } = {
     transparent:
-      "text-neutral-700 bg-transparent ring-white hover:bg-neutral-100 hover:text-blue-500 focus:ring-blue-500 dark:text-neutral-300 dark:ring-neutral-900 hover:dark:bg-neutral-800",
+      "text-neutral-700 bg-transparent ring-white hover:bg-neutral-100 hover:text-blue-400 focus:ring-blue-400 dark:text-neutral-300 dark:ring-neutral-900 hover:dark:bg-neutral-800",
     primary:
-      "text-white ring-blue-500 ring-white dark:ring-neutral-900 hover:bg-blue-800 focus:ring-blue-800 bg-blue-500",
+      "text-white ring-blue-400 ring-white dark:ring-neutral-900 hover:bg-blue-800 focus:ring-blue-800 bg-blue-400",
   };
 
   const classes = clsx(

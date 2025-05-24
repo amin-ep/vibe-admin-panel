@@ -30,7 +30,7 @@ function ThemeDropdown({
           onClick={() => onDropdownBtnClick(setThemeDark)}
           className={clsx(
             "flex flex-row items-center justify-start",
-            theme === "dark" && "text-blue-500",
+            theme === "dark" && "text-blue-400",
           )}
         >
           <span>Dark</span>
@@ -39,7 +39,7 @@ function ThemeDropdown({
           onClick={() => onDropdownBtnClick(setThemeLight)}
           className={clsx(
             "flex flex-row items-center justify-start",
-            theme === "light" && "text-blue-500",
+            theme === "light" && "text-blue-400",
           )}
         >
           <span>Light</span>
@@ -48,7 +48,7 @@ function ThemeDropdown({
           onClick={() => onDropdownBtnClick(setThemeSystem)}
           className={clsx(
             "flex flex-row items-center justify-start",
-            theme === "system" && "text-blue-500",
+            theme === "system" && "text-blue-400",
           )}
         >
           <span>System</span>

@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { useOutsideClick } from "~/hooks/useOutsideClick";
 
 const btnClasses =
-  "text-left cursor-pointer rounded-sm py-1 hover:text-blue-500 hover:pl-2 transition-all duration-300";
+  "text-left cursor-pointer rounded-sm py-1 hover:text-blue-400 hover:pl-2 transition-all duration-300";
 
 function DropdownMenu({
   children,

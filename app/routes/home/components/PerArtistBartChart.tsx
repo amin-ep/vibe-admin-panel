@@ -89,7 +89,7 @@ function PerArtistBartChart({ data }: Props) {
               dataKey="musics"
               fill="oklch(62.3% 0.214 259.815)"
               radius={barRadius}
-              className="fill-blue-500"
+              className="fill-blue-400"
               background={{ radius: barRadius }}
             />
           </BarChart>

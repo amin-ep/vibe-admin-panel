@@ -58,7 +58,7 @@ function StatsSection({
             classes={{
               root: styles.icon,
             }}
-            className="text-blue-500"
+            className="text-blue-400"
           />
         }
         title="Users"

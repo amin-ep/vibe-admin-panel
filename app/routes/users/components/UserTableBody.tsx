@@ -18,7 +18,7 @@ function UserTableBody({ data }: Props) {
                   className="aspect-square w-13 rounded-full object-cover"
                 />
               ) : (
-                <span className="flex aspect-square w-13 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-300 text-2xl text-white">
+                <span className="flex aspect-square w-13 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-blue-200 text-2xl text-white">
                   {item.username.split("")[0].toUpperCase()}
                 </span>
               )}

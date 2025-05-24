@@ -217,7 +217,7 @@ function SelectBox<T extends FieldValues>({
                       {selectValue &&
                         ((selectValue as string) === item.title ||
                           (selectValue as string[]).includes(item.title)) && (
-                          <span className="px-3 text-blue-500 dark:text-blue-400">
+                          <span className="px-3 text-blue-400 dark:text-blue-500">
                             <CheckRoundedIcon fontSize="small" />
                           </span>
                         )}

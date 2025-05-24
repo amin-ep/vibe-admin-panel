@@ -27,7 +27,7 @@
 
 .nav-item > a:hover {
   gap: 2.5rem;
-  color: var(--color-blue-500);
+  color: var(--color-blue-400);
 }
 
 .nav-item > a::after {
@@ -54,7 +54,7 @@
 
 .nav-item > a.active {
   color: var(--color-white);
-  background-color: var(--color-blue-500);
+  background-color: var(--color-blue-400);
 }
 
 .nav-item > a.active::after {

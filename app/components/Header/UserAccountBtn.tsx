@@ -29,7 +29,7 @@ export default function UserAccountBtn() {
           <span
             className={clsx(
               imageClasses,
-              "flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-300 text-white",
+              "flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-300 text-white",
             )}
           >
             {userdata?.firstName.at(0) ?? userdata?.username.at(0)}

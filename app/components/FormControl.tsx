@@ -48,7 +48,7 @@ export default function FormControl<TFormValues extends FormValues>({
       {label && <FormLabel htmlFor={id} label={label} />}
       <input
         className={clsx(
-          "rounded-lg border border-neutral-200 p-2 text-xs text-neutral-900 ring-4 ring-white transition duration-350 outline-none focus:border-blue-500 focus:ring-blue-200 md:p-3.5 dark:border-neutral-700 dark:text-neutral-200 dark:ring-neutral-900 dark:placeholder:text-neutral-700 dark:focus:border-blue-700 dark:focus:ring-blue-950",
+          "rounded-lg border border-neutral-200 p-2 text-xs text-neutral-900 ring-4 ring-white transition duration-350 outline-none focus:border-blue-400 focus:ring-blue-200 md:p-3.5 dark:border-neutral-700 dark:text-neutral-200 dark:ring-neutral-900 dark:placeholder:text-neutral-700 dark:focus:border-blue-700 dark:focus:ring-blue-950",
           inputClassName,
         )}
         type={type === "password" ? (passwordIsHidden ? type : "text") : type}

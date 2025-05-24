@@ -45,7 +45,7 @@ function MusicTablePlayer({
     <div className="flex w-full flex-row items-center gap-2">
       <button
         onClick={togglePlay}
-        className="h-6 w-8 rounded-md bg-blue-100 text-blue-900 dark:bg-blue-500 dark:text-blue-100"
+        className="h-6 w-8 rounded-md bg-blue-100 text-blue-900 dark:bg-blue-400 dark:text-blue-100"
         aria-label={musicId === currentSongId && isPlaying ? "Pause" : "Play"}
       >
         {musicId === currentSongId && isPlaying ? (
