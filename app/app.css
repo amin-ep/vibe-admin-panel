@@ -2,12 +2,17 @@
 
 @font-face {
   font-family: Inter;
-  src: url("/app/fonts/Inter.ttf");
+  src: url("/fonts/Inter.ttf");
 }
 
 @font-face {
   font-family: Playfair;
-  src: url("/app/fonts/Playfair.ttf");
+  src: url("/fonts/Playfair.ttf");
+}
+
+@font-face {
+  font-family: poppins;
+  src: url("/fonts/Poppins-Regular.ttf");
 }
 
 * {
@@ -15,7 +20,7 @@
 }
 
 html {
-  font-family: Inter;
+  font-family: poppins;
 }
 
 button {

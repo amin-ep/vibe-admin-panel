@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import FormControl from "~/components/FormControl";
-// import { useAuth } from "~/contexts/AuthContext";
 import type { AxiosError, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useTransition } from "react";
