@@ -1,7 +1,7 @@
 import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import { Slider } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePlayer } from "~/hooks/usePlayer";
 import { FILE_BASE_URL } from "~/utils/constants";
 import styles from "./MusicTablePlayer.module.css";
@@ -29,11 +29,17 @@ function MusicTablePlayer({
     sliderOnChangeCommitted,
   } = usePlayer(isPlaying && currentSongId === musicId);
 
-  const togglePlay = useCallback(() => {
+  const togglePlay = () => {
     if (currentSongId !== musicId) setCurrentSongId(musicId);
 
     setIsPlaying((state) => !state);
-  }, []);
+  };
+
+  useEffect(() => {
+    if (currentSongId !== musicId) {
+      setIsPlaying(false);
+    }
+  }, [currentSongId, musicId]);
 
   return (
     <div className="flex w-full flex-row items-center gap-2">
