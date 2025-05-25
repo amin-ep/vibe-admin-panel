@@ -1,0 +1,51 @@
+.loader {
+  width: 24px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  position: relative;
+  animation: l24 1s infinite linear;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: inherit;
+  animation: inherit;
+  animation-duration: 2s;
+}
+.loader:after {
+  animation-duration: 4s;
+}
+
+.blue {
+  border-right-color: var(--color-blue-400);
+}
+
+.white {
+  border-right-color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .loader {
+    width: 30px;
+    border: 5px solid transparent;
+  }
+
+  .loader:before,
+  .loader:after {
+    inset: -5px;
+  }
+}
+@keyframes l24 {
+  100% {
+    transform: rotate(1turn);
+  }
+}

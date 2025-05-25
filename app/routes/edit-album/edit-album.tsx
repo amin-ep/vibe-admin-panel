@@ -164,8 +164,8 @@ function EditAlbum({ loaderData, params }: Route.ComponentProps) {
             musics={loaderData.musics}
             albumData={loaderData.album}
           />
-          <Button className="my-5 w-37" type="submit">
-            {isPending ? "Editing..." : "Click To Edit"}
+          <Button isPending={isPending} className="my-5 w-37" type="submit">
+            Edit
           </Button>
         </form>
       )}

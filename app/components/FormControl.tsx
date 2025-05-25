@@ -67,7 +67,7 @@ export default function FormControl<TFormValues extends FormValues>({
         <button
           type="button"
           onClick={() => setPasswordIsHidden((state) => !state)}
-          className="absolute top-6 right-2 text-neutral-700 md:top-9 md:right-3.5"
+          className="absolute top-8.5 right-2 text-neutral-700 md:top-10.5 md:right-3.5"
         >
           {passwordIsHidden ? (
             <VisibilityOutlinedIcon fontSize={eyeIconFontSize} />

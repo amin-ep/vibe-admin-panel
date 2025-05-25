@@ -175,8 +175,13 @@ function EditMusic({ loaderData, params }: Route.ComponentProps) {
             errors={errors}
             register={register}
           />
-          <Button type="submit" variation="primary" className="my-5 w-30">
-            {isPending ? "Editing..." : "Edit"}
+          <Button
+            type="submit"
+            variation="primary"
+            className="my-5 w-30"
+            isPending={isPending}
+          >
+            Edit
           </Button>
         </form>
       )}

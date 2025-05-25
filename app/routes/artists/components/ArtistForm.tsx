@@ -112,6 +112,9 @@ function ArtistForm() {
             control={control}
             dropzoneClassName="w-full h-full"
             hiddenText
+            rules={{
+              required: false,
+            }}
           />
         </div>
 
@@ -145,7 +148,7 @@ function ArtistForm() {
           <Button
             type="submit"
             className="flex h-8.5 items-center justify-center md:h-11.5"
-            disabled={isPending}
+            isPending={isPending}
           >
             {isPending
               ? isUpdating

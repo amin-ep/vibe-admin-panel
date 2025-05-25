@@ -107,8 +107,8 @@ function NewAlbum({ loaderData }: Route.ComponentProps) {
             register={register}
           />
         )}
-        <Button disabled={isPending} type="submit" className="my-10 w-37">
-          {isPending ? "Creating..." : "Click to Create"}
+        <Button isPending={isPending} type="submit" className="my-10 w-37">
+          Create
         </Button>
       </form>
     </div>

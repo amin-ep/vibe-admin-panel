@@ -13,6 +13,7 @@ import { useToast } from "~/store/useToast";
 import ApiRequests from "~/api";
 import type { AxiosError, AxiosResponse } from "axios";
 import { appendOtherArtists } from "~/utils/appendData";
+import SpinnerLoader from "~/components/SpinnerLoader/SpinnerLoader";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Add Music" }];
@@ -95,8 +96,12 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
             errors={errors}
             control={control}
           />
-          <Button type="submit" className="my-10 w-38">
-            {isPending ? "Creating..." : "Create"}
+          <Button
+            type="submit"
+            className="my-10 flex w-38 items-center justify-center"
+            isPending={isPending}
+          >
+            Create
           </Button>
         </form>
       </div>

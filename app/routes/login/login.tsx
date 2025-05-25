@@ -1,11 +1,12 @@
-import clsx from "clsx";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
-import FormControl from "~/components/FormControl";
 import type { AxiosError, AxiosResponse } from "axios";
+import clsx from "clsx";
 import Cookies from "js-cookie";
 import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { login } from "~/api/authApi";
+import FormControl from "~/components/FormControl";
+import SpinnerLoader from "~/components/SpinnerLoader/SpinnerLoader";
 import { useAuth } from "~/contexts/AuthContext";
 import { useToast } from "~/store/useToast";
 import { AUTH_TOKEN_KEY, EMAIL_REGEX } from "~/utils/constants";
@@ -124,12 +125,13 @@ export default function Login({}: Route.ComponentProps) {
           <button
             type="submit"
             className={clsx(
-              "relative my-2 cursor-pointer rounded-lg bg-black p-2 text-sm text-white transition duration-300 hover:bg-neutral-800 hover:shadow-2xl disabled:cursor-not-allowed disabled:bg-neutral-800 md:p-3",
+              "relative my-2 flex cursor-pointer items-center justify-center rounded-lg bg-black text-sm text-white transition duration-300 hover:bg-neutral-800 hover:shadow-2xl disabled:cursor-not-allowed disabled:bg-neutral-800",
               styles.submit,
+              isLoggingIn ? "py-2" : "py-2.5",
             )}
             disabled={isLoggingIn}
           >
-            {isLoggingIn ? "Logging in..." : "Log In"}
+            {isLoggingIn ? <SpinnerLoader color="white" /> : "Log In"}
           </button>
         </form>
       </div>
