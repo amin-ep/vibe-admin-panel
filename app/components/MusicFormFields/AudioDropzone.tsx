@@ -12,6 +12,7 @@ import FormLabel from "../FormLabel";
 import { useCallback, useEffect, useState } from "react";
 import FieldsAudioPlayer from "./FieldsAudioPlayer";
 import FormErrorText from "../FormErrorText";
+import { useToast } from "~/store/useToast";
 
 type Props<T extends FieldValues> = {
   control: Control<T>;
@@ -31,6 +32,7 @@ function AudioDropzone<T extends FieldValues>({
   defaultSrc,
 }: Props<T>) {
   const [file, setFile] = useState<File | null | string>(defaultSrc ?? null);
+  const { error } = useToast();
   const onDrop = useCallback(
     (acceptedFiles: any, field: ControllerRenderProps<T>) => {
       field.onChange(acceptedFiles[0]);
@@ -38,6 +40,11 @@ function AudioDropzone<T extends FieldValues>({
     },
     [],
   );
+
+  const onDropRejected = () => {
+    error("Invalid audio type");
+  };
+
   return (
     <Controller
       name={"audioFileUrl" as Path<T>}
@@ -50,6 +57,7 @@ function AudioDropzone<T extends FieldValues>({
           accept: {
             "audio/*": [".mp3", ".wav", ".ogg"],
           },
+          onDropRejected,
         });
 
         return (

@@ -16,6 +16,7 @@ import FormLabel from "../FormLabel";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import FormErrorText from "../FormErrorText";
 import { FILE_BASE_URL } from "~/utils/constants";
+import { useToast } from "~/store/useToast";
 
 type Props<T extends FieldValues> = {
   dropzoneClassName?: string;
@@ -42,6 +43,8 @@ function ImageDropzone<T extends FieldValues>({
 }: Props<T>) {
   const [file, setFile] = useState<File | null | string>(defaultSrc ?? null);
 
+  const { error } = useToast();
+
   const onDrop = useCallback(
     (acceptedFiles: any, field: ControllerRenderProps<T>) => {
       field.onChange(acceptedFiles[0]);
@@ -50,18 +53,22 @@ function ImageDropzone<T extends FieldValues>({
     [],
   );
 
+  const onDropRejected = () => {
+    error("Invalid image type");
+  };
+
   return (
     <Controller
       control={control}
       rules={rules}
       name={name}
       render={({ field }) => {
-        const { getInputProps, getRootProps, isDragActive, acceptedFiles } =
-          useDropzone({
-            onDrop: (acceptedFiles) => onDrop(acceptedFiles, field),
-            maxFiles: 1,
-            accept: { "image/*": [] },
-          });
+        const { getInputProps, getRootProps, isDragActive } = useDropzone({
+          onDrop: (acceptedFiles) => onDrop(acceptedFiles, field),
+          maxFiles: 1,
+          accept: { "image/*": [] },
+          onDropRejected: onDropRejected,
+        });
 
         return (
           <div

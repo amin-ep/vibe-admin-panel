@@ -64,7 +64,7 @@ function Sidebar({ isOpen, setIsOpen }: Props) {
       )}
       <aside
         className={clsx(
-          "fixed top-0 bottom-0 left-0 z-11 h-screen w-80 -translate-x-84 overflow-y-auto border-r border-neutral-200 bg-white p-4 text-neutral-900 transition-all sm:w-84 md:top-18 md:w-20 md:translate-x-0 dark:border-neutral-700 dark:bg-neutral-900",
+          "fixed top-0 bottom-0 left-0 z-1000 h-screen w-80 -translate-x-84 overflow-y-auto border-r border-neutral-200 bg-white p-4 text-neutral-900 transition-all sm:w-84 md:top-18 md:w-20 md:translate-x-0 dark:border-neutral-700 dark:bg-neutral-900",
           !isDesktopView
             ? isOpen
               ? "translate-x-0"

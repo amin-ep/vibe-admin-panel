@@ -12,7 +12,7 @@ export default function Overlay({ className, isOpen, close, id }: Props) {
   return (
     <div
       className={clsx(
-        "absolute inset-0 z-11 h-screen w-full bg-transparent backdrop-blur-md transition",
+        "absolute inset-0 z-999 h-screen w-full bg-transparent backdrop-blur-md transition",
         className,
         isOpen ? styles.open : styles.close,
       )}
