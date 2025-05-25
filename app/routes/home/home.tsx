@@ -1,14 +1,16 @@
+import { redirect } from "react-router";
 import ApiRequests from "~/api";
 import { getMusicStats } from "~/api/musicApi";
 import PageHeading from "~/components/PageHeading";
-import { getServerAuthToken } from "~/utils/helpers";
+import { AUTH_TOKEN_KEY } from "~/utils/constants";
 import type { Route } from "./+types/home";
 import MusicChartTab from "./components/MusicChartTab/MusicChartTab";
-import StatsSection from "./components/StatsSection";
 import PerArtistBartChart from "./components/PerArtistBartChart";
 import PopularList from "./components/PopularList";
 import RegisteredUsersChart from "./components/RegisteredUsersChart";
+import StatsSection from "./components/StatsSection";
 import styles from "./home.module.css";
+import { getServerAuthToken } from "~/utils/helpers";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -19,38 +21,45 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const api = new ApiRequests();
+
   const authToken = getServerAuthToken(request);
+  console.log({ authToken });
 
-  const userRes: ResponseObject = await api.getAllData<IUser>(
-    "user",
-    authToken,
-  );
-  const albumRes: ResponseObject = await api.getAllData<IAlbum>("album");
-  const musicRes: ResponseObject = await api.getAllData<IMusic>("music");
-  const artistRes: ResponseObject = await api.getAllData<IArtist>("artist");
-  const musicStatsResponse: ResponseObject = await getMusicStats(authToken);
+  if (!authToken) {
+    return redirect("/login");
+  } else {
+    const userRes: ResponseObject = await api.getAllData<IUser>(
+      "user",
+      authToken,
+    );
+    const albumRes: ResponseObject = await api.getAllData<IAlbum>("album");
+    const musicRes: ResponseObject = await api.getAllData<IMusic>("music");
+    const artistRes: ResponseObject = await api.getAllData<IArtist>("artist");
+    const musicStatsResponse: ResponseObject = await getMusicStats(authToken);
 
-  if (
-    userRes.status === "success" &&
-    albumRes.status === "success" &&
-    musicRes.status === "success" &&
-    artistRes.status === "success" &&
-    musicStatsResponse.status === "success"
-  ) {
-    return {
-      usersCount: (userRes as SuccessResponseObject<IUser[]>).result as number,
-      albumsCount: (albumRes as SuccessResponseObject<IAlbum[]>)
-        .result as number,
-      musicsCount: (musicRes as SuccessResponseObject<IMusic[]>)
-        .result as number,
-      artistsCount: (artistRes as SuccessResponseObject<IArtist[]>)
-        .result as number,
-      musicStats: (musicStatsResponse as SuccessResponseObject<IMusicStats>)
-        .data,
-      albums: (albumRes as SuccessResponseObject<IAlbum[]>).data,
-      musics: (musicRes as SuccessResponseObject<IMusic[]>).data,
-      users: (userRes as SuccessResponseObject<IUser[]>).data,
-    };
+    if (
+      userRes.status === "success" &&
+      albumRes.status === "success" &&
+      musicRes.status === "success" &&
+      artistRes.status === "success" &&
+      musicStatsResponse.status === "success"
+    ) {
+      return {
+        usersCount: (userRes as SuccessResponseObject<IUser[]>)
+          .result as number,
+        albumsCount: (albumRes as SuccessResponseObject<IAlbum[]>)
+          .result as number,
+        musicsCount: (musicRes as SuccessResponseObject<IMusic[]>)
+          .result as number,
+        artistsCount: (artistRes as SuccessResponseObject<IArtist[]>)
+          .result as number,
+        musicStats: (musicStatsResponse as SuccessResponseObject<IMusicStats>)
+          .data,
+        albums: (albumRes as SuccessResponseObject<IAlbum[]>).data,
+        musics: (musicRes as SuccessResponseObject<IMusic[]>).data,
+        users: (userRes as SuccessResponseObject<IUser[]>).data,
+      };
+    }
   }
 }
 
