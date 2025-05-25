@@ -1,5 +1,5 @@
 import { Slider } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { usePlayer } from "~/hooks/usePlayer";
 import IconLinkButton from "../IconLinkButton/IconLinkButton";
 import styles from "./FieldsAudioPlayer.module.css";
@@ -22,20 +22,22 @@ function FieldsAudioPlayer({ audioSrc, onDelete }: Props) {
     sliderOnChangeCommitted,
   } = usePlayer(isPlaying);
 
+  const togglePlaying = useCallback(() => {
+    setIsPlaying((state) => !state);
+  }, []);
+
+  const audioFile = useMemo(() => {
+    if (audioSrc instanceof File) {
+      return URL.createObjectURL(audioSrc as File);
+    } else {
+      return `${FILE_BASE_URL}/${audioSrc}`;
+    }
+  }, [audioSrc]);
+
   return (
     <div className="flex h-9 w-full items-center gap-4 rounded-lg bg-neutral-100 md:h-11 dark:bg-neutral-800">
-      <audio
-        ref={audioRef}
-        src={
-          audioSrc instanceof File
-            ? URL.createObjectURL(audioSrc as File)
-            : `${FILE_BASE_URL}/${audioSrc}`
-        }
-      />
-      <IconLinkButton
-        className="!ring-0"
-        onClick={() => setIsPlaying((state) => !state)}
-      >
+      <audio ref={audioRef} src={audioFile} />
+      <IconLinkButton className="!ring-0" onClick={togglePlaying}>
         {!isPlaying ? <PlayArrowRoundedIcon /> : <PauseRoundedIcon />}
       </IconLinkButton>
       <Slider
