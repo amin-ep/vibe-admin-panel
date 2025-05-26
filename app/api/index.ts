@@ -100,13 +100,15 @@ class ApiRequests {
     try {
       const token = Cookies.get(AUTH_TOKEN_KEY);
 
+      const contentType =
+        data instanceof FormData ? "multipart/form-data" : "application/json";
       const res: AxiosResponse<IUpdateDataResponse<T>> = await axios.patch(
         `${API_BASE_URL}/${route}/${id}`,
         data,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": contentType,
           },
         },
       );

@@ -23,7 +23,6 @@ export async function loader({ request }: Route.LoaderArgs) {
   const api = new ApiRequests();
 
   const authToken = getServerAuthToken(request);
-  console.log({ authToken });
 
   if (!authToken) {
     return redirect("/login");
@@ -70,13 +69,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <PageHeading title="Home" />
         <div className="flex flex-col gap-2 lg:gap-6">
           <StatsSection
-            usersCount={loaderData.usersCount}
-            albumsCount={loaderData.albumsCount}
-            musicsCount={loaderData.musicsCount}
-            artistsCount={loaderData.artistsCount}
+            usersCount={loaderData?.usersCount}
+            albumsCount={loaderData?.albumsCount}
+            musicsCount={loaderData?.musicsCount}
+            artistsCount={loaderData?.artistsCount}
           />
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-[40%_60%] md:grid-cols-[45%_55%] lg:gap-6">
-            <MusicChartTab musicStats={loaderData.musicStats} />
+            <MusicChartTab musicStats={loaderData?.musicStats} />
             <PerArtistBartChart data={loaderData.musicStats.musicsPerArtist} />
           </div>
           <div className={styles["popular-stats"]}>

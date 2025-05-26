@@ -19,8 +19,8 @@ function DropdownMenu({
   return (
     <div
       className={clsx(
-        "absolute z-1 flex max-w-46 min-w-32 flex-col rounded-md border border-neutral-300 bg-white p-3 shadow-md dark:border-neutral-600 dark:bg-neutral-800 dark:shadow-neutral-800",
-        "after:absolute after:-top-1.5 after:-z-1 after:aspect-square after:w-3 after:rotate-45 after:content-around after:rounded-sm after:border-t after:border-l after:border-neutral-300 after:bg-white dark:after:border-neutral-600 dark:after:bg-neutral-800",
+        "absolute z-1 flex max-w-46 min-w-32 flex-col rounded-md border border-neutral-300 bg-white p-3 shadow-md dark:border-neutral-600 dark:bg-neutral-950 dark:shadow-neutral-900",
+        "after:absolute after:-top-1.5 after:-z-1 after:aspect-square after:w-3 after:rotate-45 after:content-around after:rounded-sm after:border-t after:border-l after:border-neutral-300 after:bg-white dark:after:border-neutral-600 dark:after:bg-neutral-950",
         className,
       )}
       ref={ref as React.RefObject<HTMLDivElement | null>}

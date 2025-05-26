@@ -37,8 +37,8 @@ function MusicChartTab({ musicStats }: Props) {
     <div>
       <Tabs>
         <Tabs.TabHead>
-          <Tabs.TabItem label="Per Genre" />
-          <Tabs.TabItem label="Per Category" />
+          <Tabs.TabItem label="Musics Per Genre" />
+          <Tabs.TabItem label="Musics Per Category" />
         </Tabs.TabHead>
         <BorderedWrapper className="mt-4 flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-5">
           <Tabs.Panel index={0}>

@@ -1,6 +1,7 @@
 import { TableBody, TableCell, TableRow } from "@mui/material";
 import moment from "moment";
 import { FILE_BASE_URL } from "~/utils/constants";
+import RoleCell from "./RoleCell";
 
 type Props = { data: IUser[] };
 
@@ -26,14 +27,20 @@ function UserTableBody({ data }: Props) {
           </TableCell>
           <TableCell className="table-cell-classes">{item.email}</TableCell>
           <TableCell className="table-cell-classes">{item.username}</TableCell>
-          <TableCell className="table-cell-classes capitalize">
-            {item.role}
+          <RoleCell id={item._id} role={item.role} />
+          <TableCell className="table-cell-classes">
+            {item.firstName ?? (
+              <span className="text-xs text-neutral-400 italic dark:text-neutral-600">
+                Not set
+              </span>
+            )}
           </TableCell>
           <TableCell className="table-cell-classes">
-            {item.firstName ?? "-"}
-          </TableCell>
-          <TableCell className="table-cell-classes">
-            {item.lastName ?? "-"}
+            {item.lastName ?? (
+              <span className="text-xs text-neutral-400 italic dark:text-neutral-600">
+                Not set
+              </span>
+            )}
           </TableCell>
           <TableCell className="table-cell-classes">
             {moment(item.createdAt).fromNow()}
