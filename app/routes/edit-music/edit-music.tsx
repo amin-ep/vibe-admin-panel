@@ -55,7 +55,7 @@ function EditMusic({ loaderData, params }: Route.ComponentProps) {
     const musicData = loaderData.music;
     if (musicData) {
       reset({
-        artist: loaderData.music.artist.name,
+        artists: loaderData.music.artists.map((artist) => artist.name),
         audioFileUrl: loaderData.music.audioFileUrl,
         categories: loaderData.music.categories,
         coverImageUrl: loaderData.music.coverImageUrl,
@@ -80,7 +80,28 @@ function EditMusic({ loaderData, params }: Route.ComponentProps) {
         }
         if (musicData.name.trim() === data.name) delete data.name;
 
-        if (musicData.artist.name === data.artist) delete data.artist;
+        if (data.artists && data.artists.length > 0) {
+          // artists of musicData has all items of data artists
+          const artistsNotChanged =
+            data.artists.every((el) =>
+              musicData.artists.map((el) => el.name).includes(el),
+            ) && data.artists.length === musicData.artists.length;
+          if (artistsNotChanged) {
+            delete data.artists;
+          } else {
+            let selectedArtistsArr: string[] = [];
+            for (const artist of data.artists) {
+              const selectedArtistsId = artistData.find(
+                (el) => el.name == artist,
+              )?._id;
+              if (selectedArtistsId) {
+                selectedArtistsArr = [...selectedArtistsArr, selectedArtistsId];
+              }
+            }
+            data.artists = selectedArtistsArr;
+          }
+        }
+
         if (musicData.genre === data.genre) delete data.genre;
         if (musicData.releaseYear === Number(data.releaseYear))
           delete data.releaseYear;
@@ -102,19 +123,6 @@ function EditMusic({ loaderData, params }: Route.ComponentProps) {
         } else {
           let payload: FormData | Partial<IMusicFields>;
           if (artistData) {
-            if (data.artist) {
-              const selectedArtistsId = artistData.find(
-                (artist) => artist.name == data.artist,
-              )?._id;
-              console.log(selectedArtistsId);
-
-              if (selectedArtistsId) {
-                data.artist = selectedArtistsId;
-              } else {
-                error("Cannot get artist data. Try again later");
-              }
-            }
-
             if (data.otherArtists && data.otherArtists.length > 0) {
               appendOtherArtists<IMusicFields>(
                 artistData,

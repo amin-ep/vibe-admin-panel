@@ -101,10 +101,11 @@ function MusicFormFields({
         items={artistsArr}
         wrapperClassName={styles["artist-controller"]}
         searchPlaceholder="Search artist..."
-        defaultValue={musicData?.artist.name}
+        defaultValue={musicData?.artists.map((artist) => artist.name)}
         control={control}
-        errorMessage={errors.artist?.message}
-        name="artist"
+        errorMessage={errors.artists?.message}
+        name="artists"
+        selectMethod="multiple"
         rules={{
           required: {
             value: true,

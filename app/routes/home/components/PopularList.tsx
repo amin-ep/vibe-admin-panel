@@ -32,7 +32,7 @@ function PopularList({ heading, data, className }: Props) {
                     {textExpander(item.name, 20)}
                   </h4>
                   <p className="mt-0.5 text-xs text-neutral-700 italic dark:text-neutral-400">
-                    {item.artist.name}
+                    {item.artists.map((artist) => artist.name)}
                   </p>
                 </div>
               </div>

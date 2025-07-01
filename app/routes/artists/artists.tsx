@@ -11,7 +11,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const api = new ApiRequests();
   const artists: ResponseObject = await api.getAllData<IArtist>(
     "artist",
-    authToken,
+    authToken as string,
   );
 
   return (artists as SuccessResponseObject<IArtist[]>).data;

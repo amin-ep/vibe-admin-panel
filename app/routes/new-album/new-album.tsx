@@ -45,16 +45,15 @@ function NewAlbum({ loaderData }: Route.ComponentProps) {
     const formData = new FormData();
     startTransition(async () => {
       if (loaderData.artists && loaderData.musics) {
-        const selectedArtistsId = loaderData.artists.find(
-          (artist) => artist.name == data.artist,
-        )?._id;
+        // appending ids of artists instead of their name
+        let artistsDataObject: string[] = [];
+        loaderData.artists.forEach((el) => {
+          if ((data.artists as string[]).includes(el.name)) {
+            artistsDataObject = [...artistsDataObject, el._id];
+          }
+        });
 
-        if (selectedArtistsId) {
-          data.artist = selectedArtistsId;
-        } else {
-          error("Cannot get artist data. Try again later");
-        }
-        console.log(data);
+        data.artists = artistsDataObject;
 
         if (data.otherArtists && data.otherArtists.length > 0) {
           appendOtherArtists(loaderData.artists, data);
@@ -77,7 +76,6 @@ function NewAlbum({ loaderData }: Route.ComponentProps) {
         }
 
         const res = await api.createData("album", formData);
-        console.log(res);
         if (res.status === 201) {
           revalidator.revalidate().then(() => {
             success("Album added successfully");

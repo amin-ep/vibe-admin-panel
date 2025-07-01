@@ -19,7 +19,9 @@ function Album({ loaderData: data }: Route.ComponentProps) {
   if (data) {
     return (
       <div>
-        <PageHeading title={`"${data?.name}" Album by ${data.artist.name}`} />
+        <PageHeading
+          title={`"${data?.name}" Album by ${data.artists.map((artist) => artist.name)}`}
+        />
         <MusicTable data={data.musics} />
       </div>
     );

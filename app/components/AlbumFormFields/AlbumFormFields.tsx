@@ -71,7 +71,7 @@ function AlbumFormFields({
 
       {/* ARTIST */}
       <SelectBox<IAlbumFields>
-        name="artist"
+        name="artists"
         rules={{
           required: {
             value: true,
@@ -83,9 +83,10 @@ function AlbumFormFields({
         items={artistsArr}
         searchPlaceholder="Search artists..."
         wrapperClassName={styles["artist-controller"]}
-        errorMessage={errors?.artist?.message}
-        defaultValue={albumData?.artist.name}
+        errorMessage={errors?.artists?.message}
+        defaultValue={albumData?.artists.map((artist) => artist.name)}
         control={control}
+        selectMethod="multiple"
       />
 
       {/* RELEASE YEAR */}

@@ -10,6 +10,7 @@ import { FILE_BASE_URL } from "~/utils/constants";
 import MusicTablePlayer from "./MusicTablePlayer";
 
 import clsx from "clsx";
+// import { motion } from "framer-motion";
 import TableHead from "~/components/TableHead";
 import MusicTableActions from "./MusicTableActions";
 
@@ -39,7 +40,7 @@ function MusicTable({ data }: Props) {
           <TableHead columns={columns} />
           {/* Table Body */}
           <TableBody>
-            {data.map((music) => (
+            {data.map((music, i) => (
               // Table Row
               <TableRow key={music._id}>
                 {/* Cover Image & player for playing song */}
@@ -94,7 +95,9 @@ function MusicTable({ data }: Props) {
                     "text-sm font-semibold",
                   )}
                 >
-                  {music.artist.name}
+                  {music.artists.length === 1
+                    ? music.artists.map((artist) => artist.name)
+                    : music.artists.map((artist) => artist.name).join(" & ")}
                 </TableCell>
                 {/* Other artists */}
                 <TableCell

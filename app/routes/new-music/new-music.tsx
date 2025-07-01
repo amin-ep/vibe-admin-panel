@@ -43,15 +43,15 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
     const formData = new FormData();
     startTransition(async () => {
       if (loaderData?.data) {
-        const selectedArtistsId = loaderData.data.find(
-          (artist) => artist.name == data.artist,
-        )?._id;
+        // appending ids of artists instead of their name
+        let artistsDataObject: string[] = [];
 
-        if (selectedArtistsId) {
-          data.artist = selectedArtistsId;
-        } else {
-          error("Cannot get artist data. Try again later");
-        }
+        loaderData.data.forEach((el) => {
+          if ((data.artists as string[]).includes(el.name)) {
+            artistsDataObject = [...artistsDataObject, el._id];
+          }
+        });
+        data.artists = artistsDataObject;
 
         if (data.otherArtists && data.otherArtists.length > 0) {
           appendOtherArtists<IMusicFields>(loaderData.data, data);
@@ -76,7 +76,6 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
           });
         } else {
           const err = res as AxiosError<IApiError>;
-
           error(err.response?.data.message || "Something went wrong!");
         }
       } else {

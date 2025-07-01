@@ -53,7 +53,7 @@ function EditAlbum({ loaderData, params }: Route.ComponentProps) {
     if (loaderData) {
       const albumData = loaderData.album;
       reset({
-        artist: albumData.artist.name,
+        artists: albumData.artists.map((artist) => artist.name),
         categories: albumData.categories,
         coverImageUrl: albumData.coverImageUrl,
         musics: albumData.musics,
@@ -70,7 +70,27 @@ function EditAlbum({ loaderData, params }: Route.ComponentProps) {
         delete data.coverImageUrl;
       }
       if (loaderData.album.name.trim() === data.name) delete data.name;
-      if (loaderData.album.artist.name === data.artist) delete data.artist;
+      if (data.artists && data.artists.length > 0) {
+        // artists of musicData has all items of data artists
+        const artistsNotChanged =
+          data.artists.every((el) =>
+            loaderData.album.artists.map((el) => el.name).includes(el),
+          ) && data.artists.length === loaderData.album.artists.length;
+        if (artistsNotChanged) {
+          delete data.artists;
+        } else {
+          let selectedArtistsArr: string[] = [];
+          for (const artist of data.artists) {
+            const selectedArtistsId = loaderData.artists.find(
+              (el) => el.name == artist,
+            )?._id;
+            if (selectedArtistsId) {
+              selectedArtistsArr = [...selectedArtistsArr, selectedArtistsId];
+            }
+          }
+          data.artists = selectedArtistsArr;
+        }
+      }
       if (loaderData.album.releaseYear === Number(data.releaseYear))
         delete data.releaseYear;
       if (
@@ -91,23 +111,9 @@ function EditAlbum({ loaderData, params }: Route.ComponentProps) {
         error("Please change some data to edit");
       } else {
         let payload: FormData | Partial<IAlbumFields>;
-        if (artistsData) {
-          if (data.artist) {
-            const selectedArtistsId = artistsData.find(
-              (artist) => artist.name == data.artist,
-            )?._id;
-            console.log(selectedArtistsId);
 
-            if (selectedArtistsId) {
-              data.artist = selectedArtistsId;
-            } else {
-              error("Cannot get artist data. Try again later");
-            }
-          }
-
-          if (data.otherArtists && data.otherArtists.length > 0) {
-            appendOtherArtists<IAlbumFields>(artistsData, data as IAlbumFields);
-          }
+        if (artistsData && data.otherArtists && data.otherArtists.length > 0) {
+          appendOtherArtists<IAlbumFields>(artistsData, data as IAlbumFields);
         }
 
         if (data.musics && musicsData) {
@@ -132,6 +138,7 @@ function EditAlbum({ loaderData, params }: Route.ComponentProps) {
         } else {
           payload = data;
         }
+
         const api = new ApiRequests();
         const response = await api.updateDataById<
           IMusic,

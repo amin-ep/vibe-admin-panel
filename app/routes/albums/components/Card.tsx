@@ -38,7 +38,7 @@ function Card({ album }: Props) {
           {album.name}
         </p>
         <p className="text-xs text-neutral-700 italic md:text-sm dark:text-neutral-200">
-          {album.artist.name}
+          {album.artists.map((artist) => artist.name)}
         </p>
         <p className="text-xs text-neutral-700 md:text-sm dark:text-neutral-200">
           {album.releaseYear}

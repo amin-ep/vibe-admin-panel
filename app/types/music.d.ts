@@ -5,7 +5,7 @@ interface IMusic {
   name: string;
   audioFileUrl: string;
   coverImageUrl: string;
-  artist: MusicArtist;
+  artists: MusicArtist[];
   otherArtists: MusicArtist[];
   releaseYear: number;
 
@@ -38,7 +38,7 @@ interface IMusicPayload {
   name: string;
   audioFileUrl: string;
   coverImageUrl: string;
-  artist: string;
+  artists: string[];
   otherArtists: string[] | MusicArtist[];
   releaseYear: number;
   categories: string[];
