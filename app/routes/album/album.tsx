@@ -17,10 +17,11 @@ export async function loader({ params }: Route.LoaderArgs) {
 
 function Album({ loaderData: data }: Route.ComponentProps) {
   if (data) {
+    const artist = data.artists.map((artist) => artist.name);
     return (
       <div>
         <PageHeading
-          title={`"${data?.name}" Album by ${data.artists.map((artist) => artist.name)}`}
+          title={`"${data?.name}" Album by ${artist.length === 1 ? artist : artist.join(" & ")}`}
         />
         <MusicTable data={data.musics} />
       </div>

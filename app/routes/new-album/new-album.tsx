@@ -2,6 +2,7 @@ import { useTransition } from "react";
 import { useNavigate, useRevalidator } from "react-router";
 import ApiRequests from "~/api";
 
+import type { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import AlbumFormFields, {
   type IAlbumFields,
@@ -9,9 +10,8 @@ import AlbumFormFields, {
 import Button from "~/components/Button";
 import PageHeading from "~/components/PageHeading";
 import { useToast } from "~/store/useToast";
+import { appendOtherArtists } from "~/utils/appendData";
 import type { Route } from "./+types/new-album";
-import { appendMusics, appendOtherArtists } from "~/utils/appendData";
-import type { AxiosError } from "axios";
 
 export function meta() {
   return [{ title: "New Album" }];
@@ -59,9 +59,16 @@ function NewAlbum({ loaderData }: Route.ComponentProps) {
           appendOtherArtists(loaderData.artists, data);
         }
 
-        if (data.musics) {
-          appendMusics(loaderData.musics as IMusic[], data.musics as string[]);
+        let selectedMusics: string[] = [];
+        for (const music of data.musics) {
+          const selectedMusicId = (loaderData.musics as IMusic[]).find(
+            (el) => el.name === music,
+          )?._id;
+          if (selectedMusicId) {
+            selectedMusics = [...selectedMusics, selectedMusicId];
+          }
         }
+        data.musics = selectedMusics;
 
         for (const [key, value] of Object.entries(data)) {
           if (typeof value === "string" || value instanceof File) {
@@ -74,7 +81,6 @@ function NewAlbum({ loaderData }: Route.ComponentProps) {
             }
           }
         }
-
         const res = await api.createData("album", formData);
         if (res.status === 201) {
           revalidator.revalidate().then(() => {

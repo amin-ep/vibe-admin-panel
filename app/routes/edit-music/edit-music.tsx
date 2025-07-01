@@ -42,7 +42,6 @@ function EditMusic({ loaderData, params }: Route.ComponentProps) {
     formState: { errors },
     handleSubmit,
     reset,
-    getValues,
   } = useForm<IMusicFields>();
 
   // @ts-ignore

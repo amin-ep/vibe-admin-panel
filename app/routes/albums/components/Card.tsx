@@ -25,7 +25,7 @@ function Card({ album }: Props) {
 
   const linkClasses =
     "rounded-lg dark:bg-white/10 py-2 text-xs bg-black/10 hover:bg-black/35 dark:text-white sm:text-sm text-center dark:hover:bg-white/30 transition";
-
+  const albumArtists = album.artists.map((artist) => artist.name);
   return (
     <div className="relative aspect-square w-full rounded-lg shadow-md">
       <img
@@ -38,7 +38,7 @@ function Card({ album }: Props) {
           {album.name}
         </p>
         <p className="text-xs text-neutral-700 italic md:text-sm dark:text-neutral-200">
-          {album.artists.map((artist) => artist.name)}
+          {albumArtists.length === 1 ? albumArtists : albumArtists.join(" FT ")}
         </p>
         <p className="text-xs text-neutral-700 md:text-sm dark:text-neutral-200">
           {album.releaseYear}

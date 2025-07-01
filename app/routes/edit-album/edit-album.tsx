@@ -8,7 +8,7 @@ import AlbumFormFields, {
 import Button from "~/components/Button";
 import PageHeading from "~/components/PageHeading";
 import { useToast } from "~/store/useToast";
-import { appendMusics, appendOtherArtists } from "~/utils/appendData";
+import { appendOtherArtists } from "~/utils/appendData";
 import type { Route } from "./+types/edit-album";
 import type { AxiosError } from "axios";
 
@@ -117,7 +117,16 @@ function EditAlbum({ loaderData, params }: Route.ComponentProps) {
         }
 
         if (data.musics && musicsData) {
-          appendMusics(musicsData, data.musics as string[]);
+          let selectedMusics: string[] = [];
+          for (const music of data.musics) {
+            const selectedMusicId = (loaderData.musics as IMusic[]).find(
+              (el) => el.name === music,
+            )?._id;
+            if (selectedMusicId) {
+              selectedMusics = [...selectedMusics, selectedMusicId];
+            }
+          }
+          data.musics = selectedMusics;
         }
 
         if (data.coverImageUrl || data.audioFileUrl) {
