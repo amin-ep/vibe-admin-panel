@@ -13,6 +13,10 @@ const otherArtists = z.array(z.string(), {
 
 const genreEnum = genresArr.map((el) => el.title);
 
+const relatedMusics = z.array(z.string(), {
+  message: "Add some related musics",
+});
+
 //@ts-ignore
 const genre = z.enum(genreEnum);
 
@@ -23,6 +27,7 @@ const validateCreateMusic = z.object({
   releaseYear,
   categories,
   genre,
+  relatedMusics,
 });
 
 const validateEditMusic = z.object({
@@ -32,6 +37,7 @@ const validateEditMusic = z.object({
   releaseYear: releaseYear.optional(),
   categories: categories.optional(),
   genre: genre.optional(),
+  relatedMusics: relatedMusics.optional(),
 });
 
 export { validateCreateMusic, validateEditMusic };

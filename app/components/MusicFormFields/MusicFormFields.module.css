@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
-  grid-template-areas: "name name name" "audio audio coverImage" "releaseYear releaseYear coverImage" "artist artist artist" "otherArtists otherArtists otherArtists" "genre genre genre" "categories categories categories";
+  grid-template-areas: "name name name" "audio audio coverImage" "releaseYear releaseYear coverImage" "artist artist artist" "otherArtists otherArtists otherArtists" "genre genre genre" "relatedMusics relatedMusics relatedMusics" "categories categories categories";
   gap: 6px;
   align-items: start;
 
@@ -11,6 +11,9 @@
 
 .name-controller {
   grid-area: name;
+}
+.related-musics-controller {
+  grid-area: relatedMusics;
 }
 .audio-controller {
   grid-area: audio;
@@ -42,7 +45,7 @@
 @media (min-width: 640px) {
   .grid-container {
     grid-template-columns: repeat(6, 1fr);
-    grid-template-areas: "name name name name coverImage coverImage" "audio audio audio audio coverImage coverImage" "releaseYear releaseYear releaseYear releaseYear coverImage coverImage" "genre genre genre genre coverImage coverImage" "artist artist artist otherArtists otherArtists otherArtists" "categories categories categories categories categories categories";
+    grid-template-areas: "name name name name coverImage coverImage" "audio audio audio audio coverImage coverImage" "releaseYear releaseYear releaseYear releaseYear coverImage coverImage" "genre genre genre genre coverImage coverImage" "artist artist artist otherArtists otherArtists otherArtists" "relatedMusics relatedMusics relatedMusics relatedMusics relatedMusics relatedMusics" "categories categories categories categories categories categories";
     gap: 0.5rem;
   }
 }
@@ -55,6 +58,7 @@
       "releaseYear releaseYear releaseYear releaseYear releaseYear ."
       "genre genre genre genre genre ."
       "artist artist otherArtists otherArtists otherArtists ."
+      "relatedMusics relatedMusics relatedMusics relatedMusics relatedMusics ."
       "categories categories categories categories categories categories";
   }
 }
@@ -64,6 +68,7 @@
     grid-template-areas:
       "name name name name name coverImage" "audio audio audio audio audio coverImage" "releaseYear releaseYear releaseYear releaseYear releaseYear coverImage" "genre genre genre genre genre ."
       "artist artist otherArtists otherArtists otherArtists ."
+      "relatedMusics relatedMusics relatedMusics relatedMusics relatedMusics ."
       "categories categories categories categories categories categories";
   }
 }

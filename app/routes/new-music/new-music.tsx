@@ -3,17 +3,17 @@ import { getAllArtists } from "~/api/artistApi";
 import PageHeading from "~/components/PageHeading";
 import type { Route } from "./+types/new-music";
 
+import type { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate, useRevalidator } from "react-router";
+import ApiRequests from "~/api";
+import { getAllMusics } from "~/api/musicApi";
 import Button from "~/components/Button";
 import MusicFormFields, {
   type IMusicFields,
 } from "~/components/MusicFormFields/MusicFormFields";
 import { useToast } from "~/store/useToast";
-import ApiRequests from "~/api";
-import type { AxiosError, AxiosResponse } from "axios";
 import { appendOtherArtists } from "~/utils/appendData";
-import SpinnerLoader from "~/components/SpinnerLoader/SpinnerLoader";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Add Music" }];
@@ -21,7 +21,11 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({}: Route.LoaderArgs) {
   const artists = await getAllArtists();
-  return artists;
+  const musics = await getAllMusics();
+  return {
+    artists: artists,
+    musics: musics as IMusic[],
+  };
 }
 
 export default function NewMusic({ loaderData }: Route.ComponentProps) {
@@ -42,11 +46,11 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
   const onSubmit = (data: IMusicFields) => {
     const formData = new FormData();
     startTransition(async () => {
-      if (loaderData?.data) {
+      if (loaderData?.artists?.data) {
         // appending ids of artists instead of their name
         let artistsDataObject: string[] = [];
 
-        loaderData.data.forEach((el) => {
+        loaderData.artists.data.forEach((el) => {
           if ((data.artists as string[]).includes(el.name)) {
             artistsDataObject = [...artistsDataObject, el._id];
           }
@@ -54,7 +58,7 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
         data.artists = artistsDataObject;
 
         if (data.otherArtists && data.otherArtists.length > 0) {
-          appendOtherArtists<IMusicFields>(loaderData.data, data);
+          appendOtherArtists<IMusicFields>(loaderData.artists.data, data);
         }
 
         for (const [key, value] of Object.entries(data)) {
@@ -90,10 +94,11 @@ export default function NewMusic({ loaderData }: Route.ComponentProps) {
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <MusicFormFields
-            artists={loaderData?.data as IArtist[]}
+            artists={loaderData.artists?.data as IArtist[]}
             register={register}
             errors={errors}
             control={control}
+            allMusics={loaderData?.musics}
           />
           <Button
             type="submit"

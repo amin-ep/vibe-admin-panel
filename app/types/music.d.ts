@@ -1,5 +1,16 @@
 type MusicArtist = { _id: string; name: string };
 
+interface IRelatedMusic {
+  _id: string;
+  name: string;
+  audioFileUrl: string;
+  coverImageUrl: string;
+  otherArtists: MusicArtist[];
+  artists: MusicArtist[];
+  likes: string[];
+  likesQuantity: number;
+}
+
 interface IMusic {
   _id: string;
   name: string;
@@ -14,6 +25,7 @@ interface IMusic {
   likeQuantity: number;
   createdAt: Date;
   updatedAt: Date;
+  relatedMusics: IRelatedMusic[];
 }
 
 interface ICreateMusicResponse {
@@ -43,4 +55,5 @@ interface IMusicPayload {
   releaseYear: number;
   categories: string[];
   genre: string;
+  relatedMusics: string[];
 }

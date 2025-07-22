@@ -17,6 +17,7 @@ import ImageDropzone from "../ImageDropzone/ImageDropzone";
 import SelectBox from "../SelectBox/SelectBox";
 import AudioDropzone from "./AudioDropzone";
 import styles from "./MusicFormFields.module.css";
+import RelatedMusics from "./RelatedMusics";
 
 export interface IMusicFields extends IMusicPayload, FieldValues {}
 
@@ -26,12 +27,14 @@ function MusicFormFields({
   register,
   errors,
   control,
+  allMusics,
 }: {
   artists: IArtist[];
   musicData?: IMusic;
   register: UseFormRegister<IMusicFields>;
   errors: FieldErrors<IMusicFields>;
   control: Control<IMusicFields>;
+  allMusics: IMusic[];
 }) {
   const artistsArr = useSelectBoxArray(artists as IArtist[]);
   const currentYear = new Date().getFullYear();
@@ -175,6 +178,16 @@ function MusicFormFields({
             message: requiredErrorMessage("Genre"),
           },
         }}
+      />
+
+      {/* RELATED MUSICS */}
+      <RelatedMusics
+        musics={allMusics.filter((music) => music._id !== musicData?._id)}
+        className={styles["related-musics-controller"]}
+        selectedMusicIds={
+          musicData?.relatedMusics.map((music) => music._id) as string[]
+        }
+        control={control}
       />
 
       {/* CATEGORIES */}

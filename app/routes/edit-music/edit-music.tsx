@@ -20,9 +20,12 @@ export async function loader({ params }: Route.LoaderArgs) {
     musicId,
   );
   const artistsRes: ResponseObject = await api.getAllData<IArtist>("artist");
+  const allMusics: ResponseObject = await api.getAllData<IMusic>("music");
+  console.log(allMusics);
   return {
     music: musicRes?.data as IMusic,
     artists: artistsRes?.data as IArtist[],
+    musics: allMusics.data as IMusic[],
   };
 }
 
@@ -123,16 +126,22 @@ function EditMusic({ loaderData, params }: Route.ComponentProps) {
           let payload: FormData | Partial<IMusicFields>;
           if (artistData) {
             if (data.otherArtists && data.otherArtists.length > 0) {
-              appendOtherArtists<IMusicFields>(
-                artistData,
-                data as IMusicFields,
-              );
+              if (
+                data.otherArtists.length === 0 &&
+                musicData.otherArtists.length === 0
+              ) {
+                delete data.otherArtists;
+              } else {
+                appendOtherArtists<IMusicFields>(
+                  artistData,
+                  data as IMusicFields,
+                );
+              }
             }
           }
 
           if (data.coverImageUrl || data.audioFileUrl) {
             const formData = new FormData();
-
             for (const [key, value] of Object.entries(data)) {
               if (typeof value === "string" || value instanceof File) {
                 formData.set(key, value);
@@ -181,6 +190,7 @@ function EditMusic({ loaderData, params }: Route.ComponentProps) {
             control={control}
             errors={errors}
             register={register}
+            allMusics={loaderData.musics}
           />
           <Button
             type="submit"

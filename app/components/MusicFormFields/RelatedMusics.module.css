@@ -1,0 +1,15 @@
+.card > img {
+  transition: 0.3s transform;
+  -webkit-transition: 0.3s transform;
+  -moz-transition: 0.3s transform;
+  -ms-transition: 0.3s transform;
+  -o-transition: 0.3s transform;
+}
+
+.card:hover > img {
+  transform: scale(1.07);
+  -webkit-transform: scale(1.07);
+  -moz-transform: scale(1.07);
+  -ms-transform: scale(1.07);
+  -o-transform: scale(1.07);
+}
