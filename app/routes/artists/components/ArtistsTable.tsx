@@ -121,24 +121,6 @@ function ArtistsTable({ artists }: Props) {
           ))}
         </tbody>
       </table>
-
-      <div className="my-2 flex flex-row items-center gap-3">
-        {/* <button
-          onClick={prevPage}
-          className={paginationBtnClasses}
-          disabled={page === 1}
-        >
-          Prev
-        </button>
-        <span className="flex w-5 items-center justify-center">{page}</span>
-        <button
-          onClick={nextPage}
-          className={paginationBtnClasses}
-          disabled={isLastPage}
-        >
-          Next
-        </button> */}
-      </div>
     </div>
   );
 }
