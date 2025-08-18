@@ -73,8 +73,6 @@ function ArtistsTable({ artists }: Props) {
       <div className="mb-2 md:mb-4">
         <input
           type="text"
-          name=""
-          id=""
           placeholder="Search..."
           className="input"
           value={globalFilter ?? ""}
