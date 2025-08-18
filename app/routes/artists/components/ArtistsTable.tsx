@@ -15,8 +15,6 @@ type Props = { artists: IArtist[] };
 
 function ArtistsTable({ artists }: Props) {
   const [globalFilter, setGlobalFilter] = useState<string>("");
-  const paginationBtnClasses =
-    "rounded-md bg-blue-400 p-2 px-4 text-white disabled:bg-neutral-300 disabled:text-neutral-900 dark:disabled:bg-neutral-800";
 
   const columnHelper = createColumnHelper<IArtist>();
 
@@ -79,46 +77,54 @@ function ArtistsTable({ artists }: Props) {
           onChange={handleSearchChange}
         />
       </div>
-      <table className="w-full border-collapse text-xs sm:text-sm md:text-base">
-        <thead className="text-left">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr
-              key={headerGroup.id}
-              className={clsx("rounded-lg font-semibold text-neutral-800")}
-            >
-              {headerGroup.headers.map((header, index) => (
-                <th
-                  key={header.id}
-                  className={clsx(
-                    "border-b border-gray-300 bg-gray-200 p-3",
-                    index === 0 && "rounded-tl-xl",
-                    index === headerGroup.headers.length - 1 && "rounded-tr-xl",
-                  )}
-                >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="even:bg-gray-50">
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className="border-b border-gray-300 p-3 font-light"
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="max-h-100 overflow-y-auto">
+        <table className="w-full border-collapse overflow-y-auto text-xs sm:text-sm md:text-base">
+          <thead className="sticky top-0 text-left">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr
+                key={headerGroup.id}
+                className={clsx(
+                  "rounded-lg font-semibold text-gray-800 dark:text-gray-200",
+                )}
+              >
+                {headerGroup.headers.map((header, index) => (
+                  <th
+                    key={header.id}
+                    className={clsx(
+                      "dark:bg- border-b border-gray-300 bg-gray-200 p-3 dark:border-neutral-600 dark:bg-neutral-700",
+                      index === 0 && "rounded-tl-xl",
+                      index === headerGroup.headers.length - 1 &&
+                        "rounded-tr-xl",
+                    )}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr
+                key={row.id}
+                className="even:bg-gray-50 dark:even:bg-neutral-800"
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    key={cell.id}
+                    className="border-b border-gray-300 p-3 font-light dark:border-neutral-600"
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
