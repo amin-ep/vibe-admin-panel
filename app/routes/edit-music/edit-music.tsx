@@ -21,7 +21,6 @@ export async function loader({ params }: Route.LoaderArgs) {
   );
   const artistsRes: ResponseObject = await api.getAllData<IArtist>("artist");
   const allMusics: ResponseObject = await api.getAllData<IMusic>("music");
-  console.log(allMusics);
   return {
     music: musicRes?.data as IMusic,
     artists: artistsRes?.data as IArtist[],

@@ -85,7 +85,6 @@ function ArtistForm() {
       } else {
         if (res.status === 201) {
           revalidator.revalidate().then(() => {
-            console.log(responseSuccess);
             success(
               `${responseSuccess.data.data.document.name} added successfully`,
             );
