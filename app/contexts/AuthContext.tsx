@@ -78,10 +78,12 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       getMe().then((res) => {
         if (res?.status === "success") {
           dispatch({ type: "login", payload: res.data as IUser });
+        } else {
+          navigate('/login')
         }
       });
     }
-  }, [authToken]);
+  }, []);
 
   return (
     <AuthContext value={{ isLoggedIn, login, logout, userdata }}>

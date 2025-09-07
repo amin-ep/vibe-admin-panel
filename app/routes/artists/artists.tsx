@@ -5,7 +5,8 @@ import { getServerAuthToken } from "~/utils/helpers";
 import type { Route } from "./+types/artists";
 import ArtistForm from "./components/ArtistForm";
 import ArtistsTable from "./components/ArtistsTable";
-
+import EmptyDataSection from "~/components/EmptyDataSection";
+import MicExternalOffIcon from "@mui/icons-material/MicExternalOff";
 export async function loader({ request }: Route.LoaderArgs) {
   const authToken = getServerAuthToken(request);
   const api = new ApiRequests();
@@ -29,9 +30,20 @@ function Artists({ loaderData }: Route.ComponentProps) {
         <div className="grid grid-cols-1 flex-row-reverse gap-4 md:grid-cols-[1fr_70%]">
           <ArtistForm />
 
-          {(loaderData as IArtist[]) && (
-            <ArtistsTable artists={loaderData as IArtist[]} />
-          )}
+          {(loaderData as IArtist[]) &&
+            ((loaderData as IArtist[]).length > 0 ? (
+              <ArtistsTable artists={loaderData as IArtist[]} />
+            ) : (
+              <EmptyDataSection message="No artist is added">
+                <MicExternalOffIcon
+                  style={{
+                    width: "68px",
+                    height: "68px",
+                  }}
+                  fontSize="large"
+                />
+              </EmptyDataSection>
+            ))}
         </div>
       </div>
     </ArtistProvider>
